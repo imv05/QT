@@ -1,49 +1,76 @@
-#include "paint.h"
-
-#include <QApplication>
-#include <QPainter>
-#include <QBrush>
-#include <QPen>
-#include <QFont>
-#include <QGraphicsView>
+#include "global.h"
+#include "class.h"
 #include <QGraphicsScene>
 #include <QGraphicsItem>
-#include <QGraphicsRectItem>
-#include <QGraphicsTextItem>
-#include <QSvgRenderer>
-#include <QString>
-#include <QLabel>
-#include <QtSvg>
-#include <QWheelEvent>
-#include <QMessageBox>
 
+void paintLine(QGraphicsScene& pr, Line* cLine){
+    QPixmap turn;
+    turn.load("turn.png");
+    QColor lineColor = cLine->color;
+    QPen lpen(lineColor);
+    lpen.setWidth(3);
+    lpen.setStyle(Qt::SolidLine);
+    QBrush lbrush(lineColor);
+    cLine->item = pr.addRect(20, 20* cLine->lineId,20,10,lpen,lbrush);
+    QGraphicsTextItem *textItem = pr.addText(cLine->lineName);
+    textItem->setPos(45,-8+20* cLine->lineId);
+    QFont lineFont("黑体", 10);
+    QFont stationFont("黑体", 6);
+    textItem->setFont(lineFont);
+    textItem->setDefaultTextColor(lineColor);
+    auto it = cLine->stationMap.begin();
+    while(it!=cLine->stationMap.end()){
+        QPen pen(Qt::white);
+        pen.setWidth(1);
+        QBrush brush(lineColor);
+        Station* stn = it.value();
+        int x = stn->x;
+        int y = stn->y;
+        if(stn->iCnt){
+            stn->item = pr.addPixmap(turn);
+            stn->item->setPos(x, y);
+        }else{
+            stn->item = pr.addEllipse(x, y, 6, 6, pen, brush);
+        }
+        it.value()->item->setData(Qt::UserRole, it.value()->line->lineName+it.value()->stationName);
+        it.value()->textItem = pr.addText(it.value()->stationName);
+        it.value()->textItem->setPos(x+2, y+2);
+        it.value()->textItem->setFont(stationFont);
+        it.value()->textItem->setDefaultTextColor(Qt::black);
+        it++;
+    }
+}
 void paint(QGraphicsScene& pr){
-    int i,j;
-    QGraphicsEllipseItem* stationPointerList[27][40];
-    QGraphicsTextItem* stationPointerText[27][40];
+    auto it = lineMap.begin();
+    while(it!=lineMap.end()){
+        paintLine(pr, it.value());
+        it++;
+    }
+
 
     {//1号线-stationPointerList[0]
-        QPen pen(Qt::red);
+        QColor onecolor = QColor::fromString("#BE3631");
+        QPen pen(onecolor);
         pen.setWidth(3);
         pen.setStyle(Qt::SolidLine);
-        QBrush lbrush(Qt::red);
+        QBrush lbrush(onecolor);
         pr.addRect(20,20,20,10,pen,lbrush);
         QGraphicsTextItem *textItem = pr.addText("1号线八通线");
         textItem->setPos(45,12);
         QFont lineFont("微软雅黑", 10);
         textItem->setFont(lineFont);
-        textItem->setDefaultTextColor(Qt::red);
+        textItem->setDefaultTextColor(onecolor);
 
         pr.addLine(170,300,200,350,pen);
         pr.addLine(200,350,825,350,pen);
         pr.addLine(825,350,902,469,pen);
         pr.addLine(902,469,902,520,pen);
-
-        pen.setWidth(1);
-        QBrush brush(Qt::white);
-        QFont stationFont("微软雅黑", 4);
-
-        stationPointerList[0][0]=pr.addEllipse(167, 297, 6, 6,pen,brush);//福寿岭
+        pen.setColor(Qt::white);
+        QGraphicsEllipseItem* stationPointerList[1][200]={};
+        QGraphicsTextItem* stationPointerText[1][200]={};
+        QBrush brush(onecolor);
+        QFont stationFont("黑体", 4);
+        stationPointerList[0][0]=pr.addEllipse(100, 280, 6, 6,pen,brush);//福寿岭
         stationPointerList[0][0]->setData(Qt::UserRole, "福寿岭");
         stationPointerText[0][0]=pr.addText("福寿岭");
         stationPointerText[0][0]->setPos(142,287);
@@ -228,12 +255,13 @@ void paint(QGraphicsScene& pr){
         stationPointerText[0][35]=pr.addText("花庄");
         stationPointerText[0][35]->setPos(902,514);
 
-        for(i=0;i<36;i++){
+        for(int i=0;i<36;i++){
             stationPointerText[0][i]->setFont(stationFont);
             stationPointerText[0][i]->setDefaultTextColor(Qt::black);
         }
 
-    }
+
+    }/*
     {//2号线
         QColor twocolor(0, 95, 152);
         QPen pen(twocolor);
@@ -575,6 +603,6 @@ void paint(QGraphicsScene& pr){
         pr.addEllipse(439,447, 6, 6,pen,brush);//草桥
         pr.addEllipse(494,582, 6, 6,pen,brush);//大兴新城
         pr.addEllipse(494,677, 6, 6,pen,brush);//大兴机场
-    }
+    }*/
 }
 

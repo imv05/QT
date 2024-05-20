@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include"paint.h"
 
 #include <QApplication>
 #include <QPainter>
@@ -11,12 +10,17 @@
 #include <QGraphicsItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsTextItem>
-#include <QSvgRenderer>
 #include <QString>
 #include <QLabel>
-#include <QtSvg>
 #include <QWheelEvent>
 #include <QMessageBox>
+#include <unordered_map>
+
+#include "global.h"
+#include "class.h"
+#include "load.h"
+#include "paint.h"
+#include "search.h"
 
 class CustomGraphicsView : public QGraphicsView
 {
@@ -48,7 +52,7 @@ protected:
                     // 获取圆形形状对象的注释内容
                     QString annotation = item->data(Qt::UserRole).toString();
                     // 弹出包含注释内容的消息框
-                    QMessageBox::information(this, "Annotation", annotation);
+                    QMessageBox::information(this, "title", annotation);
                     return;
                 }
             }
@@ -132,10 +136,11 @@ private:
     {
         if (!m_infoLabel) {
             m_infoLabel = new QGraphicsTextItem(text);
+            m_infoLabel->setFont(QFont("黑体"));
             m_infoLabel->setDefaultTextColor(Qt::black);
             scene()->addItem(m_infoLabel);
         }
-        m_infoLabel->setPos(800,100);
+        m_infoLabel->setPos(pos.x(),pos.y());
         m_infoLabel->setVisible(true);
     }
 
@@ -155,8 +160,10 @@ int main(int argc, char *argv[])
 
     // 创建一个场景
     QGraphicsScene scene;
-    scene.setSceneRect(0, 0, 1000, 700);
+    scene.setSceneRect(0, 0, 1920, 1080);
     scene.setBackgroundBrush(QBrush(Qt::white));
+
+    load();
 
     // 在场景中添加图形项
     paint(scene);
@@ -166,6 +173,8 @@ int main(int argc, char *argv[])
     view.setScene(&scene);
     view.show();
 
+    std::unordered_map<Station*, Station*> uom = dijkstra(lineMap[1]->stationMap[3]);
+    printPath(uom, lineMap[2]->stationMap[2]);
     /*MainWindow w;
     w.resize(1000,700);
 
