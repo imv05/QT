@@ -11,8 +11,10 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -28,6 +30,9 @@ public:
     QLabel *label;
     QLineEdit *lineEdit;
     QPushButton *pushButton;
+    QListView *listView;
+    QWidget *formLayoutWidget;
+    QFormLayout *formLayout;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -46,11 +51,20 @@ public:
         label->setFont(font);
         lineEdit = new QLineEdit(centralwidget);
         lineEdit->setObjectName("lineEdit");
-        lineEdit->setGeometry(QRect(190, 60, 201, 31));
+        lineEdit->setGeometry(QRect(190, 60, 181, 31));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(90, 90, 131, 61));
+        pushButton->setGeometry(QRect(90, 350, 131, 61));
         pushButton->setFont(font);
+        listView = new QListView(centralwidget);
+        listView->setObjectName("listView");
+        listView->setGeometry(QRect(190, 90, 181, 161));
+        formLayoutWidget = new QWidget(centralwidget);
+        formLayoutWidget->setObjectName("formLayoutWidget");
+        formLayoutWidget->setGeometry(QRect(770, 30, 121, 241));
+        formLayout = new QFormLayout(formLayoutWidget);
+        formLayout->setObjectName("formLayout");
+        formLayout->setContentsMargins(0, 0, 0, 0);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
