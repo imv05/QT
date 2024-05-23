@@ -79,11 +79,10 @@ public:
     Station* operator[](int stationId);
 };
 
-class Route{
-public:
-    Station* origin;
-    QVector<Connection*> detail;
-    Station* destination;
+struct Path{
+    QPair<int, int> origin;
+    QVector<QPair<int, int> > anchor;
+    QPair<int, int> destination;
 };
 
 extern QMap<int, Line*> lineMap;

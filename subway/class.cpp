@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <iostream>
 
-QMap<int, Line*> lineMap = QMap<int, Line*>();
+QMap<int, Line*> lineMap = QMap<int, Line*>();  //lineId,
 QVector<Station*> allStations = QVector<Station*>();
 
 Line::Line(json jLine){
