@@ -21,7 +21,7 @@
 #include "load.h"
 #include "paint.h"
 #include "search.h"
-
+#include "menu.h"
 class CustomGraphicsView : public QGraphicsView
 {
 public:
@@ -157,6 +157,11 @@ private:
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    menu *newmenu=new menu;
+    // newmenu->resize(1000,700);
+    newmenu->setWindowTitle("北京地铁线路总览");
+    newmenu->show();
+
 
     // 创建一个场景
     QGraphicsScene scene;
@@ -175,7 +180,8 @@ int main(int argc, char *argv[])
 
     std::unordered_map<Station*, Station*> uom = dijkstra(lineMap[1]->stationMap[3]);
     printPath(uom, lineMap[2]->stationMap[2]);
-    /*MainWindow w;
+    /*
+    MainWindow w;
     w.resize(1000,700);
 
     w.setWindowTitle("北京地铁线路图总览");

@@ -14,6 +14,7 @@ SOURCES += \
     load.cpp \
     main.cpp \
     mainwindow.cpp \
+    menu.cpp \
     paint.cpp \
     search.cpp
 
@@ -22,11 +23,13 @@ HEADERS += \
     global.h \
     load.h \
     mainwindow.h \
+    menu.h \
     paint.h \
     search.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    menu.ui
 
 
 
