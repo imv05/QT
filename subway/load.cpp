@@ -4,8 +4,8 @@
 #include <fstream>
 
 int load(void){//从json数据库加载
-    std::ifstream src("C:/xyx/c++/QT/subway/stations.json");
-    std::ofstream dest("C:/xyx/c++/QT/subway/temp.out");
+    std::ifstream src("D:\\QT\\QT\\subway\\stations.json");
+    std::ofstream dest("D:\\QT\\QT\\subway\\temp.out");
     json j;
     src >> j;
     int lineCnt =  j.size();

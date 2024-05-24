@@ -11,7 +11,14 @@ class Line;
 class Station;
 class Connection;
 class Operation;
+class SPath;
 
+class SPath{//站点之间的路径
+public:
+    QPair<int, int> origin;
+    QVector<QPair<int, int> > anchor;
+    QPair<int, int> destination;
+};
 class Station{//站点类，换乘站按线路分开计
 public:
     Line* line;

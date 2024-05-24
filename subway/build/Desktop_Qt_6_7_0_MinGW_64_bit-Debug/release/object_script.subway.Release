@@ -1,0 +1,11 @@
+release/class.o
+release/global.o
+release/load.o
+release/main.o
+release/mainwindow.o
+release/menu.o
+release/mouse.o
+release/paint.o
+release/search.o
+release/moc_mainwindow.o
+release/moc_menu.o

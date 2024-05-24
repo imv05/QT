@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
+    mouse.cpp \
     paint.cpp \
     search.cpp
 
@@ -24,6 +25,7 @@ HEADERS += \
     load.h \
     mainwindow.h \
     menu.h \
+    mouse.h \
     paint.h \
     search.h
 

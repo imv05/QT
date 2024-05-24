@@ -46,8 +46,7 @@ void paint(QGraphicsScene& pr){
         paintLine(pr, it.value());
         it++;
     }
-
-
+/*
     {//1号线-stationPointerList[0]
         QColor onecolor = QColor::fromString("#BE3631");
         QPen pen(onecolor);
@@ -259,9 +258,7 @@ void paint(QGraphicsScene& pr){
             stationPointerText[0][i]->setFont(stationFont);
             stationPointerText[0][i]->setDefaultTextColor(Qt::black);
         }
-
-
-    }/*
+    }
     {//2号线
         QColor twocolor(0, 95, 152);
         QPen pen(twocolor);
