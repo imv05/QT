@@ -1,6 +1,7 @@
 #include "load.h"
 #include "class.h"
 #include "global.h"
+
 #include <fstream>
 
 int load(void){//从json数据库加载

@@ -1,11 +1,15 @@
 #include "menu.h"
 #include "ui_menu.h"
 
+//创建了一个新的窗口（主界面）
 menu::menu(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::menu)
 {
     ui->setupUi(this);
+
+
+
 }
 
 menu::~menu()

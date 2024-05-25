@@ -1,9 +1,10 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
+
 #include <QMap>
 #include <QVector>
-
 #include <nlohmann/json.hpp>
+
 using json = nlohmann::json;
 
 

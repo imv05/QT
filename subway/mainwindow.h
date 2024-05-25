@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "mouse.h"
+
 #include <QMainWindow>
 #include <QPainter>
 #include <QString>
@@ -8,6 +10,7 @@
 #include<QCompleter>
 #include<QStringList>
 #include<QStringListModel>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -38,8 +41,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene* scene;
 
+    QGraphicsScene scene;
 
 };
 #endif // MAINWINDOW_H

@@ -1,6 +1,7 @@
 #include "global.h"
 #include "class.h"
 #include "search.h"
+
 #include <climits>
 
 std::unordered_map<Station*, Station*> dijkstra(Station* start) {

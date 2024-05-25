@@ -1,4 +1,9 @@
 #include "mainwindow.h"
+#include "global.h"
+#include "class.h"
+#include "load.h"
+#include "search.h"
+#include "menu.h"
 
 #include <QApplication>
 #include <QPainter>
@@ -16,14 +21,6 @@
 #include <QMessageBox>
 #include <unordered_map>
 
-#include "global.h"
-#include "class.h"
-#include "load.h"
-#include "paint.h"
-#include "search.h"
-#include "menu.h"
-#include "mouse.h"
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -32,21 +29,20 @@ int main(int argc, char *argv[])
     newmenu->setWindowTitle("北京地铁线路总览");
     newmenu->show();
 
-
     // 创建一个场景
     QGraphicsScene scene;
     scene.setSceneRect(0, 0, 1920, 1080);
     scene.setBackgroundBrush(QBrush(Qt::white));
 
-    load();
+    load();//加载，主要的作用是提取.json文件
 
     // 在场景中添加图形项
-    paint(scene);
+    //paint(scene);//在场景中画图
 
     // 创建一个自定义的视图
-    CustomGraphicsView view(scene);
-    view.setScene(&scene);
-    view.show();
+    //CustomGraphicsView view(scene);
+    //view.setScene(&scene);
+   // view.show();
 
     std::unordered_map<Station*, Station*> uom = dijkstra(lineMap[1]->stationMap[3]);
     printPath(uom, lineMap[2]->stationMap[2]);

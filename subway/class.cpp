@@ -1,4 +1,5 @@
 #include "class.h"
+
 #include <QDebug>
 #include <iostream>
 

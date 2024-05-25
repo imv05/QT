@@ -2,6 +2,7 @@
 #define CLASS_H
 
 #include "global.h"
+
 #include <QColor>
 #include <QString>
 #include <QVector>

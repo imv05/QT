@@ -1,5 +1,6 @@
 #include "global.h"
 #include "class.h"
+
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 

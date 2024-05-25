@@ -1,17 +1,36 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "class.h"
-#include"menu.h"
-#include"paint.h"
-#include"search.h"
+#include "menu.h"
+#include "paint.h"
+#include "search.h"
+#include "mouse.h"
+
 #include <QMessageBox>
 #include<QStringList>
 #include<QStringListModel>
+#include <QSplitter>
+
+QSplitter* splitter;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //设置场景的背景和大小
+    scene.setSceneRect(0, 0, 800, 700);
+    scene.setBackgroundBrush(QBrush(Qt::white));
+    //在场景中添加图形项
+    paint(scene);
+
+    CustomGraphicsView* view = new CustomGraphicsView(scene, this);
+    view->setScene(&scene);
+
+    view->setParent(ui->widget); // 设置CustomGraphicsView的父控件为ui->widget
+    view->show(); // 确保CustomGraphicsView是可见的
+
     connect(ui->lineEdit, &QLineEdit::textChanged, this, &MainWindow::on_lineEdit_textChanged);
     connect(ui->lineEdit, &QLineEdit::textEdited, this, &MainWindow::on_lineEdit_textEdited);
     std::vector<QColor> AllColor={
@@ -21,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
     };//保存所有的颜色，用来绘图
     std::vector<QString> AllName={
         //接口，保存所有线的名字
+
     };
     for(auto color:AllColor){
         QLabel* colorLabel =new QLabel(this);
@@ -29,19 +49,6 @@ MainWindow::MainWindow(QWidget *parent)
         text->setStyleSheet(QString("color:%1;").arg(color.name()));
         ui->formLayout->addRow(colorLabel,text);
     }
-
-    QGraphicsScene scene;
-    scene.setSceneRect(0, 0, 1920, 1080);
-    scene.setBackgroundBrush(QBrush(Qt::white));
-
-
-    // 在场景中添加图形项
-    paint(scene);
-
-    // // 创建一个自定义的视图
-    // CustomGraphicsView view(scene);
-    // view.setScene(&scene);
-    // view.show();
 
     std::unordered_map<Station*, Station*> uom = dijkstra(lineMap[1]->stationMap[3]);
     printPath(uom, lineMap[2]->stationMap[2]);
@@ -54,8 +61,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_lineEdit_textChanged(const QString &arg1)
-{
+void MainWindow::on_lineEdit_textChanged(const QString &arg1){
+
 
 }
 

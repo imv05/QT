@@ -3,7 +3,6 @@
 
 #include<QGraphicsView>
 
-
 class CustomGraphicsView : public QGraphicsView
 {
 public:
