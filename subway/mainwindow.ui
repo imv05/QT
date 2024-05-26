@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>737</width>
-    <height>452</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -32,17 +38,29 @@
      <string>搜索</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="inputA">
     <property name="geometry">
      <rect>
-      <x>9</x>
+      <x>10</x>
       <y>50</y>
-      <width>141</width>
-      <height>23</height>
+      <width>150</width>
+      <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string extracomment="点击输入起点车站"/>
+    </property>
+    <property name="accessibleName">
+     <string/>
+    </property>
     <property name="text">
-     <string>点击此处搜索车站</string>
+     <string>起点车站</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
@@ -56,20 +74,20 @@
     </property>
     <property name="font">
      <font>
-      <family>A型交通标志专用字体</family>
-      <pointsize>14</pointsize>
+      <family>微软雅黑</family>
+      <pointsize>13</pointsize>
      </font>
     </property>
     <property name="text">
      <string>返回</string>
     </property>
    </widget>
-   <widget class="QListView" name="listView">
+   <widget class="QListView" name="listA">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>70</y>
-      <width>141</width>
+      <x>10</x>
+      <y>80</y>
+      <width>150</width>
       <height>121</height>
      </rect>
     </property>
@@ -88,22 +106,68 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>30</y>
+      <x>880</x>
+      <y>220</y>
       <width>461</width>
       <height>371</height>
      </rect>
     </property>
    </widget>
+   <widget class="QLineEdit" name="inputB">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>120</y>
+      <width>150</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="whatsThis">
+     <string extracomment="点击输入终点车站"/>
+    </property>
+    <property name="text">
+     <string>终点车站</string>
+    </property>
+   </widget>
+   <widget class="QListView" name="listB">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>150</width>
+      <height>121</height>
+     </rect>
+    </property>
+   </widget>
+   <zorder>label</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>formLayoutWidget</zorder>
+   <zorder>graphicsView</zorder>
+   <zorder>listB</zorder>
+   <zorder>inputA</zorder>
+   <zorder>inputB</zorder>
+   <zorder>listA</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>737</width>
-     <height>21</height>
+     <width>1920</width>
+     <height>27</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>微软雅黑</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <widget class="QMenu" name="menumainWindow">
     <property name="title">

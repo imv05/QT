@@ -95,5 +95,6 @@ struct Path{
 
 extern QMap<int, Line*> lineMap;
 extern QVector<Station*> allStations;
+extern QMap<QString, Station*> allStationNames;
 
 #endif // CLASS_H

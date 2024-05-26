@@ -4,7 +4,6 @@
 #include "menu.h"
 #include "paint.h"
 #include "search.h"
-#include "mouse.h"
 
 #include <QMessageBox>
 #include <QStringList>
@@ -18,9 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     //设置场景的背景和大小
-    // scene.setSceneRect(0, 0, 800, 700);
+    scene.setSceneRect(0, 0, 1920, 1080);
     scene.setBackgroundBrush(QBrush(Qt::white));
     //在场景中添加图形项
     paint(scene);
@@ -30,9 +28,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     view->setParent(ui->graphicsView); // 设置CustomGraphicsView的父控件为ui->graphicsView
     view->show(); // 确保CustomGraphicsView是可见的
-
-    connect(ui->lineEdit, &QLineEdit::textChanged, this, &MainWindow::on_lineEdit_textChanged);
-    connect(ui->lineEdit, &QLineEdit::textEdited, this, &MainWindow::on_lineEdit_textEdited);
+    ui->listA->hide();
+    ui->listB->hide();
+    connect(ui->inputA, &QLineEdit::textEdited, this, &MainWindow::on_inputA_textEdited);
+    connect(ui->inputB, &QLineEdit::textEdited, this, &MainWindow::on_inputB_textEdited);
     std::vector<QColor> AllColor={
         QColor(255,0,0),QColor(0,0,255),QColor(124,25,70)
         //只是一个接口
@@ -53,7 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     std::unordered_map<Station*, Station*> uom = dijkstra(lineMap[1]->stationMap[3]);
     printPath(uom, lineMap[2]->stationMap[2]);
 
-
 }
 
 MainWindow::~MainWindow()
@@ -61,40 +59,43 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_lineEdit_textChanged(const QString &arg1){
-
-
-}
-
-
-void MainWindow::on_lineEdit_textEdited(const QString &arg1)
+void MainWindow::on_inputA_textEdited(const QString &arg1)
 {
     QStringList matchingStations;
     matchingStations.clear();
-    for(auto station:allStations){
-        auto name=station->stationName;
-        if(name.contains(arg1)){
-            //YOUR CODE HERE
-            //高亮所有找到的地方
-            matchingStations.append(name);
-
-
+    QRegularExpression rx("^[A-Za-z]+$");
+    if (arg1.contains(rx)) {//如果输入的字符串是纯字母，则进行拼音匹配
+        for(auto station: allStationNames){
+            QString name = station->stationName;
+            QString pinyin(station->stationEngName);
+            QRegularExpression argpy(arg1);//检查“子串”而非直接包含，支持简拼
+            if(pinyin.contains(argpy)){
+                matchingStations.append(name);
+            }
+        }
+    } else { //如果输入的字符串不是纯字母，则进行中文站名匹配
+        for(auto station: allStationNames){
+            QString name = station->stationName;
+            if(name.contains(arg1)){
+                matchingStations.append(name);
+            }
         }
     }
-
     QStringListModel* model= new QStringListModel(matchingStations,this);
-    ui->listView->setModel(model);
-    ui->listView->show();
+    ui->listA->setModel(model);
+    ui->listA->show();
 }
+void MainWindow::on_inputB_textEdited(const QString &arg1)
+{
 
-
-
-void MainWindow::on_lineEdit_returnPressed()
+    ui->listB->show();
+}
+void MainWindow::on_inputA_returnPressed()
 {
     bool flag=false;
     for(auto station:allStations){
         auto name=station->stationName;
-        QString input=ui->lineEdit->text();
+        QString input=ui->inputA->text();
         if(name.contains(input)){
             //YOUR CODE HERE
             //高亮所有找到的地方
@@ -124,9 +125,9 @@ void MainWindow::on_lineEdit_returnPressed()
 }
 
 
-void MainWindow::on_lineEdit_editingFinished()
+void MainWindow::on_inputA_editingFinished()
 {
-
+    ui->listA->hide();
 }
 
 
@@ -137,14 +138,13 @@ void MainWindow::on_pushButton_clicked()
     newmenu->show();
 }
 
-
-void MainWindow::on_listView_clicked(const QModelIndex &index)
+void MainWindow::on_listA_clicked(const QModelIndex &index)
 {
     QString selectedText = index.data(Qt::DisplayRole).toString();
     for(auto station:allStations){
         QString name=station->stationName;
         if(name.contains(selectedText)&&selectedText.contains(name)){
-            ui->listView->hide();
+            ui->listA->hide();
             QMessageBox* msg=new QMessageBox;
             msg->setInformativeText("点击了对应的站");
             msg->setDefaultButton(QMessageBox::Ok);

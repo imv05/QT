@@ -5,6 +5,7 @@
 
 QMap<int, Line*> lineMap = QMap<int, Line*>();  //lineId,
 QVector<Station*> allStations = QVector<Station*>();
+QMap<QString, Station*> allStationNames = QMap<QString, Station*>();
 
 Line::Line(json jLine){
     lineId = int(jLine["lineId"]);
@@ -41,6 +42,7 @@ Station::Station(json jStation, Line* cLine){
     lineId = cLine->lineId;
     stationId = int(jStation["stationId"]);
     stationName = QString::fromStdString(jStation["stationName"]);
+    allStationNames[stationName] = this;
     stationEngName = QString::fromStdString(jStation["stationEngName"]);
     available = jStation["available"];
     x = jStation["screen"]["x"];

@@ -36,14 +36,14 @@ namespace {
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::stringData(
     "MainWindow",
-    "on_lineEdit_textChanged",
+    "on_inputA_textEdited",
     "",
     "arg1",
-    "on_lineEdit_textEdited",
-    "on_lineEdit_editingFinished",
-    "on_lineEdit_returnPressed",
+    "on_inputB_textEdited",
+    "on_inputA_editingFinished",
+    "on_inputA_returnPressed",
     "on_pushButton_clicked",
-    "on_listView_clicked",
+    "on_listA_clicked",
     "QModelIndex",
     "index"
 );
@@ -93,19 +93,19 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSMainWindowENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
-        // method 'on_lineEdit_textChanged'
+        // method 'on_inputA_textEdited'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'on_lineEdit_textEdited'
+        // method 'on_inputB_textEdited'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'on_lineEdit_editingFinished'
+        // method 'on_inputA_editingFinished'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_lineEdit_returnPressed'
+        // method 'on_inputA_returnPressed'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_listView_clicked'
+        // method 'on_listA_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>
     >,
@@ -118,12 +118,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->on_lineEdit_textChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 1: _t->on_lineEdit_textEdited((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 2: _t->on_lineEdit_editingFinished(); break;
-        case 3: _t->on_lineEdit_returnPressed(); break;
+        case 0: _t->on_inputA_textEdited((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 1: _t->on_inputB_textEdited((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 2: _t->on_inputA_editingFinished(); break;
+        case 3: _t->on_inputA_returnPressed(); break;
         case 4: _t->on_pushButton_clicked(); break;
-        case 5: _t->on_listView_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 5: _t->on_listA_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
         default: ;
         }
     }

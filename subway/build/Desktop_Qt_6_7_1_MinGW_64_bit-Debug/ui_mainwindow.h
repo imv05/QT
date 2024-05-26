@@ -31,12 +31,14 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QLabel *label;
-    QLineEdit *lineEdit;
+    QLineEdit *inputA;
     QPushButton *pushButton;
-    QListView *listView;
+    QListView *listA;
     QWidget *formLayoutWidget;
     QFormLayout *formLayout;
     QGraphicsView *graphicsView;
+    QLineEdit *inputB;
+    QListView *listB;
     QMenuBar *menubar;
     QMenu *menumainWindow;
     QMenu *menu_lastTrain;
@@ -47,7 +49,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(737, 452);
+        MainWindow->resize(1920, 1080);
+        QSizePolicy sizePolicy(QSizePolicy::Policy::Maximum, QSizePolicy::Policy::Maximum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         label = new QLabel(centralwidget);
@@ -56,19 +63,23 @@ public:
         QFont font;
         font.setPointSize(20);
         label->setFont(font);
-        lineEdit = new QLineEdit(centralwidget);
-        lineEdit->setObjectName("lineEdit");
-        lineEdit->setGeometry(QRect(9, 50, 141, 23));
+        inputA = new QLineEdit(centralwidget);
+        inputA->setObjectName("inputA");
+        inputA->setGeometry(QRect(10, 50, 150, 31));
+        QFont font1;
+        font1.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221")});
+        font1.setPointSize(12);
+        inputA->setFont(font1);
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName("pushButton");
         pushButton->setGeometry(QRect(10, 10, 71, 31));
-        QFont font1;
-        font1.setFamilies({QString::fromUtf8("A\345\236\213\344\272\244\351\200\232\346\240\207\345\277\227\344\270\223\347\224\250\345\255\227\344\275\223")});
-        font1.setPointSize(14);
-        pushButton->setFont(font1);
-        listView = new QListView(centralwidget);
-        listView->setObjectName("listView");
-        listView->setGeometry(QRect(9, 70, 141, 121));
+        QFont font2;
+        font2.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221")});
+        font2.setPointSize(13);
+        pushButton->setFont(font2);
+        listA = new QListView(centralwidget);
+        listA->setObjectName("listA");
+        listA->setGeometry(QRect(10, 80, 150, 121));
         formLayoutWidget = new QWidget(centralwidget);
         formLayoutWidget->setObjectName("formLayoutWidget");
         formLayoutWidget->setGeometry(QRect(160, 0, 91, 221));
@@ -77,11 +88,27 @@ public:
         formLayout->setContentsMargins(0, 0, 0, 0);
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(270, 30, 461, 371));
+        graphicsView->setGeometry(QRect(880, 220, 461, 371));
+        inputB = new QLineEdit(centralwidget);
+        inputB->setObjectName("inputB");
+        inputB->setGeometry(QRect(10, 120, 150, 31));
+        inputB->setFont(font1);
+        listB = new QListView(centralwidget);
+        listB->setObjectName("listB");
+        listB->setGeometry(QRect(10, 150, 150, 121));
         MainWindow->setCentralWidget(centralwidget);
+        label->raise();
+        pushButton->raise();
+        formLayoutWidget->raise();
+        graphicsView->raise();
+        listB->raise();
+        inputA->raise();
+        inputB->raise();
+        listA->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 737, 21));
+        menubar->setGeometry(QRect(0, 0, 1920, 27));
+        menubar->setFont(font1);
         menumainWindow = new QMenu(menubar);
         menumainWindow->setObjectName("menumainWindow");
         menu_lastTrain = new QMenu(menubar);
@@ -106,8 +133,18 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\346\220\234\347\264\242", nullptr));
-        lineEdit->setText(QCoreApplication::translate("MainWindow", "\347\202\271\345\207\273\346\255\244\345\244\204\346\220\234\347\264\242\350\275\246\347\253\231", nullptr));
+#if QT_CONFIG(whatsthis)
+        inputA->setWhatsThis(QString());
+#endif // QT_CONFIG(whatsthis)
+#if QT_CONFIG(accessibility)
+        inputA->setAccessibleName(QString());
+#endif // QT_CONFIG(accessibility)
+        inputA->setText(QCoreApplication::translate("MainWindow", "\350\265\267\347\202\271\350\275\246\347\253\231", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "\350\277\224\345\233\236", nullptr));
+#if QT_CONFIG(whatsthis)
+        inputB->setWhatsThis(QString());
+#endif // QT_CONFIG(whatsthis)
+        inputB->setText(QCoreApplication::translate("MainWindow", "\347\273\210\347\202\271\350\275\246\347\253\231", nullptr));
         menumainWindow->setTitle(QCoreApplication::translate("MainWindow", "mainWindow", nullptr));
         menu_lastTrain->setTitle(QCoreApplication::translate("MainWindow", "\346\234\253\350\275\246\345\217\257\350\276\276", nullptr));
         menu_realTime->setTitle(QCoreApplication::translate("MainWindow", "\345\256\236\346\227\266\345\234\260\351\223\201", nullptr));
