@@ -1,4 +1,6 @@
 QT       += core gui
+QT += svg
+QT += svgwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,7 +19,8 @@ SOURCES += \
     menu.cpp \
     mouse.cpp \
     paint.cpp \
-    search.cpp
+    search.cpp \
+    stationitem.cpp
 
 HEADERS += \
     class.h \
@@ -27,7 +30,8 @@ HEADERS += \
     menu.h \
     mouse.h \
     paint.h \
-    search.h
+    search.h \
+    stationitem.h
 
 FORMS += \
     mainwindow.ui \
@@ -39,3 +43,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

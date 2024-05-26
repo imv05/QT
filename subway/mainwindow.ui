@@ -17,7 +17,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>90</x>
       <y>0</y>
       <width>71</width>
       <height>41</height>
@@ -48,15 +48,16 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>240</y>
+      <x>10</x>
+      <y>10</y>
       <width>71</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <family>A型交通标志专用字体</family>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
@@ -84,32 +85,14 @@
     </property>
     <layout class="QFormLayout" name="formLayout"/>
    </widget>
-   <widget class="QWidget" name="widget" native="true">
+   <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>20</y>
-      <width>800</width>
-      <height>700</height>
+      <x>390</x>
+      <y>50</y>
+      <width>341</width>
+      <height>351</height>
      </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>800</width>
-      <height>700</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>800</width>
-      <height>700</height>
-     </size>
     </property>
    </widget>
   </widget>

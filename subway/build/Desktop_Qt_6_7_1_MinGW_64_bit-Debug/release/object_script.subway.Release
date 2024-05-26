@@ -4,7 +4,10 @@ release/load.o
 release/main.o
 release/mainwindow.o
 release/menu.o
+release/mouse.o
 release/paint.o
 release/search.o
+release/stationitem.o
+release/qrc_resources.o
 release/moc_mainwindow.o
 release/moc_menu.o

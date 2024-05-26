@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     CustomGraphicsView* view = new CustomGraphicsView(scene, this);
     view->setScene(&scene);
 
-    view->setParent(ui->widget); // 设置CustomGraphicsView的父控件为ui->widget
+    view->setParent(ui->graphicsView); // 设置CustomGraphicsView的父控件为ui->widget
     view->show(); // 确保CustomGraphicsView是可见的
 
     connect(ui->lineEdit, &QLineEdit::textChanged, this, &MainWindow::on_lineEdit_textChanged);
@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
         //接口，保存所有线的名字
 
     };
-    for(auto color:AllColor){
+    for(auto color: AllColor){
         QLabel* colorLabel =new QLabel(this);
         colorLabel->setStyleSheet(QString("background-color:%1;").arg(color.name()));
         QLabel* text=new QLabel("haha",this);

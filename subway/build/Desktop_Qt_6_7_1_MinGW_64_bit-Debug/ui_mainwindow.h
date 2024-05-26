@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFormLayout>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListView>
@@ -33,6 +34,7 @@ public:
     QListView *listView;
     QWidget *formLayoutWidget;
     QFormLayout *formLayout;
+    QGraphicsView *graphicsView;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -40,35 +42,41 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1186, 631);
+        MainWindow->resize(737, 452);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         label = new QLabel(centralwidget);
         label->setObjectName("label");
-        label->setGeometry(QRect(120, 50, 71, 41));
+        label->setGeometry(QRect(90, 0, 71, 41));
         QFont font;
         font.setPointSize(20);
         label->setFont(font);
         lineEdit = new QLineEdit(centralwidget);
         lineEdit->setObjectName("lineEdit");
-        lineEdit->setGeometry(QRect(190, 60, 181, 31));
+        lineEdit->setGeometry(QRect(9, 50, 141, 23));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(90, 350, 131, 61));
-        pushButton->setFont(font);
+        pushButton->setGeometry(QRect(10, 10, 71, 31));
+        QFont font1;
+        font1.setFamilies({QString::fromUtf8("A\345\236\213\344\272\244\351\200\232\346\240\207\345\277\227\344\270\223\347\224\250\345\255\227\344\275\223")});
+        font1.setPointSize(14);
+        pushButton->setFont(font1);
         listView = new QListView(centralwidget);
         listView->setObjectName("listView");
-        listView->setGeometry(QRect(190, 90, 181, 161));
+        listView->setGeometry(QRect(9, 79, 141, 192));
         formLayoutWidget = new QWidget(centralwidget);
         formLayoutWidget->setObjectName("formLayoutWidget");
-        formLayoutWidget->setGeometry(QRect(770, 30, 121, 241));
+        formLayoutWidget->setGeometry(QRect(160, 0, 231, 221));
         formLayout = new QFormLayout(formLayoutWidget);
         formLayout->setObjectName("formLayout");
         formLayout->setContentsMargins(0, 0, 0, 0);
+        graphicsView = new QGraphicsView(centralwidget);
+        graphicsView->setObjectName("graphicsView");
+        graphicsView->setGeometry(QRect(390, 50, 341, 351));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1186, 25));
+        menubar->setGeometry(QRect(0, 0, 737, 21));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");

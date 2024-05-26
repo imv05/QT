@@ -1,14 +1,28 @@
 #include "load.h"
 #include "class.h"
 #include "global.h"
-
+#include <QFile>
+#include <QDataStream>
+#include <qdebug.h>
 #include <fstream>
 
 int load(void){//从json数据库加载
-    std::ifstream src("D:\\QT\\QT\\subway\\stations.json");
-    std::ofstream dest("D:\\QT\\QT\\subway\\temp.out");
+    QFile src(":/data/data/stations.json");
     json j;
-    src >> j;
+    if(src.open(QIODevice::ReadOnly)){
+        QTextStream in(&src);
+        QString jsonString = in.readAll();
+        src.close();
+        try {
+            j = json::parse(jsonString.toStdString()); // 解析JSON字符串
+        } catch (json::exception& e) {
+            // 处理解析错误
+            qDebug() << "JSON解析错误：" << e.what();
+        }
+    }else{//找不到指定的json文件
+        qDebug() << "Unable to find database stations.json";
+        return 0;
+    }
     int lineCnt =  j.size();
     //第一次读数据，建立所有line和station
     for(int i=0; i<lineCnt; i++){

@@ -1,50 +1,47 @@
 #include "global.h"
 #include "class.h"
+#include "stationitem.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 
-void paintLine(QGraphicsScene& pr, Line* cLine){
-    QPixmap turn;
-    turn.load("turn.png");
-    QColor lineColor = cLine->color;
-    QPen lpen(lineColor);
-    lpen.setWidth(3);
-    lpen.setStyle(Qt::SolidLine);
-    QBrush lbrush(lineColor);
-    cLine->item = pr.addRect(20, 20* cLine->lineId,20,10,lpen,lbrush);
-    QGraphicsTextItem *textItem = pr.addText(cLine->lineName);
-    textItem->setPos(45,-8+20* cLine->lineId);
-    QFont lineFont("黑体", 10);
+void paintLine(QGraphicsScene& sc, Line* cLine){
+    // QColor lineColor = cLine->color;
+    // QPen lpen(lineColor);
+    // lpen.setWidth(3);
+    // lpen.setStyle(Qt::SolidLine);
+    // QBrush lbrush(lineColor);
+    // cLine->item = pr.addRect(20, 20* cLine->lineId,20,10,lpen,lbrush);
+    // QGraphicsTextItem *textItem = pr.addText(cLine->lineName);
+    // textItem->setPos(45,-8+20* cLine->lineId);
+    // QFont lineFont("黑体", 10);
     QFont stationFont("黑体", 6);
-    textItem->setFont(lineFont);
-    textItem->setDefaultTextColor(lineColor);
-    auto it = cLine->stationMap.begin();
-    while(it!=cLine->stationMap.end()){
+    // textItem->setFont(lineFont);
+    // textItem->setDefaultTextColor(lineColor);
+    for(auto it: cLine->stationMap){
         QPen pen(Qt::white);
         pen.setWidth(1);
-        QBrush brush(lineColor);
-        Station* stn = it.value();
+        Station* stn = it;
         int x = stn->x;
         int y = stn->y;
-        if(stn->iCnt){
-            stn->item = pr.addPixmap(turn);
-            stn->item->setPos(x, y);
+        if(stn->iCnt){  //濡傛灉鏄崲涔樼珯锛屼娇鐢ㄦ崲涔樼珯鐨勮创绾稿浘鏍囥€?
+            stn->item = (new transferItem(x, y));   //姝y鍧愭爣涓轰腑蹇冪偣鍧愭爣
+            sc.addItem(stn->item);
         }else{
-            stn->item = pr.addEllipse(x, y, 6, 6, pen, brush);
+            stn->item = (new stationItem(x, y));
+            sc.addItem(stn->item);
         }
-        it.value()->item->setData(Qt::UserRole, it.value()->line->lineName+it.value()->stationName);
-        it.value()->textItem = pr.addText(it.value()->stationName);
-        it.value()->textItem->setPos(x+2, y+2);
-        it.value()->textItem->setFont(stationFont);
-        it.value()->textItem->setDefaultTextColor(Qt::black);
+        it->item->setData(Qt::UserRole, it->line->lineName+it->stationName);
+        it->textItem = sc.addText(it->stationName);
+        it->textItem->setPos(x, y);
+        it->textItem->setFont(stationFont);
+        it->textItem->setDefaultTextColor(Qt::black);
         it++;
     }
 }
-void paint(QGraphicsScene& pr){
-    auto it = lineMap.begin();
-    while(it!=lineMap.end()){
-        paintLine(pr, it.value());
+void paint(QGraphicsScene& sc){
+    for(auto it: lineMap){
+        paintLine(sc, it);
         it++;
     }
 /*
