@@ -7,8 +7,8 @@
 #include "mouse.h"
 
 #include <QMessageBox>
-#include<QStringList>
-#include<QStringListModel>
+#include <QStringList>
+#include <QStringListModel>
 #include <QSplitter>
 
 QSplitter* splitter;
@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     //设置场景的背景和大小
-    scene.setSceneRect(0, 0, 800, 700);
+    // scene.setSceneRect(0, 0, 800, 700);
     scene.setBackgroundBrush(QBrush(Qt::white));
     //在场景中添加图形项
     paint(scene);
@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     CustomGraphicsView* view = new CustomGraphicsView(scene, this);
     view->setScene(&scene);
 
-    view->setParent(ui->graphicsView); // 设置CustomGraphicsView的父控件为ui->widget
+    view->setParent(ui->graphicsView); // 设置CustomGraphicsView的父控件为ui->graphicsView
     view->show(); // 确保CustomGraphicsView是可见的
 
     connect(ui->lineEdit, &QLineEdit::textChanged, this, &MainWindow::on_lineEdit_textChanged);
@@ -144,8 +144,9 @@ void MainWindow::on_listView_clicked(const QModelIndex &index)
     for(auto station:allStations){
         QString name=station->stationName;
         if(name.contains(selectedText)&&selectedText.contains(name)){
+            ui->listView->hide();
             QMessageBox* msg=new QMessageBox;
-            msg->setInformativeText("找到了对应的站");
+            msg->setInformativeText("点击了对应的站");
             msg->setDefaultButton(QMessageBox::Ok);
             int result=msg->exec();
             if(result==QMessageBox::Ok){

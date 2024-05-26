@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>这个地方用来搜索站点</string>
+     <string>点击此处搜索车站</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
@@ -68,9 +68,9 @@
     <property name="geometry">
      <rect>
       <x>9</x>
-      <y>79</y>
+      <y>70</y>
       <width>141</width>
-      <height>192</height>
+      <height>121</height>
      </rect>
     </property>
    </widget>
@@ -79,7 +79,7 @@
      <rect>
       <x>160</x>
       <y>0</y>
-      <width>231</width>
+      <width>91</width>
       <height>221</height>
      </rect>
     </property>
@@ -88,10 +88,10 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>50</y>
-      <width>341</width>
-      <height>351</height>
+      <x>270</x>
+      <y>30</y>
+      <width>461</width>
+      <height>371</height>
      </rect>
     </property>
    </widget>
@@ -105,6 +105,24 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menumainWindow">
+    <property name="title">
+     <string>mainWindow</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_lastTrain">
+    <property name="title">
+     <string>末车可达</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_realTime">
+    <property name="title">
+     <string>实时地铁</string>
+    </property>
+   </widget>
+   <addaction name="menumainWindow"/>
+   <addaction name="menu_lastTrain"/>
+   <addaction name="menu_realTime"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

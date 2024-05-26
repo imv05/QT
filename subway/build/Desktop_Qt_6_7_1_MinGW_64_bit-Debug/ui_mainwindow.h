@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGraphicsView>
@@ -17,6 +18,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
@@ -36,6 +38,9 @@ public:
     QFormLayout *formLayout;
     QGraphicsView *graphicsView;
     QMenuBar *menubar;
+    QMenu *menumainWindow;
+    QMenu *menu_lastTrain;
+    QMenu *menu_realTime;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -63,24 +68,34 @@ public:
         pushButton->setFont(font1);
         listView = new QListView(centralwidget);
         listView->setObjectName("listView");
-        listView->setGeometry(QRect(9, 79, 141, 192));
+        listView->setGeometry(QRect(9, 70, 141, 121));
         formLayoutWidget = new QWidget(centralwidget);
         formLayoutWidget->setObjectName("formLayoutWidget");
-        formLayoutWidget->setGeometry(QRect(160, 0, 231, 221));
+        formLayoutWidget->setGeometry(QRect(160, 0, 91, 221));
         formLayout = new QFormLayout(formLayoutWidget);
         formLayout->setObjectName("formLayout");
         formLayout->setContentsMargins(0, 0, 0, 0);
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(390, 50, 341, 351));
+        graphicsView->setGeometry(QRect(270, 30, 461, 371));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
         menubar->setGeometry(QRect(0, 0, 737, 21));
+        menumainWindow = new QMenu(menubar);
+        menumainWindow->setObjectName("menumainWindow");
+        menu_lastTrain = new QMenu(menubar);
+        menu_lastTrain->setObjectName("menu_lastTrain");
+        menu_realTime = new QMenu(menubar);
+        menu_realTime->setObjectName("menu_realTime");
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
+
+        menubar->addAction(menumainWindow->menuAction());
+        menubar->addAction(menu_lastTrain->menuAction());
+        menubar->addAction(menu_realTime->menuAction());
 
         retranslateUi(MainWindow);
 
@@ -91,8 +106,11 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\346\220\234\347\264\242", nullptr));
-        lineEdit->setText(QCoreApplication::translate("MainWindow", "\350\277\231\344\270\252\345\234\260\346\226\271\347\224\250\346\235\245\346\220\234\347\264\242\347\253\231\347\202\271", nullptr));
+        lineEdit->setText(QCoreApplication::translate("MainWindow", "\347\202\271\345\207\273\346\255\244\345\244\204\346\220\234\347\264\242\350\275\246\347\253\231", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "\350\277\224\345\233\236", nullptr));
+        menumainWindow->setTitle(QCoreApplication::translate("MainWindow", "mainWindow", nullptr));
+        menu_lastTrain->setTitle(QCoreApplication::translate("MainWindow", "\346\234\253\350\275\246\345\217\257\350\276\276", nullptr));
+        menu_realTime->setTitle(QCoreApplication::translate("MainWindow", "\345\256\236\346\227\266\345\234\260\351\223\201", nullptr));
     } // retranslateUi
 
 };

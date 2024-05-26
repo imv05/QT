@@ -41,7 +41,7 @@ public:
         label->setObjectName("label");
         label->setGeometry(QRect(300, 110, 641, 121));
         QFont font1;
-        font1.setFamilies({QString::fromUtf8("\351\232\266\344\271\246")});
+        font1.setFamilies({QString::fromUtf8("\344\272\244\351\200\232\346\240\207\345\277\227\344\270\223\347\224\250\345\255\227\344\275\223")});
         font1.setPointSize(48);
         label->setFont(font1);
         label_2 = new QLabel(menu);
