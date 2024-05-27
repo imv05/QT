@@ -11,7 +11,7 @@
             {
                 "stationId": 1,
                 "stationName": "古城",
-                "stationEngName": "Gucheng",
+                "stationEngName": "gucheng",
                 "available": true,
                 "interchangeList": [],
                 "floor": -2,
@@ -19,14 +19,13 @@
                 "connectionList": [
                     {
                         "nextStationId": 2,
-                        "timeM": 3,
-                        "timeS": 0,
+                        "duration": 180,
                         "dist": 1000,
                         "operationList":[{
                             "terminal": "开往：朝阳门",
                             "terminalId": 4,
-                            "firstH": 6,"firstM": 0,"firstS": 0,
-                            "lastH": 23,"lastM": 0,"lastS": 0
+                            "firstTime": 21600,
+                            "lastTime": 82800
                         }]
                     }
                 ],
@@ -37,13 +36,13 @@
             {
                 "stationId": 2,
                 "stationName": "西直门",
-                "stationEngName": "Xizhimen",
+                "stationEngName": "xizhimen",
                 "available": true,
                 "interchangeList": [
                     {
                         "lineId": 2,
                         "stationId": 1,
-                        "timeM": 1,"timeS": 0,
+                        "duration": 60,
                         "isOut": false,
                         "note": "站台中部下一层即可到达"
                     }
@@ -53,28 +52,26 @@
                 "connectionList": [
                     {
                         "nextStationId": 3,
-                        "timeM": 3,
-                        "timeS": 30,
+                        "duration": 210,
                         "dist": 1200,
                         "operationList":[
                             {
                                 "terminal": "开往：朝阳门",
                                 "terminalId": 4,
-                                "firstH": 6,"firstM": 3,"firstS": 0,
-                                "lastH": 23,"lastM": 3,"lastS": 0
+                                "firstTime": 21780,
+                                "lastTime": 82980
                             }
                         ]
                     },{
                         "nextStationId": 1,
-                        "timeM": 3,
-                        "timeS": 0,
+                        "duration": 180,
                         "dist": 1000,
                         "operationList": [
                             {
                                 "terminal": "开往：古城",
                                 "terminalId": 1,
-                                "firstH": 6,"firstM": 7,"firstS":30,
-                                "lastH": 22,"lastM": 7,"lastS":30
+                                "firstTime": 22050,
+                                "lastTime": 79650
                             }
                         ]
                     }
@@ -87,7 +84,7 @@
             {
                 "stationId": 3,
                 "stationName": "西单",
-                "stationEngName": "Xidɑn",
+                "stationEngName": "xidan",
                 "available": true,
                 "interchangeList": [],
                 "floor": -2,
@@ -95,31 +92,29 @@
                 "connectionList": [
                     {
                         "nextStationId": 4,
-                        "timeM": 4,
-                        "timeS": 0,
+                        "duration": 240,
                         "dist": 1300,
                         "operationList":[{
                             "terminal": "开往：朝阳门",
                             "terminalId": 4,
-                            "firstH": 6,"firstM": 6,"firstS": 30,
-                            "lastH": 23,"lastM": 6,"lastS": 30
+                            "firstTime": 21990,
+                            "lastTime": 83190
                         }]
                     },{
                         "nextStationId": 2,
-                        "timeM": 3,
-                        "timeS": 30,
+                        "duration": 210,
                         "dist": 1200,
                         "operationList": [
                             {
                                 "terminal": "开往：古城",
                                 "terminalId": 1,
-                                "firstH": 6,"firstM": 4,"firstS":0,
-                                "lastH": 22,"lastM": 4,"lastS":0
+                                "firstTime": 21840,
+                                "lastTime": 79440
                             },
                             {
                                 "terminal": "终点站：西直门",
                                 "terminalId": 2,
-                                "lastH": 23,"lastM": 4,"lastS":0
+                                "lastTime": 83040
                             }
                         ]
                     }
@@ -131,13 +126,13 @@
             {
                 "stationId": 4,
                 "stationName": "朝阳门",
-                "stationEngName": "Chɑoyɑngmen",
+                "stationEngName": "chaoyangmen",
                 "available": true,
                 "interchangeList": [
                     {
                         "lineId": 2,
                         "stationId": 3,
-                        "timeM": 1,"timeS": 0,
+                        "duration": 60,
                         "isOut": false,
                         "note": "站台中部下一层即可到达"
                     }
@@ -147,22 +142,21 @@
                 "connectionList": [
                     {
                         "nextStationId": 3,
-                        "timeM": 4,
-                        "timeS": 0,
+                        "duration": 240,
                         "dist": 1300,
                         "operationList": [
                             {
                                 "terminal": "开往：古城",
                                 "terminalId": 1,
                                 "nextStationId": 3,
-                                "firstH": 6,"firstM": 0,"firstS":0,
-                                "lastH": 22,"lastM": 0,"lastS":0
+                                "firstTime": 21960,
+                                "lastTime": 79200
                             },
                             {
                                 "terminal": "终点站：西直门",
                                 "terminalId": 2,
                                 "nextStationId": 3,
-                                "lastH": 23,"lastM": 0,"lastS":0
+                                "lastTime": 82800
                             }
                         ]
                     }
@@ -185,13 +179,13 @@
             {
                 "stationId": 1,
                 "stationName": "西直门",
-                "stationEngName": "Xizhimen",
+                "stationEngName": "xizhimen",
                 "available": true,
                 "interchangeList": [
                     {
                         "lineId": 1,
                         "stationId": 2,
-                        "timeM": 1,"timeS": 0,
+                        "duration": 60,
                         "isOut": false,
                         "note": "站台中部上一层即可到达"
                     }
@@ -201,31 +195,29 @@
                 "connectionList": [
                     {
                         "nextStationId": 2,
-                        "timeM": 4,
-                        "timeS": 30,
+                        "duration": 270,
                         "dist": 2000,
                         "operationList": [{
                             "terminal": "全程",
                             "terminalId": 100,
-                            "firstH": 6,"firstM": 16,"firstS":30,
-                            "lastH": 22,"lastM": 21,"lastS":0
+                            "firstTime": 22590,
+                            "lastTime": 80460
                         }]
                     },{
                         "nextStationId": 4,
-                        "timeM": 6,
-                        "timeS": 0,
+                        "duration": 360,
                         "dist": 2800,
                         "operationList":[
                             {
                                 "terminal": "全程",
                                 "terminalId": 200,
-                                "firstH": 6,"firstM": 0,"firstS":0,
-                                "lastH": 22,"lastM": 4,"lastS":30
+                                "firstTime": 21600,
+                                "lastTime": 79470
                             },
                             {
                                 "terminal": "终点站：积水潭",
                                 "terminalId": 2,
-                                "lastH": 22,"lastM": 25,"lastS":30
+                                "lastTime": 80730
                             }
                         ]
                     }
@@ -236,7 +228,7 @@
             },{
                 "stationId": 2,
                 "stationName": "积水潭",
-                "stationEngName": "Jishuitɑn",
+                "stationEngName": "jishuitan",
                 "available": true,
                 "interchangeList": [],
                 "floor": -2,
@@ -244,30 +236,28 @@
                 "connectionList": [
                     {
                         "nextStationId": 3,
-                        "timeM": 5,
-                        "timeS": 0,
+                        "duration": 300,
                         "dist": 2300,
                         "operationList":[{
                             "terminal": "全程",
                             "terminalId": 100,
-                            "firstH": 6, "firstM": 0, "firstS":0,
-                            "lastH": 22, "lastM": 4, "lastS":30
+                            "firstTime": 21600,
+                            "lastTime": 79470
                         },{
                             "terminal": "终点站：西直门",
                             "terminalId": 1,
-                            "lastH": 22, "lastM": 25, "lastS":30
+                            "lastTime": 80730
                         }]
                     },
                     {
                         "nextStationId": 1,
-                        "timeM": 4,
-                        "timeS": 30,
+                        "duration": 270,
                         "dist": 2000,
                         "operationList": [{
                             "terminal": "全程",
                             "terminalId": 200,
-                            "firstH": 6,"firstM": 16,"firstS":30,
-                            "lastH":22, "lastM":21, "lastS":0
+                            "firstTime": 22590,
+                            "lastTime": 80460
                         }]
                     }
                 ],
@@ -277,12 +267,12 @@
             },{
                 "stationId": 3,
                 "stationName": "朝阳门",
-                "stationEngName": "Chɑoyɑngmen",
+                "stationEngName": "chaoyangmen",
                 "available": true,
                 "interchangeList": [{
                     "lineId": 1,
                     "stationId": 4,
-                    "timeM": 1,"timeS": 0,
+                    "duration": 60,
                     "isOut": false,
                     "note": "站台中部上一层即可到达"
                 }],
@@ -291,33 +281,31 @@
                 "connectionList": [
                     {
                         "nextStationId": 4,
-                        "timeM": 5,
-                        "timeS": 30,
+                        "duration": 330,
                         "dist": 2500,
                         "operationList":[{
                             "terminal": "全程",
                             "terminalId": 100,
-                            "firstH": 6, "firstM": 5, "firstS":0,
-                            "lastH": 22, "lastM": 9, "lastS":30
+                            "firstTime": 21900,
+                            "lastTime": 79790
                         },{
                             "terminal": "终点站：西直门",
                             "terminalId": 1,
-                            "lastH": 22, "lastM": 30, "lastS":30
+                            "lastTime": 81030
                         }]
                     },{
                         "nextStationId": 2,
-                        "timeM": 5,
-                        "timeS": 0,
+                        "duration": 300,
                         "dist": 2300,
                         "operationList":[{
                             "terminal": "全程",
                             "terminalId": 200,
-                            "firstH": 6, "firstM": 11, "firstS":30,
-                            "lastH": 22, "lastM": 16, "lastS":0
+                            "firstTime": 22290,
+                            "lastTime": 80160
                         },{
                             "terminal": "终点站：积水潭",
                             "terminalId": 2,
-                            "lastH": 22, "lastM": 36, "lastS":0
+                            "lastTime": 81360
                         }]
                     }
                 ],
@@ -327,7 +315,7 @@
             },{
                 "stationId": 4,
                 "stationName": "前门",
-                "stationEngName": "Qiɑnmen",
+                "stationEngName": "qianmen",
                 "available": true,
                 "interchangeList": [],
                 "floor": -2,
@@ -335,33 +323,31 @@
                 "connectionList": [
                     {
                         "nextStationId": 1,
-                        "timeM": 6,
-                        "timeS": 0,
+                        "duration": 360,
                         "dist": 2800,
                         "operationList":[{
                             "terminal": "全程",
                             "terminalId": 100,
-                            "firstH": 6, "firstM": 10, "firstS":30,
-                            "lastH": 22, "lastM": 15, "lastS":0
+                            "firstTime": 22230,
+                            "lastTime": 80100
                         },{
                             "terminal": "终点站：西直门",
                             "terminalId": 1,
-                            "lastH": 22, "lastM": 36, "lastS":0
+                            "lastTime": 81360
                         }]
                     },{
                         "nextStationId": 3,
-                        "timeM": 5,
-                        "timeS": 30,
+                        "duration": 330,
                         "dist": 2500,
                         "operationList":[{
                             "terminal": "全程",
                             "terminalId": 200,
-                            "firstH": 6, "firstM": 6, "firstS":0,
-                            "lastH": 22, "lastM": 10, "lastS":30
+                            "firstTime": 21960,
+                            "lastTime": 79830
                         },{
                             "terminal": "终点站：积水潭",
                             "terminalId": 2,
-                            "lastH": 22, "lastM": 31, "lastS":30
+                            "lastTime": 81090
                         }]
                     }
                 ],

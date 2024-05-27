@@ -17,7 +17,8 @@ QStringList matchingStationsA;
 QStringList matchingStationsB;
 Station* stationA = nullptr;
 Station* stationB = nullptr;
-
+std::unordered_map<Station*, int> timeMap;
+QVector<Station*> planPath;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -27,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
     scene.setBackgroundBrush(QBrush(Qt::white));
     //在场景中添加图形项
     paint(scene);
-    qDebug() << "Enter mainwindow";
     CustomGraphicsView* view = new CustomGraphicsView(scene, this);
     view->setScene(&scene);
 
@@ -37,25 +37,21 @@ MainWindow::MainWindow(QWidget *parent)
     ui->listB->hide();
     connect(ui->inputA, &QLineEdit::textEdited, this, &MainWindow::on_inputA_textEdited);
     connect(ui->inputB, &QLineEdit::textEdited, this, &MainWindow::on_inputB_textEdited);
-    std::vector<QColor> AllColor={
-        QColor(255,0,0),QColor(0,0,255),QColor(124,25,70)
-        //只是一个接口
-
-    };//保存所有的颜色，用来绘图
-    std::vector<QString> AllName={
-        //接口，保存所有线的名字
-
-    };
-    for(auto color: AllColor){
-        QLabel* colorLabel =new QLabel(this);
-        colorLabel->setStyleSheet(QString("background-color:%1;").arg(color.name()));
-        QLabel* text=new QLabel("haha",this);
-        text->setStyleSheet(QString("color:%1;").arg(color.name()));
-        ui->formLayout->addRow(colorLabel,text);
+    int lineCnt = lineMap.size();
+    std::vector<QColor> allColor={};//保存所有的颜色，用来绘图
+    std::vector<QString> allName={};
+    for(auto cline: lineMap){
+        allColor.push_back(cline->color);
+        allName.push_back(cline->lineName);
     }
 
-    std::unordered_map<Station*, Station*> uom = dijkstra(lineMap[1]->stationMap[3]);
-    printPath(uom, lineMap[2]->stationMap[2]);
+    for(int i=0; i<lineCnt; i++){
+        QLabel* colorLabel =new QLabel(this);
+        colorLabel->setStyleSheet(QString("background-color:%1;").arg(allColor[i].name()));
+        QLabel* text=new QLabel(allName[i], this);
+        // text->setStyleSheet(QString("color:#000000;"));
+        ui->formLayout->addRow(colorLabel, text);
+    }
 
 }
 
@@ -91,7 +87,7 @@ void MainWindow::on_inputA_textEdited(const QString &arg1)
 }
 void MainWindow::on_inputB_textEdited(const QString &arg1)
 {
-    matchingStationsA.clear();
+    matchingStationsB.clear();
     QRegularExpression rx("^[A-Za-z]+$");
     if (arg1.contains(rx)) {//如果输入的字符串是纯字母，则进行拼音匹配
         for(auto station: allStationNames){
@@ -99,37 +95,29 @@ void MainWindow::on_inputB_textEdited(const QString &arg1)
             QString pinyin(station->stationEngName);
             QRegularExpression argpy(arg1);
             if(pinyin.contains(argpy)){
-                matchingStationsA.append(name);
+                matchingStationsB.append(name);
             }
         }
     } else { //如果输入的字符串不是纯字母，则进行中文站名匹配
         for(auto station: allStationNames){
             QString name = station->stationName;
             if(name.contains(arg1)){
-                matchingStationsA.append(name);
+                matchingStationsB.append(name);
             }
         }
     }
-    QStringListModel* model= new QStringListModel(matchingStationsA, this);
-    ui->listA->setModel(model);
-    ui->listA->show();
+    QStringListModel* model= new QStringListModel(matchingStationsB, this);
+    ui->listB->setModel(model);
+    ui->listB->show();
 }
-void MainWindow::on_inputA_returnPressed()
+void MainWindow::on_inputA_editingFinished()
 {
     bool flag=false;
     for(auto station:allStations){
         auto name=station->stationName;
         QString input=ui->inputA->text();
         if(name == input){ //按Enter键的，要求他完全匹配才行
-            QMessageBox *find=new QMessageBox;//这个messagebox仅用于调试，以后会删除
-            find->setWindowTitle("提示");
-            find->setInformativeText("找到了该站！");
             stationA = allStationNames[name];
-            find->setDefaultButton(QMessageBox::Ok);
-            int result=find->exec();
-            if(result==QMessageBox::Ok){
-                delete find;
-            }
             flag=true;
         }
     }
@@ -137,23 +125,37 @@ void MainWindow::on_inputA_returnPressed()
         ui->inputA->clearFocus();
         ui->inputB->setFocus();
     }else{
-        ui->inputA->setText(QString(""));
-        QMessageBox *err=new QMessageBox;
-        err->setWindowTitle("提示");
-        err->setInformativeText("没有找到该站");
-        err->setDefaultButton(QMessageBox::Ok);
-        int result=err->exec();
-        if(result==QMessageBox::Ok){
-            delete err;
+        ui->inputA->setText(QString(""));//无法匹配则清空输入，需要重新输入
+    }
+    ui->listA->hide();//无论输的对不对，离开inputA后，listA均需要隐藏
+}
+void MainWindow::on_inputA_returnPressed(){}
+void MainWindow::on_inputB_returnPressed()
+{
+    bool flag=false;
+    for(auto station:allStations){
+        auto name=station->stationName;
+        QString input=ui->inputB->text();
+        if(name == input){ //按Enter键的，要求他完全匹配才行
+            stationB = allStationNames[name];
+            flag=true;
         }
     }
+    if(flag){
+        ui->inputB->clearFocus();
+        plan();//尝试
+    }else{
+        ui->inputB->setText(QString(""));
+    }
 }
-
-void MainWindow::on_inputA_editingFinished()
+// void MainWindow::on_inputA_editingFinished()
+// {
+//     ui->listA->hide();
+// }
+void MainWindow::on_inputB_editingFinished()
 {
-    ui->listA->hide();
+    ui->listB->hide();
 }
-
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -166,17 +168,32 @@ void MainWindow::on_listA_clicked(const QModelIndex &index)
 {
     ui->listA->hide();
     QString selectedName = matchingStationsA.value(index.row());
-    ui->inputA->clearFocus();
-    ui->inputB->setFocus();
-
-    QMessageBox* msg=new QMessageBox;
-    msg->setInformativeText("点击了" + selectedName);
     ui->inputA->setText(selectedName);
     stationA = allStationNames[selectedName];
-    msg->setDefaultButton(QMessageBox::Ok);
-    int result=msg->exec();
-    if(result==QMessageBox::Ok){
-        delete msg;
+    ui->inputA->clearFocus();
+    ui->inputB->setFocus();
+}
+void MainWindow::on_listB_clicked(const QModelIndex &index)
+{
+    ui->listB->hide();
+    QString selectedName = matchingStationsB.value(index.row());
+    ui->inputB->setText(selectedName);
+    stationB = allStationNames[selectedName];
+    ui->inputB->clearFocus();
+    plan(); //尝试进行规划
+}
+bool plan(void){
+    qDebug() << "Enter plan";
+    if(stationA&&stationB){//起终点均已给出，开始规划
+        std::unordered_map<Station*, Station*> uom = dijkstra(stationA, &timeMap);
+        planPath = getPath(uom, stationB);
+        for(auto planNode: planPath){
+
+        }
+        return true;
+    }else{//起终点中有nullptr，失败
+        return false;
     }
 }
+
 

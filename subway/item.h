@@ -7,22 +7,25 @@ extern const int itemType;
 extern const int itemName;
 extern const int itemHighlight;
 
-class stationItem : public QGraphicsEllipseItem //普通站继承自QGraphics椭圆
-{
+class StationItem : public QGraphicsEllipseItem {   //普通站继承自QGraphics椭圆
 public:
     static const int myType = 1;//用于设置该item的itemType
-    stationItem(int x, int y);
+    StationItem(int x, int y);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 };
 
-class transferItem : public QGraphicsSvgItem    //换乘站导入SVG图标
-{
+class TransferItem : public QGraphicsSvgItem {   //换乘站导入SVG图标
 public:
     static const int myType = 1;
-    transferItem(int x, int y);
+    TransferItem(int x, int y);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
+};
+
+class TransparentMaskItem : public QGraphicsRectItem {
+public:
+    TransparentMaskItem(QGraphicsScene *scene);
 };
 
 extern QGraphicsItemGroup* stationGroup;

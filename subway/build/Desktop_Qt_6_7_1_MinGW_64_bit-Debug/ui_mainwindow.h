@@ -37,8 +37,9 @@ public:
     QGraphicsView *graphicsView;
     QLineEdit *inputB;
     QListView *listB;
+    QGraphicsView *planView;
     QMenuBar *menubar;
-    QMenu *menumainWindow;
+    QMenu *menu_mainWindow;
     QMenu *menu_lastTrain;
     QMenu *menu_realTime;
     QStatusBar *statusbar;
@@ -76,23 +77,30 @@ public:
         listA = new QListView(centralwidget);
         listA->setObjectName("listA");
         listA->setGeometry(QRect(29, 80, 131, 121));
+        listA->setFont(font);
         listA->setAutoFillBackground(true);
         formLayoutWidget = new QWidget(centralwidget);
         formLayoutWidget->setObjectName("formLayoutWidget");
-        formLayoutWidget->setGeometry(QRect(160, 0, 91, 221));
+        formLayoutWidget->setGeometry(QRect(160, 0, 91, 271));
         formLayout = new QFormLayout(formLayoutWidget);
         formLayout->setObjectName("formLayout");
         formLayout->setContentsMargins(0, 0, 0, 0);
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(250, 0, 1671, 1041));
+        graphicsView->setGeometry(QRect(250, 0, 1671, 1031));
         inputB = new QLineEdit(centralwidget);
         inputB->setObjectName("inputB");
         inputB->setGeometry(QRect(29, 120, 131, 31));
         inputB->setFont(font);
+        inputB->setClearButtonEnabled(true);
         listB = new QListView(centralwidget);
         listB->setObjectName("listB");
         listB->setGeometry(QRect(29, 150, 131, 121));
+        listB->setFont(font);
+        listB->setAutoFillBackground(true);
+        planView = new QGraphicsView(centralwidget);
+        planView->setObjectName("planView");
+        planView->setGeometry(QRect(0, 280, 251, 751));
         MainWindow->setCentralWidget(centralwidget);
         pushButton->raise();
         formLayoutWidget->raise();
@@ -101,12 +109,13 @@ public:
         inputA->raise();
         inputB->raise();
         listA->raise();
+        planView->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
         menubar->setGeometry(QRect(0, 0, 1920, 27));
         menubar->setFont(font);
-        menumainWindow = new QMenu(menubar);
-        menumainWindow->setObjectName("menumainWindow");
+        menu_mainWindow = new QMenu(menubar);
+        menu_mainWindow->setObjectName("menu_mainWindow");
         menu_lastTrain = new QMenu(menubar);
         menu_lastTrain->setObjectName("menu_lastTrain");
         menu_realTime = new QMenu(menubar);
@@ -121,7 +130,7 @@ public:
         QWidget::setTabOrder(listA, listB);
         QWidget::setTabOrder(listB, graphicsView);
 
-        menubar->addAction(menumainWindow->menuAction());
+        menubar->addAction(menu_mainWindow->menuAction());
         menubar->addAction(menu_lastTrain->menuAction());
         menubar->addAction(menu_realTime->menuAction());
 
@@ -145,8 +154,9 @@ public:
 #if QT_CONFIG(whatsthis)
         inputB->setWhatsThis(QString());
 #endif // QT_CONFIG(whatsthis)
-        inputB->setText(QCoreApplication::translate("MainWindow", "\347\273\210\347\202\271\350\275\246\347\253\231", nullptr));
-        menumainWindow->setTitle(QCoreApplication::translate("MainWindow", "\350\267\257\347\272\277\350\247\204\345\210\222", nullptr));
+        inputB->setText(QString());
+        inputB->setPlaceholderText(QCoreApplication::translate("MainWindow", "\350\276\223\345\205\245\347\273\210\347\202\271\350\275\246\347\253\231", nullptr));
+        menu_mainWindow->setTitle(QCoreApplication::translate("MainWindow", "\350\267\257\347\272\277\350\247\204\345\210\222", nullptr));
         menu_lastTrain->setTitle(QCoreApplication::translate("MainWindow", "\346\234\253\350\275\246\345\217\257\350\276\276", nullptr));
         menu_realTime->setTitle(QCoreApplication::translate("MainWindow", "\345\256\236\346\227\266\345\234\260\351\223\201", nullptr));
     } // retranslateUi

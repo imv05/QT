@@ -85,8 +85,14 @@
       <x>29</x>
       <y>80</y>
       <width>131</width>
-      <height>121</height>
+      <height>131</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="autoFillBackground">
      <bool>true</bool>
@@ -96,9 +102,9 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>0</y>
+      <y>20</y>
       <width>91</width>
-      <height>221</height>
+      <height>261</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout"/>
@@ -109,7 +115,7 @@
       <x>250</x>
       <y>0</y>
       <width>1671</width>
-      <height>1041</height>
+      <height>1031</height>
      </rect>
     </property>
    </widget>
@@ -132,7 +138,13 @@
      <string extracomment="点击输入终点车站"/>
     </property>
     <property name="text">
-     <string>终点车站</string>
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>输入终点车站</string>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QListView" name="listB">
@@ -141,7 +153,26 @@
       <x>29</x>
       <y>150</y>
       <width>131</width>
-      <height>121</height>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="planView">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>280</y>
+      <width>251</width>
+      <height>751</height>
      </rect>
     </property>
    </widget>
@@ -152,6 +183,7 @@
    <zorder>inputA</zorder>
    <zorder>inputB</zorder>
    <zorder>listA</zorder>
+   <zorder>planView</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -168,7 +200,7 @@
      <pointsize>12</pointsize>
     </font>
    </property>
-   <widget class="QMenu" name="menumainWindow">
+   <widget class="QMenu" name="menu_mainWindow">
     <property name="title">
      <string>路线规划</string>
     </property>
@@ -183,7 +215,7 @@
      <string>实时地铁</string>
     </property>
    </widget>
-   <addaction name="menumainWindow"/>
+   <addaction name="menu_mainWindow"/>
    <addaction name="menu_lastTrain"/>
    <addaction name="menu_realTime"/>
   </widget>

@@ -68,7 +68,7 @@ Connection::Connection(json jconnection, Station* cStation){   //使用json jcon
         int nId = jconnection["stationId"];
         to = lineMap[lineId]->stationMap[nId];
         dist = 0;
-        time = 60 * int(jconnection["timeM"]) + int(jconnection["timeS"]);
+        time = jconnection["duration"];
         note = QString::fromStdString(jconnection["note"]);
         isOut = jconnection["isOut"];
     }else{
@@ -76,14 +76,14 @@ Connection::Connection(json jconnection, Station* cStation){   //使用json jcon
         int nId = jconnection["nextStationId"];
         to = from->line->stationMap[nId];
         dist = jconnection["dist"];
-        time = 60 * int(jconnection["timeM"]) + int(jconnection["timeS"]);
+        time = jconnection["duration"];
         int oCnt = jconnection["operationList"].size();
         const int daySec = 24*3600;
         int last = toSec(19,0,0) + daySec; //最早末班车初始化为19:00:00
         for(int k=0; k<oCnt; k++){//处理多个终点的末班车。
             const int distinct = toSec(19,0,0);
             json jo = jconnection["operationList"][k];
-            int thisLast = toSec(jo["lastH"], jo["lastM"], jo["lastS"]);
+            int thisLast = jo["lastTime"];
             if(thisLast < distinct){
                 thisLast += daySec;
             }

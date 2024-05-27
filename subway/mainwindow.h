@@ -31,17 +31,22 @@ private slots:
     void on_inputB_textEdited(const QString &arg1);
 
     void on_inputA_editingFinished();
+    void on_inputB_editingFinished();
 
     void on_inputA_returnPressed();
+    void on_inputB_returnPressed();
 
     void on_pushButton_clicked();
 
     void on_listA_clicked(const QModelIndex &index);
+    void on_listB_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
 
     QGraphicsScene scene;
+    QGraphicsScene planScene;
 
 };
+bool plan(void);//尝试规划函数
 #endif // MAINWINDOW_H

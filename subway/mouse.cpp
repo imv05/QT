@@ -20,7 +20,7 @@ void CustomGraphicsView::mousePressEvent(QMouseEvent *event){
     }else{
         QPointF scenePos = mapToScene(event->pos());    // 将鼠标事件转换为场景坐标
         for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
-            if (item->data(itemType) == stationItem::myType) {//如果是站点
+            if (item->data(itemType) == StationItem::myType) {//如果是站点
                 // 获取圆形形状对象的注释内容
                 QString annotation = item->data(itemName).toString();
                 // 弹出包含注释内容的消息框
@@ -45,7 +45,7 @@ void CustomGraphicsView::mouseMoveEvent(QMouseEvent *event) {
         QList<QGraphicsItem*> items = scene_.items(scenePos);
         for (QGraphicsItem* item : items) {//items为所有范围包含点击时鼠标坐标的对象
             qDebug() << item->data(itemType);
-            if(item->data(itemType) == stationItem::myType){//如果该对象是车站
+            if(item->data(itemType) == StationItem::myType){//如果该对象是车站
                 name = item->data(itemName).toString();// 在点的范围内，获取点的数据并显示信息标签
                 QPointF viewPos = mapFromScene(item->sceneBoundingRect().center());
                 showInfoLabel(viewPos, name);

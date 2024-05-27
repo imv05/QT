@@ -4,11 +4,11 @@
 
 #include <climits>
 
-std::unordered_map<Station*, Station*> dijkstra(Station* start) {
-    std::unordered_map<Station*, int> distance; // 节点到源节点的最短距离
+std::unordered_map<Station*, Station*> dijkstra(Station* start, std::unordered_map<Station*, int>* timeMap) {
     std::unordered_map<Station*, Station*> previous; // 上一个节点（父节点）
     std::priority_queue<std::pair<int, Station*>, std::vector<std::pair<int, Station*>>, std::greater<std::pair<int, Station*>>> pq; // 优先队列，按照距离排序
 
+    std::unordered_map<Station*, int>& distance = *timeMap;
     // 初始化距离和previous哈希表
     for (auto station : allStations) {
         distance[station] = INT_MAX; // 假设INT_MAX表示无穷大
@@ -41,10 +41,10 @@ std::unordered_map<Station*, Station*> dijkstra(Station* start) {
 }
 
 // 使用示例：打印从起始站到目标站的路径
-void printPath(const std::unordered_map<Station*, Station*>& previous, Station* target) {
+QVector<Station*> getPath(const std::unordered_map<Station*, Station*>& previous, Station* target) {
     if (previous.find(target)==previous.end() || previous.at(target) == nullptr) {
         qDebug() << "No path found to" << target->stationName;
-        return;
+        return QVector<Station*>();
     }
 
     QVector<Station*> path;
