@@ -13,25 +13,25 @@ CONFIG += c++17
 SOURCES += \
     class.cpp \
     global.cpp \
+    item.cpp \
     load.cpp \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
     mouse.cpp \
     paint.cpp \
-    search.cpp \
-    stationitem.cpp
+    search.cpp
 
 HEADERS += \
     class.h \
     global.h \
+    item.h \
     load.h \
     mainwindow.h \
     menu.h \
     mouse.h \
     paint.h \
-    search.h \
-    stationitem.h
+    search.h
 
 FORMS += \
     mainwindow.ui \

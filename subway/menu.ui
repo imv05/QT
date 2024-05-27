@@ -50,7 +50,7 @@
     </font>
    </property>
    <property name="text">
-    <string>北京地铁线路总览</string>
+    <string>总览</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">

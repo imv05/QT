@@ -14,7 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGraphicsView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
@@ -30,7 +29,6 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QLabel *label;
     QLineEdit *inputA;
     QPushButton *pushButton;
     QListView *listA;
@@ -55,31 +53,30 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setAutoFillBackground(false);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        label = new QLabel(centralwidget);
-        label->setObjectName("label");
-        label->setGeometry(QRect(90, 0, 71, 41));
-        QFont font;
-        font.setPointSize(20);
-        label->setFont(font);
         inputA = new QLineEdit(centralwidget);
         inputA->setObjectName("inputA");
-        inputA->setGeometry(QRect(10, 50, 150, 31));
-        QFont font1;
-        font1.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221")});
-        font1.setPointSize(12);
-        inputA->setFont(font1);
+        inputA->setGeometry(QRect(29, 50, 131, 31));
+        QFont font;
+        font.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221")});
+        font.setPointSize(12);
+        inputA->setFont(font);
+        inputA->setFrame(true);
+        inputA->setDragEnabled(false);
+        inputA->setClearButtonEnabled(true);
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName("pushButton");
         pushButton->setGeometry(QRect(10, 10, 71, 31));
-        QFont font2;
-        font2.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221")});
-        font2.setPointSize(13);
-        pushButton->setFont(font2);
+        QFont font1;
+        font1.setFamilies({QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221")});
+        font1.setPointSize(13);
+        pushButton->setFont(font1);
         listA = new QListView(centralwidget);
         listA->setObjectName("listA");
-        listA->setGeometry(QRect(10, 80, 150, 121));
+        listA->setGeometry(QRect(29, 80, 131, 121));
+        listA->setAutoFillBackground(true);
         formLayoutWidget = new QWidget(centralwidget);
         formLayoutWidget->setObjectName("formLayoutWidget");
         formLayoutWidget->setGeometry(QRect(160, 0, 91, 221));
@@ -88,16 +85,15 @@ public:
         formLayout->setContentsMargins(0, 0, 0, 0);
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(880, 220, 461, 371));
+        graphicsView->setGeometry(QRect(250, 0, 1671, 1041));
         inputB = new QLineEdit(centralwidget);
         inputB->setObjectName("inputB");
-        inputB->setGeometry(QRect(10, 120, 150, 31));
-        inputB->setFont(font1);
+        inputB->setGeometry(QRect(29, 120, 131, 31));
+        inputB->setFont(font);
         listB = new QListView(centralwidget);
         listB->setObjectName("listB");
-        listB->setGeometry(QRect(10, 150, 150, 121));
+        listB->setGeometry(QRect(29, 150, 131, 121));
         MainWindow->setCentralWidget(centralwidget);
-        label->raise();
         pushButton->raise();
         formLayoutWidget->raise();
         graphicsView->raise();
@@ -108,7 +104,7 @@ public:
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
         menubar->setGeometry(QRect(0, 0, 1920, 27));
-        menubar->setFont(font1);
+        menubar->setFont(font);
         menumainWindow = new QMenu(menubar);
         menumainWindow->setObjectName("menumainWindow");
         menu_lastTrain = new QMenu(menubar);
@@ -119,6 +115,11 @@ public:
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
+        QWidget::setTabOrder(inputA, inputB);
+        QWidget::setTabOrder(inputB, pushButton);
+        QWidget::setTabOrder(pushButton, listA);
+        QWidget::setTabOrder(listA, listB);
+        QWidget::setTabOrder(listB, graphicsView);
 
         menubar->addAction(menumainWindow->menuAction());
         menubar->addAction(menu_lastTrain->menuAction());
@@ -132,20 +133,20 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "\346\220\234\347\264\242", nullptr));
 #if QT_CONFIG(whatsthis)
         inputA->setWhatsThis(QString());
 #endif // QT_CONFIG(whatsthis)
 #if QT_CONFIG(accessibility)
         inputA->setAccessibleName(QString());
 #endif // QT_CONFIG(accessibility)
-        inputA->setText(QCoreApplication::translate("MainWindow", "\350\265\267\347\202\271\350\275\246\347\253\231", nullptr));
+        inputA->setText(QString());
+        inputA->setPlaceholderText(QCoreApplication::translate("MainWindow", "\350\276\223\345\205\245\350\265\267\347\202\271\350\275\246\347\253\231", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "\350\277\224\345\233\236", nullptr));
 #if QT_CONFIG(whatsthis)
         inputB->setWhatsThis(QString());
 #endif // QT_CONFIG(whatsthis)
         inputB->setText(QCoreApplication::translate("MainWindow", "\347\273\210\347\202\271\350\275\246\347\253\231", nullptr));
-        menumainWindow->setTitle(QCoreApplication::translate("MainWindow", "mainWindow", nullptr));
+        menumainWindow->setTitle(QCoreApplication::translate("MainWindow", "\350\267\257\347\272\277\350\247\204\345\210\222", nullptr));
         menu_lastTrain->setTitle(QCoreApplication::translate("MainWindow", "\346\234\253\350\275\246\345\217\257\350\276\276", nullptr));
         menu_realTime->setTitle(QCoreApplication::translate("MainWindow", "\345\256\236\346\227\266\345\234\260\351\223\201", nullptr));
     } // retranslateUi

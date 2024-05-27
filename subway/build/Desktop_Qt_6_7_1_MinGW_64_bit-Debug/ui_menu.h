@@ -66,7 +66,7 @@ public:
     {
         menu->setWindowTitle(QCoreApplication::translate("menu", "Form", nullptr));
         pushButton->setText(QCoreApplication::translate("menu", "start", nullptr));
-        label->setText(QCoreApplication::translate("menu", "\345\214\227\344\272\254\345\234\260\351\223\201\347\272\277\350\267\257\346\200\273\350\247\210", nullptr));
+        label->setText(QCoreApplication::translate("menu", "\346\200\273\350\247\210", nullptr));
         label_2->setText(QCoreApplication::translate("menu", "-designed by lzy,zrj,xyx", nullptr));
         pushButton_2->setText(QCoreApplication::translate("menu", "exit", nullptr));
     } // retranslateUi

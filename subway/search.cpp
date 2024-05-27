@@ -22,7 +22,6 @@ std::unordered_map<Station*, Station*> dijkstra(Station* start) {
     while (!pq.empty()) {
         auto [currDist, currStation] = pq.top();
         pq.pop();
-
         // 遍历当前节点的所有邻居
         for (const auto& conn : currStation->cList) {
             Station* neighbor = conn.to;

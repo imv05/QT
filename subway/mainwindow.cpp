@@ -8,13 +8,18 @@
 #include <QMessageBox>
 #include <QStringList>
 #include <QStringListModel>
+#include <QLabel>
 #include <QSplitter>
+#include "qdebug.h"
 
 QSplitter* splitter;
+QStringList matchingStationsA;
+QStringList matchingStationsB;
+Station* stationA = nullptr;
+Station* stationB = nullptr;
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     //设置场景的背景和大小
@@ -22,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     scene.setBackgroundBrush(QBrush(Qt::white));
     //在场景中添加图形项
     paint(scene);
-
+    qDebug() << "Enter mainwindow";
     CustomGraphicsView* view = new CustomGraphicsView(scene, this);
     view->setScene(&scene);
 
@@ -61,34 +66,53 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_inputA_textEdited(const QString &arg1)
 {
-    QStringList matchingStations;
-    matchingStations.clear();
+    matchingStationsA.clear();
     QRegularExpression rx("^[A-Za-z]+$");
     if (arg1.contains(rx)) {//如果输入的字符串是纯字母，则进行拼音匹配
         for(auto station: allStationNames){
             QString name = station->stationName;
             QString pinyin(station->stationEngName);
-            QRegularExpression argpy(arg1);//检查“子串”而非直接包含，支持简拼
+            QRegularExpression argpy(arg1);
             if(pinyin.contains(argpy)){
-                matchingStations.append(name);
+                matchingStationsA.append(name);
             }
         }
     } else { //如果输入的字符串不是纯字母，则进行中文站名匹配
         for(auto station: allStationNames){
             QString name = station->stationName;
             if(name.contains(arg1)){
-                matchingStations.append(name);
+                matchingStationsA.append(name);
             }
         }
     }
-    QStringListModel* model= new QStringListModel(matchingStations,this);
+    QStringListModel* model= new QStringListModel(matchingStationsA, this);
     ui->listA->setModel(model);
     ui->listA->show();
 }
 void MainWindow::on_inputB_textEdited(const QString &arg1)
 {
-
-    ui->listB->show();
+    matchingStationsA.clear();
+    QRegularExpression rx("^[A-Za-z]+$");
+    if (arg1.contains(rx)) {//如果输入的字符串是纯字母，则进行拼音匹配
+        for(auto station: allStationNames){
+            QString name = station->stationName;
+            QString pinyin(station->stationEngName);
+            QRegularExpression argpy(arg1);
+            if(pinyin.contains(argpy)){
+                matchingStationsA.append(name);
+            }
+        }
+    } else { //如果输入的字符串不是纯字母，则进行中文站名匹配
+        for(auto station: allStationNames){
+            QString name = station->stationName;
+            if(name.contains(arg1)){
+                matchingStationsA.append(name);
+            }
+        }
+    }
+    QStringListModel* model= new QStringListModel(matchingStationsA, this);
+    ui->listA->setModel(model);
+    ui->listA->show();
 }
 void MainWindow::on_inputA_returnPressed()
 {
@@ -96,14 +120,11 @@ void MainWindow::on_inputA_returnPressed()
     for(auto station:allStations){
         auto name=station->stationName;
         QString input=ui->inputA->text();
-        if(name.contains(input)){
-            //YOUR CODE HERE
-            //高亮所有找到的地方
-
-
+        if(name == input){ //按Enter键的，要求他完全匹配才行
             QMessageBox *find=new QMessageBox;//这个messagebox仅用于调试，以后会删除
             find->setWindowTitle("提示");
             find->setInformativeText("找到了该站！");
+            stationA = allStationNames[name];
             find->setDefaultButton(QMessageBox::Ok);
             int result=find->exec();
             if(result==QMessageBox::Ok){
@@ -112,7 +133,11 @@ void MainWindow::on_inputA_returnPressed()
             flag=true;
         }
     }
-    if(!flag){
+    if(flag){
+        ui->inputA->clearFocus();
+        ui->inputB->setFocus();
+    }else{
+        ui->inputA->setText(QString(""));
         QMessageBox *err=new QMessageBox;
         err->setWindowTitle("提示");
         err->setInformativeText("没有找到该站");
@@ -123,7 +148,6 @@ void MainWindow::on_inputA_returnPressed()
         }
     }
 }
-
 
 void MainWindow::on_inputA_editingFinished()
 {
@@ -140,19 +164,19 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_listA_clicked(const QModelIndex &index)
 {
-    QString selectedText = index.data(Qt::DisplayRole).toString();
-    for(auto station:allStations){
-        QString name=station->stationName;
-        if(name.contains(selectedText)&&selectedText.contains(name)){
-            ui->listA->hide();
-            QMessageBox* msg=new QMessageBox;
-            msg->setInformativeText("点击了对应的站");
-            msg->setDefaultButton(QMessageBox::Ok);
-            int result=msg->exec();
-            if(result==QMessageBox::Ok){
-                delete msg;
-            }
-        }
+    ui->listA->hide();
+    QString selectedName = matchingStationsA.value(index.row());
+    ui->inputA->clearFocus();
+    ui->inputB->setFocus();
+
+    QMessageBox* msg=new QMessageBox;
+    msg->setInformativeText("点击了" + selectedName);
+    ui->inputA->setText(selectedName);
+    stationA = allStationNames[selectedName];
+    msg->setDefaultButton(QMessageBox::Ok);
+    int result=msg->exec();
+    if(result==QMessageBox::Ok){
+        delete msg;
     }
 }
 

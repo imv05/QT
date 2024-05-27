@@ -1,6 +1,8 @@
 #include "mouse.h"
+#include "item.h"
+#include <QDebug>
 
-#include<QGraphicsView>
+#include <QGraphicsView>
 #include <QWheelEvent>
 #include <QMessageBox>
 #include <QGraphicsItem>
@@ -12,65 +14,48 @@ CustomGraphicsView::CustomGraphicsView(QGraphicsScene& scene, QWidget *parent)
 // 重写鼠标按下事件
 void CustomGraphicsView::mousePressEvent(QMouseEvent *event){
     if (event->button() == Qt::RightButton) {
-        // 记录当前鼠标位置
-        lastMousePos = event->pos();
-        // 设置为正在拖动状态
-        isDragging = true;
-        // 设置鼠标抓手形状
-        setCursor(Qt::ClosedHandCursor);
-    }
-    else{
-        // 将鼠标事件转换为场景坐标
-        QPointF scenePos = mapToScene(event->pos());
-
-        // 检查每个形状对象是否被点击
-        for (QGraphicsItem *item : scene_.items(scenePos)) {
-            if (item->type() == QGraphicsEllipseItem::Type) {
+        lastMousePos = event->pos();    // 记录当前鼠标位置
+        isDragging = true;      //设置拖拽状态
+        setCursor(Qt::ClosedHandCursor);    // 设置鼠标抓手形状
+    }else{
+        QPointF scenePos = mapToScene(event->pos());    // 将鼠标事件转换为场景坐标
+        for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
+            if (item->data(itemType) == stationItem::myType) {//如果是站点
                 // 获取圆形形状对象的注释内容
-                QString annotation = item->data(Qt::UserRole).toString();
+                QString annotation = item->data(itemName).toString();
                 // 弹出包含注释内容的消息框
                 QMessageBox::information(this, "title", annotation);
                 return;
             }
         }
-
     }
     QGraphicsView::mousePressEvent(event);
 }
 // 重写鼠标移动事件
 void CustomGraphicsView::mouseMoveEvent(QMouseEvent *event) {
     if (isDragging) {
-        // 计算鼠标移动的距离
-        QPoint delta = event->pos() - lastMousePos;
-        // 平移视图
-        translate(delta.x(), delta.y());
-        // 更新上次鼠标位置
-        lastMousePos = event->pos();
-    }
-    else{
-        QGraphicsView::mouseMoveEvent(event);
-        // 将鼠标位置转换为场景坐标
-        QPointF scenePos = mapToScene(event->pos());
+        QPoint delta = event->pos() - lastMousePos; // 计算鼠标移动的距离
+        translate(delta.x(), delta.y());    // 平移视图
+        lastMousePos = event->pos();    // 更新上次鼠标位置
+    }else{
+        QPointF scenePos = mapToScene(event->pos());    // 将鼠标位置转换为场景坐标
         // 检查是否在点的范围内
-        QGraphicsScene* scene = this->scene();
-        if (scene) {
-            bool foundPoint = false; // 用于标记是否找到了点
-            QString name;
-            QList<QGraphicsItem*> items = scene->items(scenePos);
-            for (QGraphicsItem* item : items) {
-                if (item->type() == QGraphicsEllipseItem::Type) {
-                    // 在点的范围内，获取点的数据并显示信息标签
-                    name = item->data(Qt::UserRole).toString();
-                    QPointF viewPos = mapFromScene(item->sceneBoundingRect().center());
-                    showInfoLabel(viewPos, name);
-                    foundPoint = true;
-                    break; // 找到了点就退出循环
-                }
+        bool foundPoint = false; // 用于标记是否找到了点
+        QString name;
+        QList<QGraphicsItem*> items = scene_.items(scenePos);
+        for (QGraphicsItem* item : items) {//items为所有范围包含点击时鼠标坐标的对象
+            qDebug() << item->data(itemType);
+            if(item->data(itemType) == stationItem::myType){//如果该对象是车站
+                name = item->data(itemName).toString();// 在点的范围内，获取点的数据并显示信息标签
+                QPointF viewPos = mapFromScene(item->sceneBoundingRect().center());
+                showInfoLabel(viewPos, name);
+                foundPoint = true;
+                break; // 找到了点就退出循环
             }
-            if (!foundPoint) {
-                // 如果没有找到点，则隐藏信息标签
-                hideInfoLabel();
-            }
+        }
+        if (!foundPoint) {
+            // 如果没有找到点，则隐藏信息标签
+            hideInfoLabel();
         }
     }
     QGraphicsView::mouseMoveEvent(event);
@@ -91,8 +76,6 @@ void CustomGraphicsView::wheelEvent(QWheelEvent *event){
     qreal angleDelta = event->angleDelta().y();
     // 计算缩放比例
     qreal scaleFactor = qPow(1.2, angleDelta / 120);
-    // 获取当前变换矩阵
-    QTransform currentTransform = transform();
     // 将变换中心设置为滚轮事件发生的位置
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     // 缩放视图
