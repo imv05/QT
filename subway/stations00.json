@@ -1,0 +1,205 @@
+[
+    {
+        "lineId": 1,
+        "lineName": "1号线八通线",
+        "lineEngName": "Subway Line 1",
+        "loop": false,
+        "color": "#BE3631",
+        "interval": 6,
+        "stationList":[
+            {
+                "stationId": 3,
+                "stationName": "古城",
+                "stationEngName": "Gucheng",
+                "available": true,
+                "interchangeList": [],
+                "floor": -2,
+                "scenery": null,
+                "connectionList": [
+                    {
+                        "nextStationId": 4,
+                        "timeM": 3,
+                        "timeS": 0,
+                        "dist": 1921
+                    }
+                ],
+                "operationList": [
+                    {
+                        "terminal": "开往：环球度假区",
+                        "terminalId": 37,
+                        "nextStationId": 4,
+                        "firstH": 4,
+                        "firstM": 57,
+                        "lastH": 22,
+                        "lastM": 51
+                    },{
+                        "terminal": "终点站：四惠东",
+                        "terminalId": 24,
+                        "nextStationId": 4,
+                        "lastH": 23,
+                        "lastM": 33
+                    }
+                ],
+                "screen":{
+                    "x": 197,
+                    "y": 347,
+                    "tx": 189,
+                    "ty": 349
+                }
+            },
+            {
+                "stationId": 4,
+                "stationName": "八角游乐园",
+                "stationEngName": "Bajiao Amusement Park",
+                "available": true,
+                "interchange": 0,
+                "interchangeList": [],
+                "floor": -2,
+                "scenery": "可前往八角游乐园",
+                "connectionList": [
+                    {
+                        "nextStationId": 3,
+                        "timeM": 3,
+                        "timeS": 0,
+                        "dist": 1921
+                    },{
+                        "nextStationId": 5,
+                        "timeM": 3,
+                        "timeS": 0,
+                        "dist": 1953
+                    }
+                ],
+                "operationList": [
+                    {
+                        "terminal": "终点站：古城",
+                        "terminalId": 3,
+                        "nextStationId": 3,
+                        "firstH": 5,
+                        "firstM": 31,
+                        "lastH": 0,
+                        "lastM": 17
+                    },
+                    {
+                        "terminal": "开往：环球度假区",
+                        "terminalId": 37,
+                        "nextStationId": 5,
+                        "firstH": 5,
+                        "firstM": 0,
+                        "lastH": 22,
+                        "lastM": 54
+                    },
+                    {
+                        "terminal": "终点站：四惠东",
+                        "terminalId": 24,
+                        "nextStationId": 5,
+                        "lastH": 23,
+                        "lastM": 36
+                    }
+                ],
+                "screen":{
+                    "x": 222,
+                    "y": 347,
+                    "tx": 204,
+                    "ty": 335
+                },
+                "note": "付费区内不可换向"
+            }
+        ]
+    },
+    {
+        "lineId": 2,
+        "lineName": "地铁2号线",
+        "lineEngName": "Subway Line 2",
+        "loop": true,
+        "color": "0F6192",
+        "interval": 6,
+        "stationList":[
+            {
+                "stationId": 1,
+                "stationName": "西直门",
+                "stationEngName": "Xizhimen",
+                "available": true,
+                "interchange": 2,
+                "interchangeList": [
+                    {
+                        "lineId": 4,
+                        "stationId": 12,
+                        "time": 1,
+                        "elevator": false,
+                        "note": "站台中部下一层即可到达"
+                    },
+                    {
+                        "lineId": 13,
+                        "stationId": 1,
+                        "time": 5,
+                        "elevator": false,
+                        "note": "长通道换乘，位于站台北侧"
+                    }
+                ],
+                "floor": -2,
+                "scenery": "可前往国铁北京北站，请从A口出站",
+                "connectionList": [
+                    {
+                        "nextStationId": 3,
+                        "timeM": 3,
+                        "timeS": 0,
+                        "dist": 1921
+                    },{
+                        "nextStationId": 5,
+                        "timeM": 3,
+                        "timeS": 0,
+                        "dist": 1953
+                    }
+                ],
+                "operationList": [
+                    {
+                        "terminal": "内环 全程",
+                        "terminalId": 0,
+                        "nextStationId": 2,
+                        "firstH": 5,
+                        "firstM": 33,
+                        "lastH": 22,
+                        "lastM": 59
+                    },{
+                        "terminal": "外环 全程",
+                        "terminalId": -1,
+                        "nextStationId": 18,
+                        "firstH": 5,
+                        "firstM": 9,
+                        "lastH": 22,
+                        "lastM": 14
+                    },{
+                        "terminal": "外环 终点站：积水潭",
+                        "terminalId": 2,
+                        "nextStationId": 18,
+                        "lastH": 22,
+                        "lastM": 59
+                    }
+                ],
+                "screen":{
+                    "x": 197,
+                    "y": 347,
+                    "tx": 189,
+                    "ty": 349
+                },
+                "note": "样例提示信息"
+            },{
+
+            }]
+    },{
+        "lineId": 4,
+        "lineName": "地铁4号线",
+        "lineEngName": "Subway Line 4",
+        "loop": true,
+        "color": "00FF00",
+        "interval": 4,
+        "stationList":[
+            {
+                
+            }
+        ]
+    }
+    
+
+
+]

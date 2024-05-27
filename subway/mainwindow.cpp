@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     //设置场景的背景和大小
-    scene.setSceneRect(0, 0, 1920, 1080);
+    scene.setSceneRect(0, 0, 4536, 2990);
     scene.setBackgroundBrush(QBrush(Qt::white));
     //在场景中添加图形项
     paint(scene);
