@@ -1,5 +1,7 @@
 #include "mouse.h"
 #include "item.h"
+#include "paint.h"
+#include "search.h"
 #include <QDebug>
 
 #include <QGraphicsView>
@@ -8,7 +10,7 @@
 #include <QGraphicsItem>
 
 CustomGraphicsView::CustomGraphicsView(QGraphicsScene& scene, QWidget *parent)
-        : QGraphicsView(parent), isDragging(false), scene_(scene){
+    : QGraphicsView(parent), isDragging(false), scene_(scene){
     setMouseTracking(true); // 开启鼠标跟踪
 };
 // 重写鼠标按下事件
@@ -21,10 +23,13 @@ void CustomGraphicsView::mousePressEvent(QMouseEvent *event){
         QPointF scenePos = mapToScene(event->pos());    // 将鼠标事件转换为场景坐标
         for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
             if (item->data(itemType) == StationItem::myType) {//如果是站点
-                // 获取圆形形状对象的注释内容
-                QString annotation = item->data(itemName).toString();
+                QString sname = item->data(itemName).toString();
+                Plan::stationA = allStationNames[sname];
+                Plan::makePlan();
+                paintTime(scene_, Plan::timeMap);
                 // 弹出包含注释内容的消息框
-                QMessageBox::information(this, "title", annotation);
+                QMessageBox::information(this, "title", sname+"到各站的时间（分钟）");
+                clearTime(scene_);
                 return;
             }
         }
@@ -43,12 +48,10 @@ void CustomGraphicsView::mouseMoveEvent(QMouseEvent *event) {
         bool foundPoint = false; // 用于标记是否找到了点
         QString name;
         QList<QGraphicsItem*> items = scene_.items(scenePos);
-        for (QGraphicsItem* item : items) {//items为所有范围包含点击时鼠标坐标的对象
-            qDebug() << item->data(itemType);
+        for (QGraphicsItem* item : items) {//items是所有范围包含点击时鼠标坐标的对象
             if(item->data(itemType) == StationItem::myType){//如果该对象是车站
-                name = item->data(itemName).toString();// 在点的范围内，获取点的数据并显示信息标签
-                QPointF viewPos = mapFromScene(item->sceneBoundingRect().center());
-                showInfoLabel(viewPos, name);
+                name = item->data(itemName).toString();//获取点的数据并显示信息标签
+                showInfoLabel(item->sceneBoundingRect().center(), name);
                 foundPoint = true;
                 break; // 找到了点就退出循环
             }
@@ -84,7 +87,7 @@ void CustomGraphicsView::wheelEvent(QWheelEvent *event){
 void CustomGraphicsView::showInfoLabel(const QPointF& pos, const QString& text){
     if (!m_infoLabel) {
         m_infoLabel = new QGraphicsTextItem(text);
-        m_infoLabel->setFont(QFont("黑体"));
+        m_infoLabel->setFont(QFont("微软雅黑"));
         m_infoLabel->setDefaultTextColor(Qt::black);
         scene()->addItem(m_infoLabel);
     }

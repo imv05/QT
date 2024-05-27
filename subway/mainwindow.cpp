@@ -10,14 +10,11 @@
 #include <QStringListModel>
 #include <QLabel>
 #include <QSplitter>
-#include "qdebug.h"
 
 QSplitter* splitter;
 QStringList matchingStationsA;
 QStringList matchingStationsB;
-Station* stationA = nullptr;
-Station* stationB = nullptr;
-std::unordered_map<Station*, int> timeMap;
+
 QVector<Station*> planPath;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -117,7 +114,7 @@ void MainWindow::on_inputA_editingFinished()
         auto name=station->stationName;
         QString input=ui->inputA->text();
         if(name == input){ //按Enter键的，要求他完全匹配才行
-            stationA = allStationNames[name];
+            Plan::stationA = allStationNames[name];
             flag=true;
         }
     }
@@ -129,31 +126,24 @@ void MainWindow::on_inputA_editingFinished()
     }
     ui->listA->hide();//无论输的对不对，离开inputA后，listA均需要隐藏
 }
-void MainWindow::on_inputA_returnPressed(){}
-void MainWindow::on_inputB_returnPressed()
+
+void MainWindow::on_inputB_editingFinished()
 {
     bool flag=false;
     for(auto station:allStations){
         auto name=station->stationName;
         QString input=ui->inputB->text();
         if(name == input){ //按Enter键的，要求他完全匹配才行
-            stationB = allStationNames[name];
+            Plan::stationB = allStationNames[name];
             flag=true;
         }
     }
     if(flag){
         ui->inputB->clearFocus();
-        plan();//尝试
+        Plan::makePlan();//尝试规划
     }else{
         ui->inputB->setText(QString(""));
     }
-}
-// void MainWindow::on_inputA_editingFinished()
-// {
-//     ui->listA->hide();
-// }
-void MainWindow::on_inputB_editingFinished()
-{
     ui->listB->hide();
 }
 
@@ -169,7 +159,7 @@ void MainWindow::on_listA_clicked(const QModelIndex &index)
     ui->listA->hide();
     QString selectedName = matchingStationsA.value(index.row());
     ui->inputA->setText(selectedName);
-    stationA = allStationNames[selectedName];
+    Plan::stationA = allStationNames[selectedName];
     ui->inputA->clearFocus();
     ui->inputB->setFocus();
 }
@@ -178,22 +168,10 @@ void MainWindow::on_listB_clicked(const QModelIndex &index)
     ui->listB->hide();
     QString selectedName = matchingStationsB.value(index.row());
     ui->inputB->setText(selectedName);
-    stationB = allStationNames[selectedName];
+    Plan::stationB = allStationNames[selectedName];
     ui->inputB->clearFocus();
-    plan(); //尝试进行规划
+    Plan::makePlan(); //尝试进行规划
 }
-bool plan(void){
-    qDebug() << "Enter plan";
-    if(stationA&&stationB){//起终点均已给出，开始规划
-        std::unordered_map<Station*, Station*> uom = dijkstra(stationA, &timeMap);
-        planPath = getPath(uom, stationB);
-        for(auto planNode: planPath){
 
-        }
-        return true;
-    }else{//起终点中有nullptr，失败
-        return false;
-    }
-}
 
 

@@ -2,7 +2,8 @@
 #include <QGraphicsScene>
 #include <QDebug>
 
-StationItem::StationItem(int x, int y): QGraphicsEllipseItem(x-3, y-3, 6, 6) {
+StationItem::StationItem(int x, int y): QGraphicsEllipseItem(0, 0, 6, 6) {
+    setPos(x-3, y-3);
 }
 void StationItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
     qDebug() << "Mouse entered the item";

@@ -1,12 +1,12 @@
 #include "global.h"
-#include "class.h"
+#include "paint.h"
 #include "item.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsItem>
-
+QVector<QGraphicsTextItem*> numberItemList;
 void paintLine(QGraphicsScene& sc, Line* cLine){
-    QFont stationFont("黑体", 6);
+    QFont stationFont("微软雅黑", 10);
     for(auto it: cLine->stationMap){
         QPen pen(Qt::white);
         pen.setWidth(1);
@@ -36,6 +36,19 @@ void paint(QGraphicsScene& sc){
         it++;
     }
 }
-void paintTime(std::unordered_map<Station*, int> timeMap){
+void paintTime(QGraphicsScene& sc, std::unordered_map<Station*, int> timeMap){
+    for(auto sit: allStationNames){
+        numberItemList.push_back(sc.addText(QString::number(timeMap[sit]/60)));
+        auto nitem = numberItemList.back();
+        nitem->setPos(sit->item->pos());
+        nitem->setFont(QFont("微软雅黑", 10));
 
+    }
+}
+void clearTime(QGraphicsScene& sc){
+    for(auto it: numberItemList){
+        sc.removeItem(it);
+        delete it;
+    }
+    numberItemList.clear();
 }

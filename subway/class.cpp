@@ -1,5 +1,6 @@
 #include "class.h"
 
+
 #include <QDebug>
 #include <iostream>
 
@@ -94,3 +95,4 @@ Connection::Connection(json jconnection, Station* cStation){   //使用json jcon
         //此时last表示此方向最晚的末班车
     }
 }
+

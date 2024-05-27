@@ -7,6 +7,7 @@
 #include <QString>
 #include <QVector>
 #include <QGraphicsItem>
+#include <unordered_map>
 
 class Line;
 class Station;
@@ -87,10 +88,10 @@ public:
     Station* operator[](int stationId);
 };
 
-struct Path{
-    QPair<int, int> origin;
+struct Path{//路径类
+    QPair<int, int> start;
     QVector<QPair<int, int> > anchor;
-    QPair<int, int> destination;
+    QPair<int, int> end;
 };
 
 extern QMap<int, Line*> lineMap;

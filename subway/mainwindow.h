@@ -33,9 +33,6 @@ private slots:
     void on_inputA_editingFinished();
     void on_inputB_editingFinished();
 
-    void on_inputA_returnPressed();
-    void on_inputB_returnPressed();
-
     void on_pushButton_clicked();
 
     void on_listA_clicked(const QModelIndex &index);

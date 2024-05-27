@@ -4,11 +4,16 @@
 
 #include <climits>
 
-std::unordered_map<Station*, Station*> dijkstra(Station* start, std::unordered_map<Station*, int>* timeMap) {
+Station* Plan::stationA = nullptr;
+Station* Plan::stationB = nullptr;
+std::unordered_map<Station*, Station*> Plan::last_of;
+std::unordered_map<Station*, int> Plan::timeMap;
+QVector<Station*> Plan::planRoute;
+
+std::unordered_map<Station*, Station*> dijkstra(Station* start) {
     std::unordered_map<Station*, Station*> previous; // 上一个节点（父节点）
     std::priority_queue<std::pair<int, Station*>, std::vector<std::pair<int, Station*>>, std::greater<std::pair<int, Station*>>> pq; // 优先队列，按照距离排序
-
-    std::unordered_map<Station*, int>& distance = *timeMap;
+    std::unordered_map<Station*, int>& distance = Plan::timeMap;
     // 初始化距离和previous哈希表
     for (auto station : allStations) {
         distance[station] = INT_MAX; // 假设INT_MAX表示无穷大
@@ -26,7 +31,6 @@ std::unordered_map<Station*, Station*> dijkstra(Station* start, std::unordered_m
         for (const auto& conn : currStation->cList) {
             Station* neighbor = conn.to;
             int newDistance = distance[currStation] + conn.time;
-
             // 如果通过当前节点到达邻居的距离更短，则更新距离和previous哈希表
             if (newDistance < distance[neighbor]) {
                 distance[neighbor] = newDistance;
@@ -35,7 +39,6 @@ std::unordered_map<Station*, Station*> dijkstra(Station* start, std::unordered_m
             }
         }
     }
-
     // 返回previous哈希表，用于回溯路径
     return previous;
 }
@@ -55,5 +58,26 @@ QVector<Station*> getPath(const std::unordered_map<Station*, Station*>& previous
     qDebug() << "Path from start to" << target->stationName << ":";
     for (Station* station : path) {
         qDebug() << station->line->lineName << " " << station->stationName;
+    }
+    return path;
+}
+
+bool Plan::makePlan(void){
+    qDebug() << "Enter plan";
+    if(stationA){//起点已给出，即可开始规划
+        last_of = dijkstra(stationA);//算法返回最后一步，用于回溯。
+
+        return true;
+    }else{//起终点中有nullptr，失败
+        return false;
+    }
+}
+bool Plan::getRoute(void){
+    qDebug() << "trying to get route";
+    if(stationB){//终点已给出，可以开始回溯
+        planRoute = getPath(last_of, stationB);//完成回溯，输出起点到终点的路线
+        for(auto planNode: planRoute){
+
+        }
     }
 }

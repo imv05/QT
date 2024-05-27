@@ -76,12 +76,12 @@ public:
         pushButton->setFont(font1);
         listA = new QListView(centralwidget);
         listA->setObjectName("listA");
-        listA->setGeometry(QRect(29, 80, 131, 121));
+        listA->setGeometry(QRect(29, 80, 131, 131));
         listA->setFont(font);
         listA->setAutoFillBackground(true);
         formLayoutWidget = new QWidget(centralwidget);
         formLayoutWidget->setObjectName("formLayoutWidget");
-        formLayoutWidget->setGeometry(QRect(160, 0, 91, 271));
+        formLayoutWidget->setGeometry(QRect(160, 20, 91, 261));
         formLayout = new QFormLayout(formLayoutWidget);
         formLayout->setObjectName("formLayout");
         formLayout->setContentsMargins(0, 0, 0, 0);
@@ -95,7 +95,7 @@ public:
         inputB->setClearButtonEnabled(true);
         listB = new QListView(centralwidget);
         listB->setObjectName("listB");
-        listB->setGeometry(QRect(29, 150, 131, 121));
+        listB->setGeometry(QRect(29, 150, 131, 131));
         listB->setFont(font);
         listB->setAutoFillBackground(true);
         planView = new QGraphicsView(centralwidget);
