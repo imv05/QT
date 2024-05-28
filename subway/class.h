@@ -83,7 +83,7 @@ public:
     QColor color;
     QMap<int, Station*> stationMap;         //<int stationId, Station*>
     int stationCnt;
-    QMap<QPair<Station*, Station*>, QPointF>
+
 public:
     Line(json jLine);
     void initializeConnectionLine(json jLine);

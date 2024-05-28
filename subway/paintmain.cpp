@@ -7,7 +7,7 @@
 //直径：换乘站40，非换乘站26，线条粗16，典型站间距横向95，纵向57。字体高27
 QVector<QGraphicsTextItem*> numberItemList;
 void paintLine(QGraphicsScene& sc, Line* cLine){
-    QFont stationFont("微软雅黑", 27);
+    QFont stationFont("微软雅黑", 12);
     for(auto it: cLine->stationMap){
         QPen pen(Qt::white);
         pen.setWidth(1);
