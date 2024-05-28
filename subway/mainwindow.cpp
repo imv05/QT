@@ -11,7 +11,8 @@
 #include <QStringListModel>
 #include <QLabel>
 #include <QSplitter>
-
+#include <QVector>
+#include <QDebug>
 QSplitter* splitter;
 QStringList matchingStationsA;
 QStringList matchingStationsB;
@@ -59,11 +60,41 @@ MainWindow::MainWindow(QWidget *parent)
     for(int i=0; i<lineCnt; i++){
         QLabel* colorLabel =new QLabel(this);
         colorLabel->setStyleSheet(QString("background-color:%1;").arg(allColor[i].name()));
-        QLabel* text=new QLabel(allName[i], this);
+        QPushButton* text=new QPushButton(allName[i]);
+        text->setStyleSheet("QPushButton { text-align: left; }");
+        buttonManage.append(text);
+        connect(text,&QPushButton::clicked,this,&MainWindow::buttonclicked);
+        // QLabel* text=new QLabel(allName[i], this);
         // text->setStyleSheet(QString("color:#000000;"));
         ui->formLayout->addRow(colorLabel, text);
     }
 
+    QAction* quitAction = ui->menubar->addAction("退出");
+    connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
+    // // 直接在菜单项写
+    // QAction* desiredAction = ui->menubar->addAction("action");
+    // connect(desiredAction, &QAction::triggered, qApp, &func);
+    // // 写子菜单
+    // QMenu* menu = ui->menubar->addMenu("YOUR MENU");
+    // QAction* desiredAction1 = ui->menubar->addAction("action1");
+    // connect(desiredAction1, &QAction::triggered, qApp, &func1);
+    // QAction* desiredAction2 = ui->menubar->addAction("action2");
+    // connect(desiredAction2, &QAction::triggered, qApp, &func2);
+    // menu->addSeparator();//建立另一个父菜单
+
+}
+
+void MainWindow::buttonclicked(){
+    auto* button = qobject_cast<QPushButton*>(sender());
+    if(button){
+        for(auto* b:buttonManage){
+            if(b==button){
+                //YOUR CODE HERE
+                qDebug() << "button clicked" << b->text() << Qt::endl;
+                break;
+            }
+        }
+    }
 }
 
 MainWindow::~MainWindow()

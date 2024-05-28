@@ -11,7 +11,7 @@
 #include <QCompleter>
 #include <QStringList>
 #include <QStringListModel>
-
+#include <QPushButton>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -39,11 +39,13 @@ private slots:
     void on_listA_clicked(const QModelIndex &index);
     void on_listB_clicked(const QModelIndex &index);
 
+    void buttonclicked();
 private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;
 public:
     QGraphicsScene planScene;
+    QVector<QPushButton*> buttonManage;
 
 };
 bool plan(void);//尝试规划函数
