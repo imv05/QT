@@ -54,14 +54,16 @@ QVector<Station*> getPath(const std::unordered_map<Station*, Station*>& previous
     for (Station* current = target; current != nullptr; current = previous.at(current)) {
         path.prepend(current); // 反向添加节点到路径中
     }
-    if(path.size()>=2){
-        if(path[0]->lineId != path[1]->lineId){
-            path.pop_front();
-        }
-        if(path[path.size()-1]->lineId != path[path.size()-2]->lineId){
-            path.pop_back();
-        }
-    }
+    // if(path.size()>=2){
+    //     if(path[0]->lineId != path[1]->lineId){
+    //         path.pop_front();
+    //     }
+    //     if(path.size()>=2){
+    //         if(path[path.size()-1]->lineId != path[path.size()-2]->lineId){
+    //             path.pop_back();
+    //         }
+    //     }
+    // }
     // qDebug() << "Path from start to" << target->stationName << ":";
     // for (Station* station : path) {
     //     qDebug() << station->line->lineName << " " << station->stationName;
@@ -73,21 +75,19 @@ bool Plan::makePlan(void){
     qDebug() << "Enter plan";
     if(stationA){//起点已给出，即可开始规划
         last_of = dijkstra(stationA);//算法返回最后一步，用于回溯。
-
+        qDebug() << last_of.size();
         return true;
-    }else{//起终点中有nullptr，失败
+    }else{//起点为nullptr，失败
         return false;
     }
 }
-bool Plan::getRoute(void){
-    qDebug() << "trying to get route";
-    if(stationB){//终点已给出，可以开始回溯
+bool Plan::getRoute(void){//规划成功返回true
+    if(stationA && stationB && stationA != stationB){//终点已给出，可以开始回溯
+        qDebug() << "trying to get route";
         planRoute = getPath(last_of, stationB);//完成回溯，输出起点到终点的路线
         for(auto planNode: planRoute){
             qDebug() << planNode->line->lineName << planNode->stationName;
         }
-        paintPlan(planScene);
-    }
-    //paintPlan(MainWindow::planScene);
-
+        return true;
+    }else return false;
 }
