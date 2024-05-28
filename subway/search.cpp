@@ -80,5 +80,6 @@ bool Plan::getRoute(void){
             qDebug() << planNode->line->lineName << planNode->stationName;
         }
     }
+    //paintPlan(MainWindow::planScene);
 
 }

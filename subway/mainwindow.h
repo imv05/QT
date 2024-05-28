@@ -1,7 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "mouse.h"
+#include "mainview.h"
+#include "planview.h"
 
 #include <QMainWindow>
 #include <QPainter>
@@ -40,8 +41,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
     QGraphicsScene scene;
+public:
     QGraphicsScene planScene;
 
 };

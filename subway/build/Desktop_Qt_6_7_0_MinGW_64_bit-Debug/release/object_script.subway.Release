@@ -3,10 +3,12 @@ release/global.o
 release/item.o
 release/load.o
 release/main.o
+release/mainview.o
 release/mainwindow.o
 release/menu.o
-release/mouse.o
-release/paint.o
+release/paintmain.o
+release/paintplan.o
+release/planview.o
 release/search.o
 release/qrc_resources.o
 release/moc_mainwindow.o

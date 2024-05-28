@@ -3,10 +3,12 @@ debug/global.o
 debug/item.o
 debug/load.o
 debug/main.o
+debug/mainview.o
 debug/mainwindow.o
 debug/menu.o
-debug/mouse.o
-debug/paint.o
+debug/paintmain.o
+debug/paintplan.o
+debug/planview.o
 debug/search.o
 debug/qrc_resources.o
 debug/moc_mainwindow.o

@@ -1,8 +1,10 @@
 #ifndef ITEM_H
 #define ITEM_H
+
 #include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
 #include <QtSvgWidgets/QGraphicsSvgItem>
+
 extern const int itemType;
 extern const int itemName;
 extern const int itemHighlight;
