@@ -16,10 +16,12 @@ SOURCES += \
     item.cpp \
     load.cpp \
     main.cpp \
+    mainview.cpp \
     mainwindow.cpp \
     menu.cpp \
-    mouse.cpp \
-    paint.cpp \
+    paintmain.cpp \
+    paintplan.cpp \
+    planview.cpp \
     search.cpp
 
 HEADERS += \
@@ -27,10 +29,12 @@ HEADERS += \
     global.h \
     item.h \
     load.h \
+    mainview.h \
     mainwindow.h \
     menu.h \
-    mouse.h \
-    paint.h \
+    paintmain.h \
+    paintplan.h \
+    planview.h \
     search.h
 
 FORMS += \

@@ -2,7 +2,8 @@
 #include "ui_mainwindow.h"
 #include "class.h"
 #include "menu.h"
-#include "paint.h"
+#include "paintmain.h"
+#include "paintplan.h"
 #include "search.h"
 
 #include <QMessageBox>
@@ -15,21 +16,34 @@ QSplitter* splitter;
 QStringList matchingStationsA;
 QStringList matchingStationsB;
 
+//QGraphicsScene MainWindow::planScene;
+
 QVector<Station*> planPath;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //设置场景的背景和大小
+
+    //设置主场景的背景和大小
     scene.setSceneRect(0, 0, 4536, 2990);
     scene.setBackgroundBrush(QBrush(Qt::white));
-    //在场景中添加图形项
-    paint(scene);
-    CustomGraphicsView* view = new CustomGraphicsView(scene, this);
-    view->setScene(&scene);
+    //在主场景中绘制线路图
+    paintMain(scene);
+    MainGraphicsView* mainView = new MainGraphicsView(scene, this);
+    mainView->setScene(&scene);
+    // 设置MainGraphicsView的父控件为ui->mainGraphicsView
+    mainView->setParent(ui->mainGraphicsView);
+    mainView->show();
 
-    view->setParent(ui->graphicsView); // 设置CustomGraphicsView的父控件为ui->graphicsView
-    view->show(); // 确保CustomGraphicsView是可见的
+    //设置规划场景的背景和大小
+    planScene.setSceneRect(0,0,261,560);
+    planScene.setBackgroundBrush(QBrush(Qt::white));
+    PlanGraphicsView* planView=new PlanGraphicsView(planScene,this);
+    planView->setScene(&planScene);
+    // 设置PlanGraphicsView的父控件为ui->planGraphicsView
+    planView->setParent(ui->planGraphicsView);
+    planView->show();
+
     ui->listA->hide();
     ui->listB->hide();
     connect(ui->inputA, &QLineEdit::textEdited, this, &MainWindow::on_inputA_textEdited);
@@ -140,7 +154,8 @@ void MainWindow::on_inputB_editingFinished()
     }
     if(flag){
         ui->inputB->clearFocus();
-        Plan::makePlan();//尝试规划
+        Plan::makePlan(); Plan::getRoute();
+        paintPlan(planScene);
     }else{
         ui->inputB->setText(QString(""));
     }

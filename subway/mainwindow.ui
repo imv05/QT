@@ -26,9 +26,9 @@
    <widget class="QLineEdit" name="inputA">
     <property name="geometry">
      <rect>
-      <x>29</x>
-      <y>50</y>
-      <width>131</width>
+      <x>10</x>
+      <y>120</y>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
@@ -63,8 +63,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>20</x>
+      <y>1000</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -82,9 +82,9 @@
    <widget class="QListView" name="listA">
     <property name="geometry">
      <rect>
-      <x>29</x>
-      <y>80</y>
-      <width>131</width>
+      <x>10</x>
+      <y>150</y>
+      <width>121</width>
       <height>131</height>
      </rect>
     </property>
@@ -101,20 +101,20 @@
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>20</y>
-      <width>91</width>
-      <height>261</height>
+      <x>10</x>
+      <y>10</y>
+      <width>261</width>
+      <height>101</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout"/>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QGraphicsView" name="mainGraphicsView">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>280</x>
       <y>0</y>
-      <width>1671</width>
+      <width>1661</width>
       <height>1031</height>
      </rect>
     </property>
@@ -122,9 +122,9 @@
    <widget class="QLineEdit" name="inputB">
     <property name="geometry">
      <rect>
-      <x>29</x>
+      <x>150</x>
       <y>120</y>
-      <width>131</width>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
@@ -150,9 +150,9 @@
    <widget class="QListView" name="listB">
     <property name="geometry">
      <rect>
-      <x>29</x>
+      <x>150</x>
       <y>150</y>
-      <width>131</width>
+      <width>121</width>
       <height>131</height>
      </rect>
     </property>
@@ -166,24 +166,24 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="planView">
+   <widget class="QGraphicsView" name="planGraphicsView">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>280</y>
-      <width>251</width>
-      <height>751</height>
+      <x>10</x>
+      <y>170</y>
+      <width>261</width>
+      <height>811</height>
      </rect>
     </property>
    </widget>
+   <zorder>mainGraphicsView</zorder>
    <zorder>pushButton</zorder>
    <zorder>formLayoutWidget</zorder>
-   <zorder>graphicsView</zorder>
-   <zorder>listB</zorder>
    <zorder>inputA</zorder>
    <zorder>inputB</zorder>
+   <zorder>planGraphicsView</zorder>
    <zorder>listA</zorder>
-   <zorder>planView</zorder>
+   <zorder>listB</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -227,7 +227,7 @@
   <tabstop>pushButton</tabstop>
   <tabstop>listA</tabstop>
   <tabstop>listB</tabstop>
-  <tabstop>graphicsView</tabstop>
+  <tabstop>mainGraphicsView</tabstop>
  </tabstops>
  <resources/>
  <connections/>

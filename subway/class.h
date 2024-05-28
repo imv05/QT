@@ -38,6 +38,8 @@ public:
     QString scenery;    //风景点描述，例如“可去往故宫、天安门广场”，****建议创建Scenery类，届时此处改为Scenery****
     QString note;   //备注，例如“该站不可付费区内换向”
     QGraphicsItem* item;
+    QGraphicsTextItem* planLiItem;
+    QGraphicsTextItem* planStItem;
     QGraphicsTextItem* textItem;
     int x;
     int y;

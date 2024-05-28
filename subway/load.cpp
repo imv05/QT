@@ -1,6 +1,7 @@
 #include "load.h"
 #include "class.h"
 #include "global.h"
+
 #include <QFile>
 #include <QDataStream>
 #include <qdebug.h>
