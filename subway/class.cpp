@@ -11,9 +11,9 @@ Line::Line(json jLine){
     lineId = int(jLine["lineId"]);
     lineName = QString::fromStdString(jLine["lineName"]);
     lineEngName = QString::fromStdString(jLine["lineEngName"]);
-    isLoop = jLine["loop"];
-    isNumeral = jLine["isNumeral"];
-    interval = 60 * int(jLine["interval"]);
+    // isLoop = jLine["loop"];
+    // isNumeral = jLine["isNumeral"];
+    // interval = 60 * int(jLine["interval"]);
     color = QColor::fromString(std::string(jLine["color"]));
     stationCnt = jLine["stationList"].size();
     for(int i=0; i<stationCnt; i++){
@@ -33,6 +33,7 @@ void Line::initializeConnectionLine(json jLine){
 Station* Line::operator[](int stationId){//通过stationId获取Station的引用
     if(!stationMap.contains(stationId)){
         qDebug() << "cannot find stationId="<<stationId<<"in lineId="<<lineId;
+        return nullptr;
     }
     return stationMap[stationId];
 }
@@ -44,7 +45,7 @@ Station::Station(json jStation, Line* cLine){
     stationName = QString::fromStdString(jStation["stationName"]);
     allStationNames[stationName] = this;
     stationEngName = QString::fromStdString(jStation["stationEngName"]);
-    available = jStation["available"];
+    // available = jStation["available"];
     x = jStation["screen"]["x"];
     y = jStation["screen"]["y"];
 }
@@ -80,15 +81,19 @@ Connection::Connection(json jconnection, Station* cStation){   //使用json jcon
         int oCnt = jconnection["operationList"].size();
         const int daySec = 24*3600;
         int last = toSec(19,0,0) + daySec; //最早末班车初始化为19:00:00
-        for(int k=0; k<oCnt; k++){//处理多个终点的末班车。
-            const int distinct = toSec(19,0,0);
-            json jo = jconnection["operationList"][k];
-            int thisLast = jo["lastTime"];
-            if(thisLast < distinct){
-                thisLast += daySec;
-            }
-            if(thisLast > last){
-                last = thisLast;
+        if(jconnection.contains("lastTime")){
+            last = jconnection["lastTime"];
+        }else{
+            for(int k=0; k<oCnt; k++){//处理多个终点的末班车。
+                const int distinct = toSec(19,0,0);
+                json jo = jconnection["operationList"][k];
+                int thisLast = jo["lastTime"];
+                if(thisLast < distinct){
+                    thisLast += daySec;
+                }
+                if(thisLast > last){
+                    last = thisLast;
+                }
             }
         }
         //此时last表示此方向最晚的末班车

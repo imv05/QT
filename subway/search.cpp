@@ -88,6 +88,7 @@ bool Plan::getRoute(void){//规划成功返回true
         for(auto planNode: planRoute){
             qDebug() << planNode->line->lineName << planNode->stationName;
         }
-        return true;
+        if(planRoute.size()>1)return true;
+        else return false;
     }else return false;
 }
