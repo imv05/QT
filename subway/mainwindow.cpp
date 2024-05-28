@@ -121,6 +121,7 @@ void MainWindow::on_inputA_editingFinished()
     if(flag){
         ui->inputA->clearFocus();
         ui->inputB->setFocus();
+        Plan::makePlan(); Plan::getRoute();
     }else{
         ui->inputA->setText(QString(""));//无法匹配则清空输入，需要重新输入
     }
@@ -140,7 +141,7 @@ void MainWindow::on_inputB_editingFinished()
     }
     if(flag){
         ui->inputB->clearFocus();
-        Plan::makePlan();//尝试规划
+        Plan::makePlan(); Plan::getRoute();
     }else{
         ui->inputB->setText(QString(""));
     }
@@ -162,6 +163,8 @@ void MainWindow::on_listA_clicked(const QModelIndex &index)
     Plan::stationA = allStationNames[selectedName];
     ui->inputA->clearFocus();
     ui->inputB->setFocus();
+    Plan::makePlan();
+    Plan::getRoute();
 }
 void MainWindow::on_listB_clicked(const QModelIndex &index)
 {
@@ -171,6 +174,7 @@ void MainWindow::on_listB_clicked(const QModelIndex &index)
     Plan::stationB = allStationNames[selectedName];
     ui->inputB->clearFocus();
     Plan::makePlan(); //尝试进行规划
+    Plan::getRoute();
 }
 
 

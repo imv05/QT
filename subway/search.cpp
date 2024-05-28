@@ -55,10 +55,10 @@ QVector<Station*> getPath(const std::unordered_map<Station*, Station*>& previous
         path.prepend(current); // 反向添加节点到路径中
     }
 
-    qDebug() << "Path from start to" << target->stationName << ":";
-    for (Station* station : path) {
-        qDebug() << station->line->lineName << " " << station->stationName;
-    }
+    // qDebug() << "Path from start to" << target->stationName << ":";
+    // for (Station* station : path) {
+    //     qDebug() << station->line->lineName << " " << station->stationName;
+    // }
     return path;
 }
 
@@ -77,7 +77,8 @@ bool Plan::getRoute(void){
     if(stationB){//终点已给出，可以开始回溯
         planRoute = getPath(last_of, stationB);//完成回溯，输出起点到终点的路线
         for(auto planNode: planRoute){
-
+            qDebug() << planNode->line->lineName << planNode->stationName;
         }
     }
+
 }

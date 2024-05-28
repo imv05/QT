@@ -6,6 +6,7 @@
 #include <QColor>
 #include <QString>
 #include <QVector>
+#include <QPair>
 #include <QGraphicsItem>
 #include <unordered_map>
 
@@ -17,9 +18,9 @@ class SPath;
 
 class SPath{//站点之间的路径
 public:
-    QPair<int, int> origin;
-    QVector<QPair<int, int> > anchor;
-    QPair<int, int> destination;
+    QPair<int, int> start;
+    QVector<QPair<int, int> > corner;
+    QPair<int, int> end;
 };
 class Station{//站点类，换乘站按线路分开计
 public:
@@ -80,19 +81,13 @@ public:
     QColor color;
     QMap<int, Station*> stationMap;         //<int stationId, Station*>
     int stationCnt;
-    QGraphicsRectItem* item;
-    QGraphicsTextItem* textItem;
+    QMap<QPair<Station*, Station*>, QPointF>
 public:
     Line(json jLine);
     void initializeConnectionLine(json jLine);
     Station* operator[](int stationId);
 };
 
-struct Path{//路径类
-    QPair<int, int> start;
-    QVector<QPair<int, int> > anchor;
-    QPair<int, int> end;
-};
 
 extern QMap<int, Line*> lineMap;
 extern QVector<Station*> allStations;

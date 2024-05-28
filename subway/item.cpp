@@ -1,9 +1,9 @@
 #include "item.h"
 #include <QGraphicsScene>
 #include <QDebug>
-
-StationItem::StationItem(int x, int y): QGraphicsEllipseItem(0, 0, 6, 6) {
-    setPos(x-3, y-3);
+//直径：换乘站40，非换乘站26，线条粗16，典型站间距横向95，纵向57。字体高27
+StationItem::StationItem(int x, int y): QGraphicsEllipseItem(0, 0, 26, 26) {
+    setPos(x-13, y-13);
 }
 void StationItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
     qDebug() << "Mouse entered the item";
@@ -13,7 +13,7 @@ void StationItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
 }
 
 TransferItem::TransferItem(int x, int y): QGraphicsSvgItem(":/images/src/turn.svg") {
-    setPos(x-5, y-5);//此处给定左上角坐标
+    setPos(x-20, y-20);//此处给定左上角坐标
 }
 void TransferItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
     qDebug() << "Mouse entered the transfer item";
