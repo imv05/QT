@@ -54,7 +54,14 @@ QVector<Station*> getPath(const std::unordered_map<Station*, Station*>& previous
     for (Station* current = target; current != nullptr; current = previous.at(current)) {
         path.prepend(current); // 反向添加节点到路径中
     }
-
+    if(path.size()>=2){
+        if(path[0]->lineId != path[1]->lineId){
+            path.pop_front();
+        }
+        if(path[path.size()-1]->lineId != path[path.size()-2]->lineId){
+            path.pop_back();
+        }
+    }
     // qDebug() << "Path from start to" << target->stationName << ":";
     // for (Station* station : path) {
     //     qDebug() << station->line->lineName << " " << station->stationName;
@@ -79,6 +86,7 @@ bool Plan::getRoute(void){
         for(auto planNode: planRoute){
             qDebug() << planNode->line->lineName << planNode->stationName;
         }
+        paintPlan(planScene);
     }
     //paintPlan(MainWindow::planScene);
 

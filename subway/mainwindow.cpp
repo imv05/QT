@@ -156,7 +156,6 @@ void MainWindow::on_inputB_editingFinished()
     if(flag){
         ui->inputB->clearFocus();
         Plan::makePlan(); Plan::getRoute();
-        paintPlan(planScene);
     }else{
         ui->inputB->setText(QString(""));
     }
