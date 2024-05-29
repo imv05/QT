@@ -181,44 +181,28 @@
     {
         "anchorList": [
             {
-                "corners": [
-                    {
-                        "x": 300,
-                        "y": 260
-                    }
-                ],
+                "x": 300,
+                "y": 260,
                 "endId": 2,
                 "startId": 1
             },
             {
-                "corners": [
-                    {
-                        "x": 420,
-                        "y": 260
-                    }
-                ],
+                "x": 420,
+                "y": 260,
                 "endId": 3,
                 "startId": 2
             },
             {
-                "corners": [
-                    {
-                        "x": 420,
-                        "y": 340
-                    }
-                ],
+                "x": 420,
+                "y": 340,
                 "endId": 4,
                 "startId": 3
             },
             {
-                "corners": [
-                    {
-                        "x": 300,
-                        "y": 340
-                    }
-                ],
-                "endId": 1,
-                "startId": 4
+                "x": 300,
+                "y": 340,
+                "endId": 4,
+                "startId": 1
             }
         ],
         "color": "#0F6192",

@@ -81,7 +81,7 @@ public:
         listA->setAutoFillBackground(true);
         formLayoutWidget = new QWidget(centralwidget);
         formLayoutWidget->setObjectName("formLayoutWidget");
-        formLayoutWidget->setGeometry(QRect(10, 10, 261, 101));
+        formLayoutWidget->setGeometry(QRect(10, 10, 111, 101));
         formLayout = new QFormLayout(formLayoutWidget);
         formLayout->setObjectName("formLayout");
         formLayout->setContentsMargins(0, 0, 0, 0);
@@ -112,7 +112,7 @@ public:
         listB->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1920, 27));
+        menubar->setGeometry(QRect(0, 0, 1920, 32));
         menubar->setFont(font);
         menu_mainWindow = new QMenu(menubar);
         menu_mainWindow->setObjectName("menu_mainWindow");

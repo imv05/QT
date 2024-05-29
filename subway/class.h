@@ -18,9 +18,9 @@ class SPath;
 
 class SPath{//站点之间的路径
 public:
-    QPair<int, int> start;
-    QVector<QPair<int, int> > corner;
-    QPair<int, int> end;
+    QPointF start;
+    QVector<QPointF> corner;
+    QPointF end;
 };
 class Station{//站点类，换乘站按线路分开计
 public:
@@ -83,7 +83,8 @@ public:
     QColor color;
     QMap<int, Station*> stationMap;         //<int stationId, Station*>
     int stationCnt;
-
+    // QVector<SPath*> spathList;
+    QVector<QGraphicsPathItem*> pathItemList;
 public:
     Line(json jLine);
     void initializeConnectionLine(json jLine);
@@ -94,5 +95,7 @@ public:
 extern QMap<int, Line*> lineMap;
 extern QVector<Station*> allStations;
 extern QMap<QString, Station*> allStationNames;
+extern QMap<QPair<Station*, Station*>, SPath*> spathMap;
+extern QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap;
 
 #endif // CLASS_H

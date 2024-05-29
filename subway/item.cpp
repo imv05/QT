@@ -2,8 +2,9 @@
 #include <QGraphicsScene>
 #include <QDebug>
 //直径：换乘站40，非换乘站26，线条粗16，典型站间距横向95，纵向57。字体高27
-StationItem::StationItem(int x, int y): QGraphicsEllipseItem(0, 0, 10, 10) {
-    setPos(x-5, y-5);
+StationItem::StationItem(int x, int y): QGraphicsEllipseItem(0, 0, 26, 26) {
+    setBrush(QBrush(Qt::white));
+    setPos(x-13, y-13);
 }
 void StationItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
     qDebug() << "Mouse entered the item";

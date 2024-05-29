@@ -1,11 +1,13 @@
 #include "class.h"
 
 #include <QDebug>
-#include <iostream>
+#include <QPainterPath>
 
 QMap<int, Line*> lineMap = QMap<int, Line*>();  //lineId,
 QVector<Station*> allStations = QVector<Station*>();
 QMap<QString, Station*> allStationNames = QMap<QString, Station*>();
+QMap<QPair<Station*, Station*>, SPath*> spathMap = QMap<QPair<Station*, Station*>, SPath*>();
+QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap = QMap<QPair<Station*, Station*>, QGraphicsPathItem*>();
 
 Line::Line(json jLine){
     lineId = int(jLine["lineId"]);
@@ -17,17 +19,57 @@ Line::Line(json jLine){
     color = QColor::fromString(std::string(jLine["color"]));
     stationCnt = jLine["stationList"].size();
     for(int i=0; i<stationCnt; i++){
-        json jStation = jLine["stationList"][i];
+        json& jStation = jLine["stationList"][i];
         stationMap.insert(jStation["stationId"], new Station(jStation, this));
     }
 }
 void Line::initializeConnectionLine(json jLine){
     auto stationIt = stationMap.begin();
-    for(int i=0; i<stationCnt; i++){
+    for(int i=0; i<stationCnt; i++){    //建立站点图的connection
         Station* cStation = *stationIt;
-        json jStation = jLine["stationList"][i];
+        json& jStation = jLine["stationList"][i];
         cStation->initializeConnection(jStation);
         stationIt++;
+    }
+    stationIt = stationMap.begin();
+    for(int i=0; i<stationCnt; i++){
+        Station* cStation = *stationIt;
+        int cCnt = cStation->cList.size();
+        for(int ci=0; ci<cCnt; ci++){
+            Connection& cit = cStation->cList[ci];
+            if(!cit.isTransfer){
+                Station* tostn = cit.to;
+                Station* fromstn = cit.from;
+                qreal toId = tostn->stationId; qreal fromId = fromstn->stationId;
+                if(toId < fromId){//保证from的车站id比end小
+                    qreal temp=toId; toId=fromId; fromId=temp;
+                    Station* tempstn=tostn; tostn=fromstn; fromstn=tempstn;
+                }
+                if(spathMap.contains(QPair<Station*, Station*>(fromstn, tostn)))continue;
+                else{
+                    SPath* cSP = new SPath;
+                    spathMap[QPair<Station*, Station*>(fromstn, tostn)] = cSP;
+                    cSP->start = QPointF(fromstn->x, fromstn->y);
+                    cSP->end = QPointF(tostn->x, tostn->y);
+                }
+            }
+        }
+        stationIt++;
+    }
+    json& jalist = jLine["anchorList"];
+    int anchorCnt = jalist.size();
+    for(int i=0; i<anchorCnt; i++){
+        int sid = jalist[i]["startId"];//保证start的车站id比end小
+        int eid = jalist[i]["endId"];
+        Station* sstn = stationMap[sid];
+        Station* estn = stationMap[eid];
+        if(spathMap.contains(QPair<Station*, Station*>(sstn, estn))){
+            spathMap[QPair<Station*, Station*>(sstn, estn)]->corner.push_back(QPointF(int(jalist[i]["x"]), int(jalist[i]["y"])));
+        }else{
+            qDebug() << "Does not contain spath info of station pair" << sstn->line->lineName << sstn->stationId << sstn->stationName;
+            qDebug() << estn->line->lineName << estn->stationId << estn->stationName;
+        }
+
     }
 }
 Station* Line::operator[](int stationId){//通过stationId获取Station的引用
