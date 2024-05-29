@@ -176,6 +176,19 @@
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>120</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>mainGraphicsView</zorder>
    <zorder>pushButton</zorder>
    <zorder>formLayoutWidget</zorder>
@@ -184,6 +197,7 @@
    <zorder>planGraphicsView</zorder>
    <zorder>listA</zorder>
    <zorder>listB</zorder>
+   <zorder>pushButton_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -40,6 +40,8 @@ private slots:
     void on_listB_clicked(const QModelIndex &index);
 
     void buttonclicked();
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;

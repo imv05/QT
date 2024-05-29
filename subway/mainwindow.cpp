@@ -24,7 +24,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    QPixmap backgroundPixmap(":/images/src/doubleArrow.jpg");
+    backgroundPixmap = backgroundPixmap.scaled(ui->pushButton_2->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    ui->pushButton_2->setIcon(QIcon(backgroundPixmap));
+    ui->pushButton_2->setIconSize(ui->pushButton_2->size());
+    ui->pushButton_2->setToolTip("交换起点与终点");
     //设置主场景的背景和大小
     scene.setSceneRect(0, 0, 4536, 2990);
     scene.setBackgroundBrush(QBrush(Qt::white));
@@ -221,4 +225,16 @@ void MainWindow::on_listB_clicked(const QModelIndex &index)
 }
 
 
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QString a=ui->inputA->text();
+    QString b=ui->inputB->text();
+    ui->inputA->setText(b);
+    ui->inputB->setText(a);
+    Plan::stationA=allStationNames[b];
+    Plan::stationB=allStationNames[a];
+    if(Plan::makePlan())if(Plan::getRoute())paintPlan(planScene);
+}
 
