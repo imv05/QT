@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     QPixmap backgroundPixmap(":/images/src/doubleArrow.jpg");
-    backgroundPixmap = backgroundPixmap.scaled(ui->pushButton_2->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    backgroundPixmap=backgroundPixmap.scaled(ui->pushButton_2->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
     ui->pushButton_2->setIcon(QIcon(backgroundPixmap));
     ui->pushButton_2->setIconSize(ui->pushButton_2->size());
     ui->pushButton_2->setToolTip("交换起点与终点");

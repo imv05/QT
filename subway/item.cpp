@@ -12,7 +12,9 @@ void StationItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
 void StationItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
     qDebug() << "Mouse left the item";
 }
-
+TrainItem::TrainItem(int x, int y): QGraphicsSvgItem(":/images/src/train1.svg") {
+    setPos(x+8, y+7);//此处给定左上角坐标
+}
 TransferItem::TransferItem(int x, int y): QGraphicsSvgItem(":/images/src/turn.svg") {
     setPos(x-20, y-20);//此处给定左上角坐标
     // setScale(double(16/26));
