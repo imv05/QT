@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/images">
         <file>src/turn.svg</file>
+        <file>src/train.svg</file>
+        <file>src/train1.svg</file>
+        <file>src/doubleArrow.jpg</file>
     </qresource>
     <qresource prefix="/data">
         <file>data/stations.json</file>

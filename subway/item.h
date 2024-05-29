@@ -25,6 +25,11 @@ public:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 };
 
+class TrainItem : public QGraphicsSvgItem {   //换乘站导入SVG图标
+public:
+    TrainItem(int x, int y);
+};
+
 class TransparentMaskItem : public QGraphicsRectItem {
 public:
     TransparentMaskItem(QGraphicsScene *scene);
