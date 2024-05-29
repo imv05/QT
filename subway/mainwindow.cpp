@@ -214,6 +214,7 @@ void MainWindow::on_listA_clicked(const QModelIndex &index)
     ui->inputB->setFocus();
     if(Plan::makePlan())if(Plan::getRoute())paintPlan(planScene);
 }
+
 void MainWindow::on_listB_clicked(const QModelIndex &index)
 {
     ui->listB->hide();
@@ -223,9 +224,6 @@ void MainWindow::on_listB_clicked(const QModelIndex &index)
     ui->inputB->clearFocus();
     if(Plan::makePlan())if(Plan::getRoute())paintPlan(planScene);
 }
-
-
-
 
 void MainWindow::on_pushButton_2_clicked()
 {
