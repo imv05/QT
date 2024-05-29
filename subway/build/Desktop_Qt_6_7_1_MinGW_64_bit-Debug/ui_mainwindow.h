@@ -38,6 +38,7 @@ public:
     QLineEdit *inputB;
     QListView *listB;
     QGraphicsView *planGraphicsView;
+    QPushButton *pushButton_2;
     QMenuBar *menubar;
     QMenu *menu_mainWindow;
     QMenu *menu_lastTrain;
@@ -101,6 +102,9 @@ public:
         planGraphicsView = new QGraphicsView(centralwidget);
         planGraphicsView->setObjectName("planGraphicsView");
         planGraphicsView->setGeometry(QRect(10, 170, 261, 811));
+        pushButton_2 = new QPushButton(centralwidget);
+        pushButton_2->setObjectName("pushButton_2");
+        pushButton_2->setGeometry(QRect(130, 120, 21, 21));
         MainWindow->setCentralWidget(centralwidget);
         mainGraphicsView->raise();
         pushButton->raise();
@@ -110,6 +114,7 @@ public:
         planGraphicsView->raise();
         listA->raise();
         listB->raise();
+        pushButton_2->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
         menubar->setGeometry(QRect(0, 0, 1920, 32));
@@ -156,6 +161,7 @@ public:
 #endif // QT_CONFIG(whatsthis)
         inputB->setText(QString());
         inputB->setPlaceholderText(QCoreApplication::translate("MainWindow", "\350\276\223\345\205\245\347\273\210\347\202\271\350\275\246\347\253\231", nullptr));
+        pushButton_2->setText(QString());
         menu_mainWindow->setTitle(QCoreApplication::translate("MainWindow", "\350\267\257\347\272\277\350\247\204\345\210\222", nullptr));
         menu_lastTrain->setTitle(QCoreApplication::translate("MainWindow", "\346\234\253\350\275\246\345\217\257\350\276\276", nullptr));
         menu_realTime->setTitle(QCoreApplication::translate("MainWindow", "\345\256\236\346\227\266\345\234\260\351\223\201", nullptr));
