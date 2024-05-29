@@ -8,6 +8,8 @@ QVector<Station*> allStations = QVector<Station*>();
 QMap<QString, Station*> allStationNames = QMap<QString, Station*>();
 QMap<QPair<Station*, Station*>, SPath*> spathMap = QMap<QPair<Station*, Station*>, SPath*>();
 QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap = QMap<QPair<Station*, Station*>, QGraphicsPathItem*>();
+QMap<QString, QGraphicsPathItem*> stationItemMap = QMap<QString, QGraphicsPathItem*>();
+QMap<QString, QGraphicsTextItem*> stationTextMap = QMap<QString, QGraphicsTextItem*>();
 
 Line::Line(json jLine){
     lineId = int(jLine["lineId"]);
@@ -69,7 +71,6 @@ void Line::initializeConnectionLine(json jLine){
             qDebug() << "Does not contain spath info of station pair" << sstn->line->lineName << sstn->stationId << sstn->stationName;
             qDebug() << estn->line->lineName << estn->stationId << estn->stationName;
         }
-
     }
 }
 Station* Line::operator[](int stationId){//通过stationId获取Station的引用
