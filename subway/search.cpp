@@ -72,10 +72,10 @@ QVector<Station*> getPath(const std::unordered_map<Station*, Station*>& previous
 }
 
 bool Plan::makePlan(void){
-    qDebug() << "Enter plan";
+    // qDebug() << "Enter plan";
     if(stationA){//起点已给出，即可开始规划
         last_of = dijkstra(stationA);//算法返回最后一步，用于回溯。
-        qDebug() << last_of.size();
+        // qDebug() << last_of.size();
         return true;
     }else{//起点为nullptr，失败
         return false;

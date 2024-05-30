@@ -45,7 +45,7 @@ QPointF calculateCenter(QPointF pc, QPointF p1, QPointF p2, qreal radius, qreal&
         h1ounit = QPointF(-1*p1pcunit.y(), p1pcunit.x());
         retSAngle = absoluteAngle(h1ounit*-1);
         retSpan = -(180-acos(dtprdt)*180/acos(-1));
-        qDebug()<< pc.x() << pc.y() << p1.x()<<p1.y()<< p2.x()<<p2.y() << radius << retSAngle << retSpan;
+        // qDebug()<< pc.x() << pc.y() << p1.x()<<p1.y()<< p2.x()<<p2.y() << radius << retSAngle << retSpan;
     }else{
         h1ounit = QPointF(p1pcunit.y(), -1*p1pcunit.x());
         retSAngle = absoluteAngle(h1ounit*-1);
@@ -99,7 +99,7 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
         for(k=0; k<8; k++){
             it->textItem->setPos(xAlternatives[k], yAlternatives[k]);
             int collisionCnt = it->textItem->collidingItems().size();
-            qDebug() << it->stationName << k << collisionCnt;
+            // qDebug() << it->stationName << k << collisionCnt;
             if(collisionCnt==0){
                 ok = true;
                 break;
@@ -111,14 +111,14 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
                 it->textItem->setPos(xAlternatives[k], yAlternatives[k]);
                 int collisionCnt = it->textItem->collidingItems().size();
                 if(minCollide == collisionCnt){
-                    qDebug() << it->stationName << k << collisionCnt;
+                    // qDebug() << it->stationName << k << collisionCnt;
                     break;
                 }
             }
         }
 
-        qDebug() << it->stationName << "height:" << it->textItem->boundingRect().height() <<
-            it->textItem->boundingRect().width();
+        // qDebug() << it->stationName << "height:" << it->textItem->boundingRect().height() <<
+            // it->textItem->boundingRect().width();
         // it++;
     }
 }

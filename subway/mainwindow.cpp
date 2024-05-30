@@ -25,12 +25,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     QPixmap backgroundPixmap(":/images/src/doubleArrow.jpg");
-    backgroundPixmap=backgroundPixmap.scaled(ui->pushButton_2->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-    ui->pushButton_2->setIcon(QIcon(backgroundPixmap));
-    ui->pushButton_2->setIconSize(ui->pushButton_2->size());
-    ui->pushButton_2->setToolTip("交换起点与终点");
+    backgroundPixmap=backgroundPixmap.scaled(ui->swapButton->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    ui->swapButton->setIcon(QIcon(backgroundPixmap));
+    ui->swapButton->setIconSize(ui->swapButton->size());
+    ui->swapButton->setToolTip("交换起点与终点");
     //设置主场景的背景和大小
-    scene.setSceneRect(0, 0, 4536, 2990);
+    // scene.setSceneRect(0, 0, 4536, 2990);
     scene.setBackgroundBrush(QBrush(Qt::white));
     //在主场景中绘制线路图
     paintMain(scene);
@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainView->show();
 
     //设置规划场景的背景和大小
-    planScene.setSceneRect(0,0,261,560);
+    planScene.setSceneRect(0,0,301,731);
     planScene.setBackgroundBrush(QBrush(Qt::white));
     PlanGraphicsView* planView=new PlanGraphicsView(planScene,this);
     planView->setScene(&planScene);
