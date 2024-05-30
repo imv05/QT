@@ -1,0 +1,933 @@
+[
+    {
+        "anchorList": [],
+        "color": "#BE3631",
+        "interval": 6,
+        "isNumeral": true,
+        "lineEngName": "Subway Line 1",
+        "lineId": 1,
+        "lineName": "1号线",
+        "loop": false,
+        "stationList": [
+            {
+                "available": true,
+                "connectionList": [
+                    {
+                        "dist": 1000,
+                        "duration": 180,
+                        "nextStationId": 2,
+                        "operationList": [
+                            {
+                                "firstTime": 21600,
+                                "lastTime": 82800,
+                                "terminal": "开往：朝阳门",
+                                "terminalId": 4
+                            }
+                        ]
+                    }
+                ],
+                "floor": -2,
+                "interchangeList": [],
+                "scenery": null,
+                "screen": {
+                    "x": 260,
+                    "y": 300
+                },
+                "stationEngName": "gucheng",
+                "stationId": 1,
+                "stationName": "古城"
+            },
+            {
+                "available": true,
+                "connectionList": [
+                    {
+                        "dist": 1200,
+                        "duration": 210,
+                        "nextStationId": 3,
+                        "operationList": [
+                            {
+                                "firstTime": 21780,
+                                "lastTime": 82980,
+                                "terminal": "开往：朝阳门",
+                                "terminalId": 4
+                            }
+                        ]
+                    },
+                    {
+                        "dist": 1000,
+                        "duration": 180,
+                        "nextStationId": 1,
+                        "operationList": [
+                            {
+                                "firstTime": 22050,
+                                "lastTime": 79650,
+                                "terminal": "开往：古城",
+                                "terminalId": 1
+                            }
+                        ]
+                    }
+                ],
+                "floor": -2,
+                "interchangeList": [
+                    {
+                        "duration": 60,
+                        "isOut": false,
+                        "lineId": 2,
+                        "note": "站台中部下一层即可到达",
+                        "stationId": 1
+                    }
+                ],
+                "note": "付费区内不可换向",
+                "scenery": "可前往北京大学",
+                "screen": {
+                    "x": 300,
+                    "y": 300
+                },
+                "stationEngName": "xizhimen",
+                "stationId": 2,
+                "stationName": "西直门"
+            },
+            {
+                "available": true,
+                "connectionList": [
+                    {
+                        "dist": 1300,
+                        "duration": 240,
+                        "nextStationId": 4,
+                        "operationList": [
+                            {
+                                "firstTime": 21990,
+                                "lastTime": 83190,
+                                "terminal": "开往：朝阳门",
+                                "terminalId": 4
+                            }
+                        ]
+                    },
+                    {
+                        "dist": 1200,
+                        "duration": 210,
+                        "nextStationId": 2,
+                        "operationList": [
+                            {
+                                "firstTime": 21840,
+                                "lastTime": 79440,
+                                "terminal": "开往：古城",
+                                "terminalId": 1
+                            },
+                            {
+                                "lastTime": 83040,
+                                "terminal": "终点站：西直门",
+                                "terminalId": 2
+                            }
+                        ]
+                    }
+                ],
+                "floor": -2,
+                "interchangeList": [],
+                "scenery": null,
+                "screen": {
+                    "x": 360,
+                    "y": 300
+                },
+                "stationEngName": "xidan",
+                "stationId": 3,
+                "stationName": "西单"
+            },
+            {
+                "available": true,
+                "connectionList": [
+                    {
+                        "dist": 1300,
+                        "duration": 240,
+                        "nextStationId": 3,
+                        "operationList": [
+                            {
+                                "firstTime": 21960,
+                                "lastTime": 79200,
+                                "nextStationId": 3,
+                                "terminal": "开往：古城",
+                                "terminalId": 1
+                            },
+                            {
+                                "lastTime": 82800,
+                                "nextStationId": 3,
+                                "terminal": "终点站：西直门",
+                                "terminalId": 2
+                            }
+                        ]
+                    }
+                ],
+                "floor": -2,
+                "interchangeList": [
+                    {
+                        "duration": 60,
+                        "isOut": false,
+                        "lineId": 2,
+                        "note": "站台中部下一层即可到达",
+                        "stationId": 3
+                    }
+                ],
+                "scenery": null,
+                "screen": {
+                    "x": 420,
+                    "y": 300
+                },
+                "stationEngName": "chaoyangmen",
+                "stationId": 4,
+                "stationName": "朝阳门"
+            }
+        ]
+    },
+    {
+        "anchorList": [
+            {
+                "endId": 2,
+                "startId": 1,
+                "x": 300,
+                "y": 260
+            },
+            {
+                "endId": 3,
+                "startId": 2,
+                "x": 420,
+                "y": 260
+            },
+            {
+                "endId": 4,
+                "startId": 3,
+                "x": 420,
+                "y": 340
+            },
+            {
+                "endId": 4,
+                "startId": 1,
+                "x": 300,
+                "y": 340
+            }
+        ],
+        "color": "#0F6192",
+        "interval": 7,
+        "isNumeral": false,
+        "lineEngName": "Loop Line",
+        "lineId": 2,
+        "lineName": "环线",
+        "loop": true,
+        "stationList": [
+            {
+                "available": true,
+                "connectionList": [
+                    {
+                        "dist": 2000,
+                        "duration": 270,
+                        "nextStationId": 2,
+                        "operationList": [
+                            {
+                                "firstTime": 22590,
+                                "lastTime": 80460,
+                                "terminal": "全程",
+                                "terminalId": 100
+                            }
+                        ]
+                    },
+                    {
+                        "dist": 2800,
+                        "duration": 360,
+                        "nextStationId": 4,
+                        "operationList": [
+                            {
+                                "firstTime": 21600,
+                                "lastTime": 79470,
+                                "terminal": "全程",
+                                "terminalId": 200
+                            },
+                            {
+                                "lastTime": 80730,
+                                "terminal": "终点站：积水潭",
+                                "terminalId": 2
+                            }
+                        ]
+                    }
+                ],
+                "floor": -3,
+                "interchangeList": [
+                    {
+                        "duration": 60,
+                        "isOut": false,
+                        "lineId": 1,
+                        "note": "站台中部上一层即可到达",
+                        "stationId": 2
+                    }
+                ],
+                "scenery": "可前往北京大学",
+                "screen": {
+                    "x": 300,
+                    "y": 300
+                },
+                "stationEngName": "xizhimen",
+                "stationId": 1,
+                "stationName": "西直门"
+            },
+            {
+                "available": true,
+                "connectionList": [
+                    {
+                        "dist": 2300,
+                        "duration": 300,
+                        "nextStationId": 3,
+                        "operationList": [
+                            {
+                                "firstTime": 21600,
+                                "lastTime": 79470,
+                                "terminal": "全程",
+                                "terminalId": 100
+                            },
+                            {
+                                "lastTime": 80730,
+                                "terminal": "终点站：西直门",
+                                "terminalId": 1
+                            }
+                        ]
+                    },
+                    {
+                        "dist": 2000,
+                        "duration": 270,
+                        "nextStationId": 1,
+                        "operationList": [
+                            {
+                                "firstTime": 22590,
+                                "lastTime": 80460,
+                                "terminal": "全程",
+                                "terminalId": 200
+                            }
+                        ]
+                    }
+                ],
+                "floor": -2,
+                "interchangeList": [],
+                "scenery": null,
+                "screen": {
+                    "x": 360,
+                    "y": 260
+                },
+                "stationEngName": "jishuitan",
+                "stationId": 2,
+                "stationName": "积水潭"
+            },
+            {
+                "available": true,
+                "connectionList": [
+                    {
+                        "dist": 2500,
+                        "duration": 330,
+                        "nextStationId": 4,
+                        "operationList": [
+                            {
+                                "firstTime": 21900,
+                                "lastTime": 79790,
+                                "terminal": "全程",
+                                "terminalId": 100
+                            },
+                            {
+                                "lastTime": 81030,
+                                "terminal": "终点站：西直门",
+                                "terminalId": 1
+                            }
+                        ]
+                    },
+                    {
+                        "dist": 2300,
+                        "duration": 300,
+                        "nextStationId": 2,
+                        "operationList": [
+                            {
+                                "firstTime": 22290,
+                                "lastTime": 80160,
+                                "terminal": "全程",
+                                "terminalId": 200
+                            },
+                            {
+                                "lastTime": 81360,
+                                "terminal": "终点站：积水潭",
+                                "terminalId": 2
+                            }
+                        ]
+                    }
+                ],
+                "floor": -3,
+                "interchangeList": [
+                    {
+                        "duration": 60,
+                        "isOut": false,
+                        "lineId": 1,
+                        "note": "站台中部上一层即可到达",
+                        "stationId": 4
+                    }
+                ],
+                "scenery": null,
+                "screen": {
+                    "x": 420,
+                    "y": 300
+                },
+                "stationEngName": "chaoyangmen",
+                "stationId": 3,
+                "stationName": "朝阳门"
+            },
+            {
+                "available": true,
+                "connectionList": [
+                    {
+                        "dist": 2800,
+                        "duration": 360,
+                        "nextStationId": 1,
+                        "operationList": [
+                            {
+                                "firstTime": 22230,
+                                "lastTime": 80100,
+                                "terminal": "全程",
+                                "terminalId": 100
+                            },
+                            {
+                                "lastTime": 81360,
+                                "terminal": "终点站：西直门",
+                                "terminalId": 1
+                            }
+                        ]
+                    },
+                    {
+                        "dist": 2500,
+                        "duration": 330,
+                        "nextStationId": 3,
+                        "operationList": [
+                            {
+                                "firstTime": 21960,
+                                "lastTime": 79830,
+                                "terminal": "全程",
+                                "terminalId": 200
+                            },
+                            {
+                                "lastTime": 81090,
+                                "terminal": "终点站：积水潭",
+                                "terminalId": 2
+                            }
+                        ]
+                    }
+                ],
+                "floor": -2,
+                "interchangeList": [],
+                "scenery": "可前往大栅栏、前门大街、天安门广场",
+                "screen": {
+                    "x": 360,
+                    "y": 340
+                },
+                "stationEngName": "qianmen",
+                "stationId": 4,
+                "stationName": "前门"
+            }
+        ]
+    },
+    {
+        "anchorList": [],
+        "color": "#ED796B",
+        "lineEngName": "Line 11",
+        "lineId": 11,
+        "lineName": "11号线",
+        "stationList": [
+            {
+                "connectionList": [
+                    {
+                        "dist": 1366,
+                        "duration": 180,
+                        "firstTime": 20808,
+                        "lastTime": 81408,
+                        "nextStationId": 2
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 688,
+                    "y": 1373
+                },
+                "stationEngName": "moshikou",
+                "stationId": 1,
+                "stationName": "模式口"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 850,
+                        "duration": 180,
+                        "firstTime": 20988,
+                        "lastTime": 81588,
+                        "nextStationId": 3
+                    },
+                    {
+                        "dist": 1366,
+                        "duration": 240,
+                        "firstTime": 20508,
+                        "lastTime": 81108,
+                        "nextStationId": 1
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 688,
+                    "y": 1485
+                },
+                "stationEngName": "jinanqiao",
+                "stationId": 2,
+                "stationName": "金安桥"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 659,
+                        "duration": 180,
+                        "firstTime": 21168,
+                        "lastTime": 81768,
+                        "nextStationId": 4
+                    },
+                    {
+                        "dist": 850,
+                        "duration": 120,
+                        "firstTime": 20388,
+                        "lastTime": 80988,
+                        "nextStationId": 2
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 688,
+                    "y": 1577
+                },
+                "stationEngName": "beixinan",
+                "stationId": 3,
+                "stationName": "北辛安"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 659,
+                        "duration": 180,
+                        "firstTime": 20208,
+                        "lastTime": 80808,
+                        "nextStationId": 3
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 688,
+                    "y": 1640
+                },
+                "stationEngName": "xinshougang",
+                "stationId": 4,
+                "stationName": "新首钢"
+            }
+        ]
+    },
+    {
+        "anchorList": [
+            {
+                "endId": 4,
+                "startId": 3,
+                "x": 2117,
+                "y": 1381
+            },
+            {
+                "endId": 5,
+                "startId": 4,
+                "x": 1981,
+                "y": 1517
+            },
+            {
+                "endId": 8,
+                "startId": 7,
+                "x": 1981,
+                "y": 1958
+            },
+            {
+                "endId": 8,
+                "startId": 7,
+                "x": 1900,
+                "y": 2040
+            },
+            {
+                "endId": 8,
+                "startId": 7,
+                "x": 1900,
+                "y": 2086
+            },
+            {
+                "endId": 9,
+                "startId": 8,
+                "x": 1900,
+                "y": 2086
+            },
+            {
+                "endId": 10,
+                "startId": 9,
+                "x": 1900,
+                "y": 2196
+            }
+        ],
+        "color": "#D6ABC1",
+        "lineEngName": "Line 19",
+        "lineId": 19,
+        "lineName": "19号线",
+        "stationList": [
+            {
+                "connectionList": [
+                    {
+                        "dist": 920,
+                        "duration": 60,
+                        "firstTime": 20328,
+                        "lastTime": 83928,
+                        "nextStationId": 2
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 2117,
+                    "y": 1030
+                },
+                "stationEngName": "mudanyuan",
+                "stationId": 1,
+                "stationName": "牡丹园"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 2450,
+                        "duration": 180,
+                        "firstTime": 20388,
+                        "lastTime": 83988,
+                        "nextStationId": 3
+                    },
+                    {
+                        "dist": 920,
+                        "duration": 60,
+                        "firstTime": 21828,
+                        "lastTime": 86328,
+                        "nextStationId": 1
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 2117,
+                    "y": 1115
+                },
+                "stationEngName": "beitaipingzhuang",
+                "stationId": 2,
+                "stationName": "北太平庄"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 1590,
+                        "duration": 180,
+                        "firstTime": 20568,
+                        "lastTime": 84168,
+                        "nextStationId": 4
+                    },
+                    {
+                        "dist": 2450,
+                        "duration": 180,
+                        "firstTime": 21648,
+                        "lastTime": 86148,
+                        "nextStationId": 2
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 2117,
+                    "y": 1225
+                },
+                "stationEngName": "jishuitan",
+                "stationId": 3,
+                "stationName": "积水潭"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 2710,
+                        "duration": 240,
+                        "firstTime": 20748,
+                        "lastTime": 84348,
+                        "nextStationId": 5
+                    },
+                    {
+                        "dist": 1590,
+                        "duration": 180,
+                        "firstTime": 21468,
+                        "lastTime": 85968,
+                        "nextStationId": 3
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 2093,
+                    "y": 1405
+                },
+                "stationEngName": "pinganli",
+                "stationId": 4,
+                "stationName": "平安里"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 2140,
+                        "duration": 120,
+                        "firstTime": 20988,
+                        "lastTime": 84588,
+                        "nextStationId": 6
+                    },
+                    {
+                        "dist": 2710,
+                        "duration": 180,
+                        "firstTime": 21288,
+                        "lastTime": 85788,
+                        "nextStationId": 4
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 1981,
+                    "y": 1549
+                },
+                "stationEngName": "taipingqiao",
+                "stationId": 5,
+                "stationName": "太平桥"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 2960,
+                        "duration": 240,
+                        "firstTime": 21108,
+                        "lastTime": 84708,
+                        "nextStationId": 7
+                    },
+                    {
+                        "dist": 2140,
+                        "duration": 180,
+                        "firstTime": 21108,
+                        "lastTime": 85608,
+                        "nextStationId": 5
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 1981,
+                    "y": 1758
+                },
+                "stationEngName": "niujie",
+                "stationId": 6,
+                "stationName": "牛街"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 2680,
+                        "duration": 240,
+                        "firstTime": 21348,
+                        "lastTime": 84948,
+                        "nextStationId": 8
+                    },
+                    {
+                        "dist": 2960,
+                        "duration": 240,
+                        "firstTime": 20868,
+                        "lastTime": 85368,
+                        "nextStationId": 6
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 1981,
+                    "y": 1923
+                },
+                "stationEngName": "jingfengmen",
+                "stationId": 7,
+                "stationName": "景风门"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 2650,
+                        "duration": 180,
+                        "firstTime": 21588,
+                        "lastTime": 85188,
+                        "nextStationId": 9
+                    },
+                    {
+                        "dist": 2680,
+                        "duration": 240,
+                        "firstTime": 20628,
+                        "lastTime": 85128,
+                        "nextStationId": 7
+                    }
+                ],
+                "interchangeList": [
+                    {
+                        "duration": 60,
+                        "isOut": true,
+                        "lineId": 52,
+                        "note": "平行站台换乘",
+                        "stationId": 3
+                    }
+                ],
+                "screen": {
+                    "x": 1889,
+                    "y": 2086
+                },
+                "stationEngName": "caoqiao",
+                "stationId": 8,
+                "stationName": "草桥"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 2740,
+                        "duration": 120,
+                        "firstTime": 21768,
+                        "lastTime": 85368,
+                        "nextStationId": 10
+                    },
+                    {
+                        "dist": 2650,
+                        "duration": 180,
+                        "firstTime": 20448,
+                        "lastTime": 84948,
+                        "nextStationId": 8
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 1900,
+                    "y": 2172
+                },
+                "stationEngName": "xinfadi",
+                "stationId": 9,
+                "stationName": "新发地"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 2740,
+                        "duration": 120,
+                        "firstTime": 20328,
+                        "lastTime": 84828,
+                        "nextStationId": 9
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 2093,
+                    "y": 2196
+                },
+                "stationEngName": "xingong",
+                "stationId": 10,
+                "stationName": "新宫"
+            }
+        ]
+    },
+    {
+        "anchorList": [
+            {
+                "endId": 2,
+                "startId": 1,
+                "x": 2314,
+                "y": 2622
+            },
+            {
+                "endId": 3,
+                "startId": 2,
+                "x": 1879,
+                "y": 2187
+            },
+            {
+                "endId": 3,
+                "startId": 2,
+                "x": 1879,
+                "y": 2096
+            }
+        ],
+        "color": "#004E9B",
+        "lineEngName": "Daxing Airport Express",
+        "lineId": 52,
+        "lineName": "大兴机场线",
+        "stationList": [
+            {
+                "connectionList": [
+                    {
+                        "dist": 25303,
+                        "duration": 720,
+                        "firstTime": 22128,
+                        "lastTime": 83328,
+                        "nextStationId": 2
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 2314,
+                    "y": 2866
+                },
+                "stationEngName": "daxingjichang",
+                "stationId": 1,
+                "stationName": "大兴机场"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 13028,
+                        "duration": 420,
+                        "firstTime": 22320,
+                        "lastTime": 83520,
+                        "nextStationId": 3
+                    },
+                    {
+                        "dist": 25303,
+                        "duration": 720,
+                        "firstTime": 21408,
+                        "lastTime": 81948,
+                        "nextStationId": 1
+                    }
+                ],
+                "interchangeList": [],
+                "screen": {
+                    "x": 2130,
+                    "y": 2438
+                },
+                "stationEngName": "daxingxincheng",
+                "stationId": 2,
+                "stationName": "大兴新城"
+            },
+            {
+                "connectionList": [
+                    {
+                        "dist": 13028,
+                        "duration": 420,
+                        "firstTime": 20988,
+                        "lastTime": 81528,
+                        "nextStationId": 2
+                    }
+                ],
+                "interchangeList": [
+                    {
+                        "duration": 60,
+                        "isOut": true,
+                        "lineId": 19,
+                        "note": "平行站台换乘",
+                        "stationId": 8
+                    }
+                ],
+                "screen": {
+                    "x": 1889,
+                    "y": 2086
+                },
+                "stationEngName": "caoqiao",
+                "stationId": 3,
+                "stationName": "草桥"
+            }
+        ]
+    }
+]

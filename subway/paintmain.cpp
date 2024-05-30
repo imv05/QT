@@ -75,13 +75,15 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
         it->item->setData(itemName, it->stationName);
         it->textItem = sc.addText(it->stationName);
         //以下为检测碰撞并在可选站名显示区域（车站绕一周）选择合适的地方显示
-        const qreal M = stn->iCnt?20:14;
+        const qreal M = stn->iCnt?20:15;
+        it->textItem->boundingRect().setWidth(26*it->stationName.size());
         const qreal H = it->textItem->boundingRect().height();
-        const qreal W = it->textItem->boundingRect().width();
+        const qreal W = it->textItem->boundingRect().width()*2;
         qDebug() << it->stationName << "height:" << it->textItem->boundingRect().height() <<
             it->textItem->boundingRect().width();
-        qreal xAlternatives[8] = {x+M, x+M, x+M, x-W/2, x-M-W, x-M-W, x-M-W, x-W/2};
-        qreal yAlternatives[8] = {y-H/2, y+M, y-M-H, y-M-H, y-M-H, y-H/2, y+M, y+M};
+        //优先顺序：正右，正下，正左，正上，右下，右上，左下，左上。
+        qreal xAlternatives[8] = {  x+M, x-W/2, x-M-W, x-W/2, x+M,   x+M, x-M-W, x-M-W};
+        qreal yAlternatives[8] = {y-H/2,   y+M, y-H/2, y-M-H, y+M, y-M-H,   y+M, y-H};
         int k=0; bool ok = false; int minCollide = 100;
         for(k=0; k<8; k++){
             it->textItem->setPos(xAlternatives[k], yAlternatives[k]);

@@ -6,12 +6,12 @@ StationItem::StationItem(int x, int y): QGraphicsEllipseItem(0, 0, 26, 26) {
     setBrush(QBrush(Qt::white));
     setPos(x-13, y-13);
 }
-void StationItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
-    qDebug() << "Mouse entered the item";
-}
-void StationItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
-    qDebug() << "Mouse left the item";
-}
+// void StationItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
+//     qDebug() << "Mouse entered the item";
+// }
+// void StationItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
+//     qDebug() << "Mouse left the item";
+// }
 TrainItem::TrainItem(int x, int y): QGraphicsSvgItem(":/images/src/train1.svg") {
     setPos(x+8, y+7);//此处给定左上角坐标
 }
@@ -20,12 +20,12 @@ TransferItem::TransferItem(int x, int y): QGraphicsSvgItem(":/images/src/turn.sv
     // setScale(double(16/26));
     // setPos(x-8, y-8);
 }
-void TransferItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
-    qDebug() << "Mouse entered the transfer item";
-}
-void TransferItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
-    qDebug() << "Mouse left the transfer item";
-}
+// void TransferItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
+//     qDebug() << "Mouse entered the transfer item";
+// }
+// void TransferItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
+//     qDebug() << "Mouse left the transfer item";
+// }
 
 TransparentMaskItem::TransparentMaskItem(QGraphicsScene *scene) : QGraphicsRectItem(scene->sceneRect(), nullptr) {
     QColor bgcolor = QColor(Qt::white);
