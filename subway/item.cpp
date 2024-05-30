@@ -38,3 +38,7 @@ TransparentMaskItem::TransparentMaskItem(QGraphicsScene *scene) : QGraphicsRectI
 const int itemType = static_cast<int>(Qt::UserRole) + 1;
 const int itemName = static_cast<int>(Qt::UserRole) + 2;
 const int itemHighlight = static_cast<int>(Qt::UserRole) + 3;
+
+LableItem::LableItem(int x,int y){//以x,y为基准，建立起lable对应的图形信息
+
+}

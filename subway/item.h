@@ -38,4 +38,11 @@ public:
 extern QGraphicsItemGroup* stationGroup;
 extern QGraphicsItemGroup* highlightGroup;
 
+class LableItem: public QGraphicsItemGroup{//鼠标放置时显示的标签
+public:
+    QGraphicsRectItem* frame;//框架
+
+    LableItem(int x,int y);
+};
+
 #endif // ITEM_H
