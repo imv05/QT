@@ -88,7 +88,7 @@ public:
         formLayout->setContentsMargins(0, 0, 0, 0);
         mainGraphicsView = new QGraphicsView(centralwidget);
         mainGraphicsView->setObjectName("mainGraphicsView");
-        mainGraphicsView->setGeometry(QRect(300, 0, 1471, 1021));
+        mainGraphicsView->setGeometry(QRect(300, 0, 1311, 961));
         inputB = new QLineEdit(centralwidget);
         inputB->setObjectName("inputB");
         inputB->setGeometry(QRect(160, 0, 131, 31));
