@@ -2,8 +2,9 @@
 #include "item.h"
 #include "paintmain.h"
 #include "search.h"
-#include <QDebug>
+#include "class.h"
 
+#include <QDebug>
 #include <QGraphicsView>
 #include <QWheelEvent>
 #include <QMessageBox>

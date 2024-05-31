@@ -9,7 +9,9 @@ release/menu.o
 release/paintmain.o
 release/paintplan.o
 release/planview.o
+release/realtimewindow.o
 release/search.o
 release/qrc_resources.o
 release/moc_mainwindow.o
 release/moc_menu.o
+release/moc_realtimewindow.o
