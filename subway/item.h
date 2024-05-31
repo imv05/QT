@@ -11,21 +11,16 @@ extern const int itemHighlight;
 
 class StationItem : public QGraphicsEllipseItem {   //普通站继承自QGraphics椭圆
 public:
-    static const int myType = 1;//用于设置该item的itemType
+    static const int myType = 1;    //用于setData中设置该item的itemType
     StationItem(int x, int y);
-    // void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
-    // void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 };
-
 class TransferItem : public QGraphicsSvgItem {   //换乘站导入SVG图标
 public:
     static const int myType = 1;
     TransferItem(int x, int y);
-    // void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
-    // void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 };
 
-class TrainItem : public QGraphicsSvgItem {   //换乘站导入SVG图标
+class TrainItem : public QGraphicsSvgItem {   //
 public:
     TrainItem(int x, int y);
 };

@@ -8,7 +8,7 @@ QVector<Station*> allStations = QVector<Station*>();
 QMap<QString, Station*> allStationNames = QMap<QString, Station*>();
 QMap<QPair<Station*, Station*>, SPath*> spathMap = QMap<QPair<Station*, Station*>, SPath*>();
 QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap = QMap<QPair<Station*, Station*>, QGraphicsPathItem*>();
-QMap<QString, QGraphicsPathItem*> stationItemMap = QMap<QString, QGraphicsPathItem*>();
+QMap<QString, QGraphicsItem*> stationItemMap = QMap<QString, QGraphicsItem*>();
 QMap<QString, QGraphicsTextItem*> stationTextMap = QMap<QString, QGraphicsTextItem*>();
 
 Line::Line(json jLine){

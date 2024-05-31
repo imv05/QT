@@ -45,7 +45,7 @@ QPointF calculateCenter(QPointF pc, QPointF p1, QPointF p2, qreal radius, qreal&
         h1ounit = QPointF(-1*p1pcunit.y(), p1pcunit.x());
         retSAngle = absoluteAngle(h1ounit*-1);
         retSpan = -(180-acos(dtprdt)*180/acos(-1));
-        qDebug()<< pc.x() << pc.y() << p1.x()<<p1.y()<< p2.x()<<p2.y() << radius << retSAngle << retSpan;
+        // qDebug()<< pc.x() << pc.y() << p1.x()<<p1.y()<< p2.x()<<p2.y() << radius << retSAngle << retSpan;
     }else{
         h1ounit = QPointF(p1pcunit.y(), -1*p1pcunit.x());
         retSAngle = absoluteAngle(h1ounit*-1);
@@ -63,6 +63,16 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
         Station* stn = it;
         int x = stn->x;
         int y = stn->y;
+        QString name = stn->stationName;
+        if(stationItemMap.contains(name)){
+            it->item = stationItemMap[name];
+            if(stationTextMap.contains(name)){
+                it->textItem = stationTextMap[name];
+            }else{
+                qDebug() << "itemMap,textMap,existence disagreement.";
+            }
+            continue;
+        }
         if(stn->iCnt){  //换乘站
             stn->item = (new TransferItem(x, y));
             it->item->setData(itemType, TransferItem::myType);
@@ -74,13 +84,14 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
         }
         it->item->setData(itemName, it->stationName);
         it->textItem = sc.addText(it->stationName);
+        stationItemMap[name] = it->item;
+        stationTextMap[name] = it->textItem;
         //以下为检测碰撞并在可选站名显示区域（车站绕一周）选择合适的地方显示
         const qreal M = stn->iCnt?20:15;
-        it->textItem->boundingRect().setWidth(26*it->stationName.size());
+        it->textItem->setFont(stationFont);
+        it->textItem->setDefaultTextColor(Qt::black);
         const qreal H = it->textItem->boundingRect().height();
-        const qreal W = it->textItem->boundingRect().width()*2;
-        qDebug() << it->stationName << "height:" << it->textItem->boundingRect().height() <<
-            it->textItem->boundingRect().width();
+        const qreal W = it->textItem->boundingRect().width();
         //优先顺序：正右，正下，正左，正上，右下，右上，左下，左上。
         qreal xAlternatives[8] = {  x+M, x-W/2, x-M-W, x-W/2, x+M,   x+M, x-M-W, x-M-W};
         qreal yAlternatives[8] = {y-H/2,   y+M, y-H/2, y-M-H, y+M, y-M-H,   y+M, y-H};
@@ -88,7 +99,7 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
         for(k=0; k<8; k++){
             it->textItem->setPos(xAlternatives[k], yAlternatives[k]);
             int collisionCnt = it->textItem->collidingItems().size();
-            qDebug() << it->stationName << k << collisionCnt;
+            // qDebug() << it->stationName << k << collisionCnt;
             if(collisionCnt==0){
                 ok = true;
                 break;
@@ -100,14 +111,15 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
                 it->textItem->setPos(xAlternatives[k], yAlternatives[k]);
                 int collisionCnt = it->textItem->collidingItems().size();
                 if(minCollide == collisionCnt){
-                    qDebug() << it->stationName << k << collisionCnt;
+                    // qDebug() << it->stationName << k << collisionCnt;
                     break;
                 }
             }
         }
-        it->textItem->setFont(stationFont);
-        it->textItem->setDefaultTextColor(Qt::black);
-        it++;
+
+        // qDebug() << it->stationName << "height:" << it->textItem->boundingRect().height() <<
+            // it->textItem->boundingRect().width();
+        // it++;
     }
 }
 void paintMain(QGraphicsScene& sc){

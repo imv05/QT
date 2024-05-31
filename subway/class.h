@@ -97,7 +97,7 @@ extern QVector<Station*> allStations;
 extern QMap<QString, Station*> allStationNames;
 extern QMap<QPair<Station*, Station*>, SPath*> spathMap;
 extern QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap;
-extern QMap<QString, QGraphicsPathItem*> stationItemMap;
+extern QMap<QString, QGraphicsItem*> stationItemMap;
 extern QMap<QString, QGraphicsTextItem*> stationTextMap;
 
 

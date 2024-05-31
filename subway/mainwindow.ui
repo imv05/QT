@@ -6,15 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1920</width>
-    <height>1080</height>
+    <width>1366</width>
+    <height>831</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1366</width>
+    <height>768</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -28,7 +34,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>131</width>
+      <width>191</width>
       <height>31</height>
      </rect>
     </property>
@@ -84,7 +90,7 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>131</width>
+      <width>191</width>
       <height>131</height>
      </rect>
     </property>
@@ -101,10 +107,10 @@
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>1770</x>
+      <x>1260</x>
       <y>0</y>
-      <width>151</width>
-      <height>1021</height>
+      <width>101</width>
+      <height>761</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout"/>
@@ -112,19 +118,28 @@
    <widget class="QGraphicsView" name="mainGraphicsView">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>220</x>
       <y>0</y>
-      <width>1471</width>
-      <height>1021</height>
+      <width>1031</width>
+      <height>761</height>
      </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="dragMode">
+     <enum>QGraphicsView::NoDrag</enum>
     </property>
    </widget>
    <widget class="QLineEdit" name="inputB">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>0</y>
-      <width>131</width>
+      <x>10</x>
+      <y>70</y>
+      <width>191</width>
       <height>31</height>
      </rect>
     </property>
@@ -150,9 +165,9 @@
    <widget class="QListView" name="listB">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>30</y>
-      <width>131</width>
+      <x>10</x>
+      <y>100</y>
+      <width>191</width>
       <height>131</height>
      </rect>
     </property>
@@ -170,25 +185,29 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
-      <width>281</width>
-      <height>891</height>
+      <y>140</y>
+      <width>191</width>
+      <height>581</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="swapButton">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>0</y>
+      <x>90</x>
+      <y>40</y>
       <width>21</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
+   <zorder>swapButton</zorder>
    <zorder>mainGraphicsView</zorder>
    <zorder>pushButton</zorder>
    <zorder>formLayoutWidget</zorder>
@@ -197,14 +216,13 @@
    <zorder>planGraphicsView</zorder>
    <zorder>listA</zorder>
    <zorder>listB</zorder>
-   <zorder>pushButton_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1920</width>
+     <width>1366</width>
      <height>27</height>
     </rect>
    </property>
