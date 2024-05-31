@@ -30,7 +30,5 @@ public:
     TransparentMaskItem(QGraphicsScene *scene);
 };
 
-extern QGraphicsItemGroup* stationGroup;
-extern QGraphicsItemGroup* highlightGroup;
 
 #endif // ITEM_H

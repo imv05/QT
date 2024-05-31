@@ -6,7 +6,11 @@
 class MainGraphicsView : public QGraphicsView
 {
 public:
+    const qreal HIGHLIGHT_ELEVATION = 200;  //高亮对象zpos的抬升值
+    QVector<QGraphicsItem*> highlightItemList;
+    bool highlightActivated;
     MainGraphicsView(QGraphicsScene& scene, QWidget *parent = nullptr);
+    void refreshHighlight(void);
 protected:
     // 重写鼠标按下事件
     void mousePressEvent(QMouseEvent *event) override;
