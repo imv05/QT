@@ -12,6 +12,7 @@
 
 MainGraphicsView::MainGraphicsView(QGraphicsScene& scene, QWidget *parent)
     : QGraphicsView(parent), isDragging(false), scene_(scene){
+    highlightActivated = false;
     setMouseTracking(true); // 开启鼠标跟踪
 }
 // 重写鼠标按下事件
@@ -21,17 +22,22 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event){
         isDragging = true;      //设置拖拽状态
         setCursor(Qt::ClosedHandCursor);    // 设置鼠标抓手形状
     }else{
-        QPointF scenePos = mapToScene(event->pos());    // 将鼠标事件转换为场景坐标
-        for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
-            if (item->data(itemType) == StationItem::myType) {//如果是站点
-                QString sname = item->data(itemName).toString();
-                Plan::stationA = allStationNames[sname];
-                Plan::makePlan();
-                paintTime(scene_, Plan::timeMap);
-                // 弹出包含注释内容的消息框
-                QMessageBox::information(this, "title", sname+"到各站的时间（分钟）");
-                clearTime(scene_);
-                return;
+        if(highlightActivated){
+            highlightActivated = false;
+            refreshHighlight();
+        }else{
+            QPointF scenePos = mapToScene(event->pos());    // 将鼠标事件转换为场景坐标
+            for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
+                if (item->data(itemType) == StationItem::myType) {//如果是站点
+                    QString sname = item->data(itemName).toString();
+                    Plan::stationA = allStationNames[sname];
+                    Plan::makePlan();
+                    paintTime(scene_, Plan::timeMap);
+                    // 弹出包含注释内容的消息框
+                    QMessageBox::information(this, "title", sname+"到各站的时间（分钟）");
+                    clearTime(scene_);
+                    return;
+                }
             }
         }
     }
@@ -87,12 +93,9 @@ void MainGraphicsView::wheelEvent(QWheelEvent *event){
 }
 void MainGraphicsView::showInfoLabel(const QPointF& pos, const QString& text){
     if (!m_infoLabel) {
-        m_infoLabel = new QGraphicsTextItem(text);
-        m_infoLabel->setFont(QFont("微软雅黑"));
-        m_infoLabel->setDefaultTextColor(Qt::black);
+        m_infoLabel = new LableItem(pos.x(),pos.y(),text);
         scene()->addItem(m_infoLabel);
     }
-    m_infoLabel->setPos(pos.x(),pos.y());
     m_infoLabel->setVisible(true);
 }
 void MainGraphicsView::hideInfoLabel(){
@@ -101,5 +104,6 @@ void MainGraphicsView::hideInfoLabel(){
         m_infoLabel = nullptr;
     }
 }
-
+void MainGraphicsView::refreshHighlight(void){
+}
 

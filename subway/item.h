@@ -1,6 +1,9 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+#include "class.h"
+
+#include <QColor>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
 #include <QtSvgWidgets/QGraphicsSvgItem>
@@ -30,26 +33,26 @@ public:
     TransparentMaskItem(QGraphicsScene *scene);
 };
 
-extern QGraphicsItemGroup* stationGroup;
-extern QGraphicsItemGroup* highlightGroup;
 
 class LinePart:public QGraphicsItemGroup{//对于一个站，每条线是一个模块
 public:
-    QGraphicsTextItem* lnName;//线路名称
+    QGraphicsTextItem*  lnName;//线路名称
+    QColor lnColor;//线路颜色
     QGraphicsTextItem* stPlus;
     QGraphicsTextItem* stDeduct;
     QGraphicsTextItem* stPlusShou;
     QGraphicsTextItem* stPlusMo;
     QGraphicsTextItem* stDeductShou;
     QGraphicsTextItem* stDeductMo;
-    LinePart(int x,int y);
+    LinePart(int x,int y,int lineNum);
 };
 
 class LableItem: public QGraphicsItemGroup{//鼠标放置时显示的标签
 public:
     int sx,sy;//作为lable绘图标准的x，y，标定左上角的位置
+    int height=20,width=100;
     int lineNum;//统计这个站是几条线的交点
-    StationItem
+    Station* stn; //站点的指针，这个指针可能需要遍历很多次
     QGraphicsRectItem* frame;//框架
     QGraphicsTextItem* staName;//lable的最高处，本站站名，统一使用北京地铁颜色
     QGraphicsTextItem* shou;

@@ -15,6 +15,8 @@ Line::Line(json jLine){
     lineId = int(jLine["lineId"]);
     lineName = QString::fromStdString(jLine["lineName"]);
     lineEngName = QString::fromStdString(jLine["lineEngName"]);
+    incDirection = QString::fromStdString(jLine["IncDirection"]);
+    decDirection = QString::fromStdString(jLine["DecDirection"]);
     // isLoop = jLine["loop"];
     // isNumeral = jLine["isNumeral"];
     // interval = 60 * int(jLine["interval"]);
@@ -34,6 +36,7 @@ void Line::initializeConnectionLine(json jLine){
         stationIt++;
     }
     stationIt = stationMap.begin();
+    //绘制connection对应的path
     for(int i=0; i<stationCnt; i++){
         Station* cStation = *stationIt;
         int cCnt = cStation->cList.size();
@@ -124,9 +127,10 @@ Connection::Connection(json jconnection, Station* cStation){   //使用json jcon
         int oCnt = jconnection["operationList"].size();
         const int daySec = 24*3600;
         int last = toSec(19,0,0) + daySec; //最早末班车初始化为19:00:00
-        if(jconnection.contains("lastTime")){
+        if(jconnection.contains("lastTime")){//当前的数据库里仅考虑最晚的末班（即能到下一站的末班车）
+            first = jconnection["firstTime"];
             last = jconnection["lastTime"];
-        }else{
+        }else{//预留：以后数据库会有多个终点的情况
             for(int k=0; k<oCnt; k++){//处理多个终点的末班车。
                 const int distinct = toSec(19,0,0);
                 json jo = jconnection["operationList"][k];
@@ -142,4 +146,15 @@ Connection::Connection(json jconnection, Station* cStation){   //使用json jcon
         //此时last表示此方向最晚的末班车
     }
 }
-
+/*
+QMap<int, Station*> Station::transferWith(void){
+    QMap<int, Station*> ret;
+    ret.insert(lineId, this);
+    for(auto cit: cList){
+        if(cit.isTransfer){
+            QMap.insert(cit.to->lineId, cit.to);
+        }
+    }
+    return ret;
+}
+*/

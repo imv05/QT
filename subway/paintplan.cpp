@@ -56,11 +56,12 @@ void paintPlan(QGraphicsScene& pr){
             lineItem.push_back(tmprect);
             lineItem[packedsize]=pr.addRect(QRectF(x+11,y+21,4,38),QPen(Plan::planRoute[i+1]->line->color),QBrush(Plan::planRoute[i+1]->line->color));
             tmptext=new QGraphicsTextItem;
+
             lineTextItem.push_back(tmptext);
-            lineTextItem[0]=pr.addText(Plan::planRoute[i+1]->line->lineName);
-            lineTextItem[0]->setPos(x+16,y+28);
-            lineTextItem[0]->setFont(stationFont);
-            lineTextItem[0]->setDefaultTextColor(Plan::planRoute[i+1]->line->color);
+            lineTextItem[packedsize]=pr.addText(Plan::planRoute[i+1]->line->lineName);
+            lineTextItem[packedsize]->setPos(x+16,y+28);
+            lineTextItem[packedsize]->setFont(stationFont);
+            lineTextItem[packedsize]->setDefaultTextColor(Plan::planRoute[i+1]->line->color);
             packedsize++;y+=60;
         }
     }

@@ -56,6 +56,7 @@ public:
     Station* to;    //指向下一站的指针
     int dist;  //至下一站的距离，单位m
     int time;  //至下一站的运行时间，单位s
+    int first;  //此方向至下一站的首班车时间
     int last;  //此方向至下一站的末班车时间
     QString note;   //当这一连接为换乘时，可能有说明。
     bool isOut; //是否为出站换乘
@@ -77,6 +78,8 @@ public:
     int lineId; //该线的lineId
     QString lineName;   //该线的中文名
     QString lineEngName;    //该线的英文名
+    QString incDirection;   //站增方向，例如“往环球度假区”“内环”
+    QString decDirection;   //站减方向，例如“往古城”“外环”
     bool isLoop;    //是否是环线（在当前数据结构下，似乎没用）
     bool isNumeral; //是否为纯数字
     int interval;  //发车间隔
@@ -89,6 +92,7 @@ public:
     Line(json jLine);
     void initializeConnectionLine(json jLine);
     Station* operator[](int stationId);
+    QVector<Station*> transferWith(void);
 };
 
 
