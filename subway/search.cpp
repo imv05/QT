@@ -9,6 +9,13 @@ Station* Plan::stationB = nullptr;
 std::unordered_map<Station*, Station*> Plan::last_of;
 std::unordered_map<Station*, int> Plan::timeMap;
 QVector<Station*> Plan::planRoute;
+QVector<QGraphicsItem*> Plan::hlList;
+QVector<Connection> Plan::planConnections;
+QVector<Line*> Plan::planLines;   //（按照line的出现顺序）
+QVector<QVector<Station*> > Plan::planRouteSplit;  //（按照line的出现顺序）以不同线路分开的Station*列表
+QVector<int> Plan::timeOfLine;     //（按照line的出现顺序）不同line的花费时间，按秒计，共lines个
+QVector<int> Plan::directionOfLine;    //（按照line的出现顺序）不同line的方向，共lines个
+QVector<Connection> Plan::transferConnections; //换乘的connection，用于展示换乘详情，共lines-1个
 
 std::unordered_map<Station*, Station*> dijkstra(Station* start) {
     std::unordered_map<Station*, Station*> previous; // 上一个节点（父节点）
@@ -85,10 +92,64 @@ bool Plan::getRoute(void){//规划成功返回true
     if(stationA && stationB && stationA != stationB){//终点已给出，可以开始回溯
         qDebug() << "trying to get route";
         planRoute = getPath(last_of, stationB);//完成回溯，输出起点到终点的路线
+        int routeNodeCnt = planRoute.size();
+        if(routeNodeCnt<=1)return false;
         for(auto planNode: planRoute){
             qDebug() << planNode->line->lineName << planNode->stationName;
         }
-        if(planRoute.size()>1)return true;
-        else return false;
+        //维护planConnections
+        for(int i=0; i<routeNodeCnt-1; i++){
+            Station* current = planRoute[i];
+            for(auto cit: current->cList){
+                if(cit.to == planRoute[i+1]){
+                    planConnections.push_back(cit);
+                    break;
+                }
+            }
+        }
+        if(planConnections.size()!=routeNodeCnt-1){ //检查planConnections的数量是否正确
+            qDebug() << "finding route Connection incomplete";
+        }
+        //维护hlList
+        for(int i=0; i<routeNodeCnt; i++){//将每个涉及的车站加入预高亮列表
+            hlList.push_back(planRoute[i]->item);
+            hlList.push_back(planRoute[i]->textItem);
+        }
+        for(int i=0; i<routeNodeCnt-1; i++){//将每个涉及的车站连接器加入预高亮列表
+            if(!planConnections[i].isTransfer){//前后两车站不是换乘关系时需要
+                hlList.push_back(pathItemMap[QPair<Station*, Station*>(planRoute[i],  planRoute[i+1])]);
+            }
+        }
+        //维护planLines,planRouteSplit,timeOfLine,directionOfLine,transferConnections共5个变量
+        planLines.push_back(planRoute[0]->line);
+        timeOfLine.push_back(0);
+        planRouteSplit.push_back(QVector<Station*>());
+        planRouteSplit[0].push_back(planRoute[0]);//添加分线Station*的第一个车站
+        int currentLineOrder = 0;//当前加入的车站所在线在plan中的顺位
+        for(int i=0; i<routeNodeCnt-1; i++){
+            if(!planConnections[i].isTransfer){//前后两车站不是换乘关系时
+                //添加directionOfLine
+                directionOfLine.push_back(planConnections[i].direction);
+                //需要添加Path至预高亮item列表
+                hlList.push_back(pathItemMap[QPair<Station*, Station*>(planRoute[i],  planRoute[i+1])]);
+                //然后将车站加到当前的Split
+                planRouteSplit[currentLineOrder].push_back(planRoute[i+1]);
+                //增加分线时间
+                timeOfLine[currentLineOrder] += planConnections[i].time;
+            }else{//如果是换乘关系，则加入换乘列表
+                currentLineOrder ++ ;
+                transferConnections.push_back(planConnections[i]);  //当前Connection加入transferConnections
+                planLines.push_back(planConnections[i].to->line);   //将该次换乘后的line加入line列表
+                //Split列表加入新线，然后顺位+1
+                planRouteSplit.push_back(QVector<Station*>());
+                planRouteSplit[currentLineOrder].push_back(planRoute[i+1]);
+                //分线时间切换到下一个
+                timeOfLine.push_back(0);
+            }
+        }
+        for(int i=0; i<planLines.size()-1; i++){
+            qDebug() << transferConnections[i].note;
+        }
+        return true;
     }else return false;
 }

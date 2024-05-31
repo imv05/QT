@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     newmenu->setWindowTitle("地铁线路规划");
     newmenu->show();
     RealtimeWindow *realtimewindow = new RealtimeWindow;
-    realtimewindow->show();
+    // realtimewindow->show();
     load();//加载，主要的作用是提取.json文件
 
     return a.exec();

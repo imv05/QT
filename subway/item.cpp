@@ -13,7 +13,7 @@ TransferItem::TransferItem(int x, int y): QGraphicsSvgItem(":/images/src/turn.sv
     // setPos(x-8, y-8);
 }
 
-TrainItem::TrainItem(int x, int y): QGraphicsSvgItem(":/images/src/train1.svg") {
+TrainItem::TrainItem(int x, int y): QGraphicsSvgItem(":/images/src/train.svg") {
     setPos(x+8, y+7);//此处给定左上角坐标
 }
 TransparentMaskItem::TransparentMaskItem(QGraphicsScene *scene) : QGraphicsRectItem(scene->sceneRect(), nullptr) {

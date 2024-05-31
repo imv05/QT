@@ -170,7 +170,10 @@ void MainWindow::on_inputA_editingFinished()
     if(flag){
         ui->inputA->clearFocus();
         ui->inputB->setFocus();
-        if(Plan::makePlan())if(Plan::getRoute())paintPlan(planScene);
+        if(Plan::makePlan())if(Plan::getRoute()){
+
+                paintPlan(planScene);
+            }
     }else{
         ui->inputA->setText(QString(""));//无法匹配则清空输入，需要重新输入
     }
