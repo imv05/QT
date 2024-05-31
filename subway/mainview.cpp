@@ -106,20 +106,24 @@ void MainGraphicsView::hideInfoLabel(){
         m_infoLabel = nullptr;
     }
 }
-void MainGraphicsView::refreshHighlight(void){
+void MainGraphicsView::refreshHighlight(){
     if(highlightActivated){
         for(auto item: highlightItemList){
-            if(item->zValue() < HIGHLIGHT_ELEVATION){
-                item->setZValue(item->zValue()+HIGHLIGHT_ELEVATION);
+            if(item!=nullptr){
+                if(item->zValue() < HIGHLIGHT_ELEVATION){
+                    item->setZValue(item->zValue()+HIGHLIGHT_ELEVATION);
+                }
             }
         }
         mask = new TransparentMaskItem(&scene_);
         scene_.addItem(mask);
+        mask->setZValue(HIGHLIGHT_ELEVATION-1);
     }else{
         scene_.removeItem(mask);
         delete mask;
-        for(auto item: highlightItemList){
-            if(item->zValue() > HIGHLIGHT_ELEVATION){
+        QList<QGraphicsItem*> items = scene_.items();
+        for (QGraphicsItem *item : items) {
+            if (item->zValue() > HIGHLIGHT_ELEVATION) {
                 item->setZValue(item->zValue()-HIGHLIGHT_ELEVATION);
             }
         }

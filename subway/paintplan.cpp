@@ -10,6 +10,7 @@
 void paintPlan(QGraphicsScene& pr){
     //调用search.h中的static QVector<Station*> planRoute;来获取路径规划中的站点信息
     //后续补充：画的是没有展开的版本
+
     pr.clear();
     QFont stationFont("微软雅黑", 10);
     int i;
@@ -40,6 +41,7 @@ void paintPlan(QGraphicsScene& pr){
         }else{
             currentLineText = Plan::planLines[i]->decDirection;
         }
+        currentLineText += QString(" ");
         currentLineText += QString::number(Plan::planRouteSplit[i].size()-1) + QString("站 ");
         currentLineText += QString::number(Plan::timeOfLine[i]/60) + QString("分钟");
         directionText.push_back(currentLineText);
@@ -95,11 +97,11 @@ void paintPlan(QGraphicsScene& pr){
             lineItem[packedsize]=pr.addRect(QRectF(x+11,y+21,4,38),QPen(Plan::planRoute[i+1]->line->color),QBrush(Plan::planRoute[i+1]->line->color));
             lineTextItem.push_back(nullptr);
             lineTextItem[packedsize]=pr.addText(lineText[packedsize], stationFont);
-            lineTextItem[packedsize]->setPos(x+16,y+23);
+            lineTextItem[packedsize]->setPos(x+16,y+20);
             lineTextItem[packedsize]->setDefaultTextColor(Plan::planRoute[i+1]->line->color);
             directionItem.push_back(nullptr);
             directionItem[packedsize]=pr.addText(directionText[packedsize], stationFont);
-            directionItem[packedsize]->setPos(x+16,y+32);
+            directionItem[packedsize]->setPos(x+16,y+34);
             directionItem[packedsize]->setDefaultTextColor(Qt::black);
             packedsize++;y+=60;
         }

@@ -155,7 +155,6 @@ debug/qrc_resources.cpp: ../../resources.qrc \
 		../../src/doubleArrow.jpg \
 		../../src/turn.svg \
 		../../src/train.svg \
-		../../src/train1.svg \
 		../../data/stations.json
 	C:\Qt\6.7.1\mingw_64\bin\rcc.exe -name resources --no-zstd ..\..\resources.qrc -o debug\qrc_resources.cpp
 
@@ -3047,7 +3046,62 @@ debug/paintplan.o: ../../paintplan.cpp ../../global.h \
 		C:/Qt/6.7.1/mingw_64/include/QtSvgWidgets/qtsvgwidgetsexports.h \
 		C:/Qt/6.7.1/mingw_64/include/QtSvg/qtsvgglobal.h \
 		C:/Qt/6.7.1/mingw_64/include/QtSvg/qtsvgexports.h \
-		../../search.h
+		../../search.h \
+		../../mainview.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qfontinfo.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qfontmetrics.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qwidget.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qaction.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qkeysequence.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qicon.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qpalette.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qcursor.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qbitmap.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qevent.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qiodevice.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qurl.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qeventpoint.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qvector2d.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qvectornd.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qpointingdevice.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qinputdevice.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qscreen.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/QList \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/QObject \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/QRect \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/QSize \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/QSizeF \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/QTransform \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qnativeinterface.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qscreen_platform.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qguiapplication.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qcoreapplication.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qdeadlinetimer.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qelapsedtimer.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qeventloop.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qcoreapplication_platform.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qfuture.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qfutureinterface.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qmutex.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qtsan_impl.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qresultstore.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qfuture_impl.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qthreadpool.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qthread.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qrunnable.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qexception.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qpromise.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qinputmethod.h \
+		C:/Qt/6.7.1/mingw_64/include/QtCore/qlocale.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qguiapplication_platform.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\paintplan.o ..\..\paintplan.cpp
 
 debug/planview.o: ../../planview.cpp ../../planview.h \
@@ -3440,6 +3494,15 @@ debug/realtimewindow.o: ../../realtimewindow.cpp ../../realtimewindow.h \
 		C:/Qt/6.7.1/mingw_64/include/QtCore/QVariant \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QApplication \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qapplication.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.7.1/mingw_64/include/QtGui/qpen.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
+		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMenuBar \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmenubar.h \
 		C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmenu.h \

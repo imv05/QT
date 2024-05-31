@@ -19,7 +19,7 @@ TrainItem::TrainItem(int x, int y): QGraphicsSvgItem(":/images/src/train.svg") {
 TransparentMaskItem::TransparentMaskItem(QGraphicsScene *scene) : QGraphicsRectItem(scene->sceneRect(), nullptr) {
     scene_ = scene;
     QColor bgcolor = QColor(Qt::white);
-    bgcolor.setAlpha(50);
+    bgcolor.setAlpha(200);
     setBrush(bgcolor);
     setData(itemType, MASK_TYPE);
     setPen(QPen(Qt::NoPen)); // 没有边框

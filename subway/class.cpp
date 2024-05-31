@@ -6,8 +6,9 @@
 QMap<int, Line*> lineMap = QMap<int, Line*>();  //lineId,
 QVector<Station*> allStations = QVector<Station*>();
 QMap<QString, Station*> allStationNames = QMap<QString, Station*>();
-QMap<QPair<Station*, Station*>, SPath*> spathMap = QMap<QPair<Station*, Station*>, SPath*>();
-QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap = QMap<QPair<Station*, Station*>, QGraphicsPathItem*>();
+QMap<QPair<Station*, Station*>, SPath*> spathMap = QMap<QPair<Station*, Station*>, SPath*>();   //双向只有一对
+// QHash<SPath*, QGraphicsPathItem*> spathToItemMap = QHash<SPath*, QGraphicsPathItem*>();
+QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap = QMap<QPair<Station*, Station*>, QGraphicsPathItem*>();    //双向有两对
 QMap<QString, QGraphicsItem*> stationItemMap = QMap<QString, QGraphicsItem*>();
 QMap<QString, QGraphicsTextItem*> stationTextMap = QMap<QString, QGraphicsTextItem*>();
 QMap<QString, QVector<Station*> > stationsByName = QMap<QString, QVector<Station*> >();
