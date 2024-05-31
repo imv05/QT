@@ -2,6 +2,7 @@
 #include <QGraphicsScene>
 #include <QDebug>
 //直径：换乘站40，非换乘站26，线条粗16，典型站间距横向95，纵向57。字体高27
+const int MASK_TYPE = 999;
 StationItem::StationItem(int x, int y): QGraphicsEllipseItem(0, 0, 26, 26) {
     setBrush(QBrush(Qt::white));
     setPos(x-13, y-13);
@@ -16,11 +17,17 @@ TrainItem::TrainItem(int x, int y): QGraphicsSvgItem(":/images/src/train1.svg") 
     setPos(x+8, y+7);//此处给定左上角坐标
 }
 TransparentMaskItem::TransparentMaskItem(QGraphicsScene *scene) : QGraphicsRectItem(scene->sceneRect(), nullptr) {
+    scene_ = scene;
     QColor bgcolor = QColor(Qt::white);
     bgcolor.setAlpha(50);
     setBrush(bgcolor);
+    setData(itemType, MASK_TYPE);
     setPen(QPen(Qt::NoPen)); // 没有边框
     setZValue(100);  //设置z值，覆盖在原图之上
+    scene->addItem((QGraphicsItem*)this);
+}
+TransparentMaskItem::~TransparentMaskItem(){
+    scene_->removeItem((QGraphicsItem*) this);
 }
 
 const int itemType = static_cast<int>(Qt::UserRole) + 1;

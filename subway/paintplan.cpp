@@ -43,7 +43,7 @@ void paintPlan(QGraphicsScene& pr){
     packedsize++;y+=60;
 
     for(i=1;i<plansize-1;i++){//遍历原始规划信息
-        if(Plan::planRoute[i]->stationName==Plan::planRoute[i+1]->stationName){//和下一个一样，说明在这个站会发生换乘动作
+        if(Plan::planRoute[i]->lineId!=Plan::planRoute[i+1]->lineId){//和下一个一样，说明在这个站会发生换乘动作
             packedRoute.push_back(Plan::planRoute[i]);
             tmp=new TrainItem(x,y);
             trainItem.push_back(tmp);x+=20;
@@ -57,12 +57,15 @@ void paintPlan(QGraphicsScene& pr){
             lineItem[packedsize]=pr.addRect(QRectF(x+11,y+21,4,38),QPen(Plan::planRoute[i+1]->line->color),QBrush(Plan::planRoute[i+1]->line->color));
             tmptext=new QGraphicsTextItem;
             lineTextItem.push_back(tmptext);
-            lineTextItem[0]=pr.addText(Plan::planRoute[i+1]->line->lineName);
-            lineTextItem[0]->setPos(x+16,y+28);
-            lineTextItem[0]->setFont(stationFont);
-            lineTextItem[0]->setDefaultTextColor(Plan::planRoute[i+1]->line->color);
+            lineTextItem[packedsize]=pr.addText(Plan::planRoute[i+1]->line->lineName+"哈哈哈");
+            lineTextItem[packedsize]->setPos(x+16,y+28);
+            lineTextItem[packedsize]->setFont(stationFont);
+            lineTextItem[packedsize]->setDefaultTextColor(Plan::planRoute[i+1]->line->color);
             packedsize++;y+=60;
         }
+    }
+    for(int i=0; i<packedsize; i++){
+
     }
     packedRoute.push_back(Plan::planRoute[plansize-1]);//终点
     tmp=new TrainItem(x,y);

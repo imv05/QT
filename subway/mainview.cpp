@@ -21,7 +21,7 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event){
         isDragging = true;      //设置拖拽状态
         setCursor(Qt::ClosedHandCursor);    // 设置鼠标抓手形状
     }else{
-        if(hightlightActivated){
+        if(highlightActivated){
             highlightActivated = false;
             refreshHighlight();
         }else{
@@ -107,6 +107,24 @@ void MainGraphicsView::hideInfoLabel(){
     }
 }
 void MainGraphicsView::refreshHighlight(void){
-    int deltaz = isHighL
+    if(highlightActivated){
+        for(auto item: highlightItemList){
+            if(item->zValue() < HIGHLIGHT_ELEVATION){
+                item->setZValue(item->zValue()+HIGHLIGHT_ELEVATION);
+            }
+        }
+        mask = new TransparentMaskItem(&scene_);
+        scene_.addItem(mask);
+    }else{
+        scene_.removeItem(mask);
+        delete mask;
+        for(auto item: highlightItemList){
+            if(item->zValue() > HIGHLIGHT_ELEVATION){
+                item->setZValue(item->zValue()-HIGHLIGHT_ELEVATION);
+            }
+        }
+        highlightItemList.clear();
+    }
+
 }
 

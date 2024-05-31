@@ -10,13 +10,14 @@ QMap<QPair<Station*, Station*>, SPath*> spathMap = QMap<QPair<Station*, Station*
 QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap = QMap<QPair<Station*, Station*>, QGraphicsPathItem*>();
 QMap<QString, QGraphicsItem*> stationItemMap = QMap<QString, QGraphicsItem*>();
 QMap<QString, QGraphicsTextItem*> stationTextMap = QMap<QString, QGraphicsTextItem*>();
+QMap<QString, QVector<Station*> > stationsByName = QMap<QString, QVector<Station*> >();
 
 Line::Line(json jLine){
     lineId = int(jLine["lineId"]);
     lineName = QString::fromStdString(jLine["lineName"]);
     lineEngName = QString::fromStdString(jLine["lineEngName"]);
-    incDirection = QString::fromStdString(jLine["IncDirection"]);
-    decDirection = QString::fromStdString(jLine["DecDirection"]);
+    incDirection = QString::fromStdString(jLine["incDirection"]);
+    decDirection = QString::fromStdString(jLine["decDirection"]);
     // isLoop = jLine["loop"];
     // isNumeral = jLine["isNumeral"];
     // interval = 60 * int(jLine["interval"]);
@@ -121,6 +122,19 @@ Connection::Connection(json jconnection, Station* cStation){   //使用json jcon
     }else{
         isTransfer = false;
         int nId = jconnection["nextStationId"];
+        //临时解决方案：通过this的stationId和nextStation的id判断方向。
+        if(nId == from->stationId + 1){
+            direction = 1;
+        }else if(nId == from->stationId - 1){
+            direction = -1;
+        }else if(nId == 1){//环线最大id，+1
+            direction = 1;
+        }else if(from->stationId==1){//环线最小id，-1
+            direction = -1;
+        }else{
+            direction = -1;
+        }
+        //临时解决方案末尾
         to = from->line->stationMap[nId];
         dist = jconnection["dist"];
         time = jconnection["duration"];
@@ -145,14 +159,4 @@ Connection::Connection(json jconnection, Station* cStation){   //使用json jcon
         }
         //此时last表示此方向最晚的末班车
     }
-}
-QMap<int, Station*> Station::transferWith(void){
-    QMap<int, Station*> ret;
-    ret.insert(lineId, this);
-    for(auto cit: cList){
-        if(cit.isTransfer){
-            QMap.insert(cit.to->lineId, cit.to);
-        }
-    }
-    return ret;
 }
