@@ -18,6 +18,13 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+class buttonManage{
+public:
+    QPushButton* button;
+    int lineId;
+    buttonManage(QPushButton* text,int i):button(text),lineId(i){}
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -49,7 +56,7 @@ private:
     void startupPlan(void);
 public:
     QGraphicsScene planScene;
-    QVector<QPushButton*> buttonManage;
+    QVector<buttonManage> lineButtons;
 
 };
 bool plan(void);//尝试规划函数
