@@ -89,7 +89,7 @@ public:
     QMap<int, Station*> stationMap;         //<int stationId, Station*>
     int stationCnt;
     // QVector<SPath*> spathList;
-    QVector<QGraphicsPathItem*> pathItemList;
+    QVector<QGraphicsItem*> pathItemList;
 public:
     Line(json jLine);
     void initializeConnectionLine(json jLine);

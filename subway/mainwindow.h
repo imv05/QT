@@ -21,8 +21,8 @@ QT_END_NAMESPACE
 class buttonManage{
 public:
     QPushButton* button;
-    int lineId;
-    buttonManage(QPushButton* text,int i):button(text),lineId(i){}
+    int lineOrder;
+    buttonManage(QPushButton* text,int i):button(text),lineOrder(i){}
 };
 
 class MainWindow : public QMainWindow

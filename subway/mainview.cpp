@@ -13,6 +13,9 @@ MainGraphicsView::MainGraphicsView(QGraphicsScene& scene, QWidget *parent)
     : QGraphicsView(parent), isDragging(false), scene_(scene){
     highlightActivated = false;
     timeDisplayed = false;
+    mask = new TransparentMaskItem(&scene_);    //透明遮罩
+    scene_.addItem(mask);
+    mask->setZValue(-1*HIGHLIGHT_ELEVATION);
     setMouseTracking(true); // 开启鼠标跟踪
 }
 // 重写鼠标按下事件
@@ -25,8 +28,7 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event){
         if(timeDisplayed){
             clearTime(scene_); //也会顺带把时间显示的高亮清除掉
         }else if(highlightActivated){//其他高亮（单线、规划）
-            highlightActivated = false;
-            refreshHighlight();
+            removeHighlight();
         }else{
             QPointF scenePos = mapToScene(event->pos());    // 将鼠标事件转换为场景坐标
             for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
@@ -112,31 +114,33 @@ void MainGraphicsView::hideInfoLabel(){
         m_infoLabel = nullptr;
     }
 }
-void MainGraphicsView::refreshHighlight(){
-    if(highlightActivated){
-        for(auto item: highlightItemList){
-            if(item!=nullptr){
-                if(item->zValue() < HIGHLIGHT_ELEVATION){
-                    item->setZValue(item->zValue()+HIGHLIGHT_ELEVATION);
-                }
-            }
-        }
-        mask = new TransparentMaskItem(&scene_);
-        scene_.addItem(mask);
-        mask->setZValue(HIGHLIGHT_ELEVATION-1);
-    }else{
-        if(mask)scene_.removeItem(mask);
-        delete mask;
-        QList<QGraphicsItem*> items = scene_.items();
-        for (QGraphicsItem *item : items) {
-            if (item->zValue() > HIGHLIGHT_ELEVATION) {
-                item->setZValue(item->zValue()-HIGHLIGHT_ELEVATION);
-            }
-        }
-        highlightItemList.clear();
+void MainGraphicsView::showHighlight(){
+    if(highlightActivated){//如果有旧信息，先移除
+        QVectorhighlightItemList
+        removeHighlight();
     }
+    highlightActivated = true;
+    for(auto item: highlightItemList){
+        if(item!=nullptr){
+            if(item->zValue() < HIGHLIGHT_ELEVATION){
+                item->setZValue(item->zValue()+HIGHLIGHT_ELEVATION);
+                qDebug() << "AAA";
+            }
+        }
+    }
+    mask->setZValue(HIGHLIGHT_ELEVATION-1);
 }
-
+void MainGraphicsView::removeHighlight(){
+    mask->setZValue(-1*HIGHLIGHT_ELEVATION);
+    QList<QGraphicsItem*> items = scene_.items();
+    for (QGraphicsItem *item : items) {
+        if (item->zValue() > HIGHLIGHT_ELEVATION) {
+            item->setZValue(item->zValue()-HIGHLIGHT_ELEVATION);
+        }
+    }
+    highlightActivated = false;
+    highlightItemList.clear();
+}
 void MainGraphicsView::paintTime(QGraphicsScene& sc, std::unordered_map<Station*, int> timeMap){
     for(auto sit: allStationNames){
         if(timeMap.find(sit) != timeMap.end() && timeMap[sit]<3600*60*60 && timeMap[sit]>0){
@@ -148,8 +152,7 @@ void MainGraphicsView::paintTime(QGraphicsScene& sc, std::unordered_map<Station*
             highlightItemList.push_back(nitem);
         }
     }
-    highlightActivated = true;
-    refreshHighlight();
+    showHighlight();
     timeDisplayed = true;
 }
 void MainGraphicsView::clearTime(QGraphicsScene& sc){
@@ -158,7 +161,6 @@ void MainGraphicsView::clearTime(QGraphicsScene& sc){
         delete it;
     }
     numberItemList.clear();
-    highlightActivated = false;
-    refreshHighlight();
+    removeHighlight();
     timeDisplayed = false;
 }

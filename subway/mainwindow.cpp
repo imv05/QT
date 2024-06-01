@@ -87,17 +87,21 @@ MainWindow::MainWindow(QWidget *parent)
     // QAction* desiredAction2 = ui->menubar->addAction("action2");
     // connect(desiredAction2, &QAction::triggered, qApp, &func2);
     // menu->addSeparator();//建立另一个父菜单
-
 }
 
-void MainWindow::lineButtonclicked(){
+void MainWindow::lineButtonclicked(){   //点击右侧的线路，高亮该线路
     auto* button = qobject_cast<QPushButton*>(sender());
     if(button){
         for(auto one: lineButtons){
             if(one.button==button){
-                //YOUR CODE HERE
-                Line* linePointer=lineMap[one.lineId];
-
+                Line* cLine = *(lineMap.begin().operator +=(one.lineOrder));
+                QVector<QGraphicsItem*> hlList = cLine->pathItemList;
+                for(auto stn: cLine->stationMap){
+                    hlList.push_back(stn->item);
+                    hlList.push_back(stn->textItem);
+                }
+                mainView->highlightItemList = hlList;
+                mainView->showHighlight();
                 break;
             }
         }
@@ -241,14 +245,9 @@ void MainWindow::on_swapButton_clicked()
 
 void MainWindow::startupPlan(){//所有做规划以及之后的显示动作
     if(Plan::makePlan())if(Plan::getRoute()){
-            paintPlan(planScene);
-            //高亮
-            if(mainView->highlightActivated){
-                mainView->highlightActivated = false;
-                mainView->refreshHighlight();
-            }
-            mainView->highlightItemList = Plan::hlList;
-            mainView->highlightActivated = true;
-            mainView->refreshHighlight();
-        }
+        paintPlan(planScene);
+        //高亮
+        mainView->highlightItemList = Plan::hlList;
+        mainView->showHighlight();
+    }
 }

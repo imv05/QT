@@ -118,10 +118,6 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
                 }
             }
         }
-
-        // qDebug() << stn->stationName << "height:" << stn->textItem->boundingRect().height() <<
-            // stn->textItem->boundingRect().width();
-        // it++;
     }
 }
 void paintMain(QGraphicsScene& sc){
@@ -156,7 +152,7 @@ void paintMain(QGraphicsScene& sc){
         QGraphicsPathItem* pitem = sc.addPath(qpp, pathPen);
         pitem->setZValue(PATH_ZVALUE);
         cLine->pathItemList.push_back(pitem);
-        //维护spathItem
+        //维护pathItemMap
         pathItemMap[spit.key()] = pitem;
         QPair<Station*, Station*> key;
         key.first = spit.key().second;
