@@ -83,7 +83,7 @@ void paintPlan(QGraphicsScene& pr){
     QGraphicsTextItem* tmptext=new QGraphicsTextItem;
     lineTextItem.push_back(tmptext);
     lineTextItem[0]=pr.addText(Plan::planRoute[0]->line->lineName);
-    lineTextItem[0]->setPos(x+16,y+28);
+    lineTextItem[0]->setPos(x+16,y+30);
     lineTextItem[0]->setFont(stationFont);
     lineTextItem[0]->setDefaultTextColor(Plan::planRoute[0]->line->color);
     packedsize++;y+=60;

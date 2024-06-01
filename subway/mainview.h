@@ -14,7 +14,8 @@ public:
     QVector<QGraphicsItem*> highlightItemList;
     QWidget* theparent;
     MainGraphicsView(QGraphicsScene& scene, QWidget *parent = nullptr);
-    void refreshHighlight(void);
+    void showHighlight();
+    void removeHighlight();
     QGraphicsItem* mask;    //半透明遮罩的item指针
 protected:
     void mousePressEvent(QMouseEvent *event) override;
