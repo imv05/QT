@@ -88,35 +88,60 @@ LinePart::LinePart(int x,int y,int lineNum,Station* stn){
     stDeduct->setDefaultTextColor(ln->color);
     addToGroup(stDeduct);//站增方向加入
     //提取出站增方向的首末班车时间：
-    int tmps=0,tmpm=0;
+    int tmps=0,tmpm=0,found=0;
     for(auto it=stn->cList.begin();it!=stn->cList.end();it++){//遍历clist
         if(it->isTransfer==false && it->direction==1){//不是换乘站且站增方向
-            tmps=it->first;tmpm=it->last;
+            tmps=it->first;tmpm=it->last;found=1;
         }
     }
-    stPlusShou=new QGraphicsTextItem(transferTime(tmps));
-    stPlusShou->setPos(x+200,y+50);
+    if(found==1){
+        stPlusShou=new QGraphicsTextItem(transferTime(tmps));
+        stPlusShou->setPos(x+200,y+50);
+    }
+    else if(found==0){
+        stPlusShou=new QGraphicsTextItem("-");
+        stPlusShou->setPos(x+230,y+50);
+    }
     stPlusShou->setFont(stationFont);
     stPlusShou->setDefaultTextColor(ln->color);
     addToGroup(stPlusShou);//站增方向加入
-    stPlusMo=new QGraphicsTextItem(transferTime(tmpm));
-    stPlusMo->setPos(x+300,y+50);
+    if(found==1){
+        stPlusMo=new QGraphicsTextItem(transferTime(tmpm));
+        stPlusMo->setPos(x+300,y+50);
+    }
+    else if(found==0){
+        stPlusMo=new QGraphicsTextItem("-");
+        stPlusMo->setPos(x+330,y+50);
+    }
     stPlusMo->setFont(stationFont);
     stPlusMo->setDefaultTextColor(ln->color);
     addToGroup(stPlusMo);//站增方向加入
     //提取出站减方向的首末班车时间：
+    found=0;
     for(auto it=stn->cList.begin();it!=stn->cList.end();it++){//遍历clist
         if(it->isTransfer==false && it->direction==-1 ){//不是换乘站且站增方向
-            tmps=it->first;tmpm=it->last;
+            tmps=it->first;tmpm=it->last;found=1;
         }
     }
-    stDeductShou=new QGraphicsTextItem(transferTime(tmps));
-    stDeductShou->setPos(x+200,y+100);
+    if(found==1){
+        stDeductShou=new QGraphicsTextItem(transferTime(tmps));
+        stDeductShou->setPos(x+200,y+100);
+    }
+    else if(found==0){
+        stDeductShou=new QGraphicsTextItem("-");
+        stDeductShou->setPos(x+230,y+100);
+    }
     stDeductShou->setFont(stationFont);
     stDeductShou->setDefaultTextColor(ln->color);
     addToGroup(stDeductShou);//站增方向加入
-    stDeductMo=new QGraphicsTextItem(transferTime(tmpm));
-    stDeductMo->setPos(x+300,y+100);
+    if(found==1){
+        stDeductMo=new QGraphicsTextItem(transferTime(tmpm));
+        stDeductMo->setPos(x+300,y+100);
+    }
+    else if(found==0){
+        stDeductMo=new QGraphicsTextItem("-");
+        stDeductMo->setPos(x+330,y+100);
+    }
     stDeductMo->setFont(stationFont);
     stDeductMo->setDefaultTextColor(ln->color);
     addToGroup(stDeductMo);//站增方向加入
@@ -129,7 +154,7 @@ LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起la
     stn=stationsByName[stName];//获取指向本站的指针
     lineNum=stn.size();//共有几条线经过了本站
     height=20+lineNum*180+20;
-    width=500;
+    width=450;
     //确定左上角的位置：
     sx=x-width/2;sy=y-height-10;
     //画出框架

@@ -142,7 +142,7 @@ Connection::Connection(json jconnection, Station* cStation){   //使用json jcon
         time = jconnection["duration"];
         int oCnt = jconnection["operationList"].size();
         const int daySec = 24*3600;
-        int last = toSec(19,0,0) + daySec; //最早末班车初始化为19:00:00
+        last = toSec(19,0,0) + daySec; //最早末班车初始化为19:00:00
         if(jconnection.contains("lastTime")){//当前的数据库里仅考虑最晚的末班（即能到下一站的末班车）
             first = jconnection["firstTime"];
             last = jconnection["lastTime"];

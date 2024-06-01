@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
         colorLabel->setStyleSheet(QString("background-color:%1;").arg(allColor[i].name()));
         QPushButton* text=new QPushButton(allName[i]);
         text->setStyleSheet("QPushButton { text-align: left; }");
-        buttonManage.append(text);
+        lineButtons.append(buttonManage(text,i));
         connect(text,&QPushButton::clicked,this,&MainWindow::lineButtonclicked);
         // QLabel* text=new QLabel(allName[i], this);
         // text->setStyleSheet(QString("color:#000000;"));
@@ -93,10 +93,11 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::lineButtonclicked(){
     auto* button = qobject_cast<QPushButton*>(sender());
     if(button){
-        for(auto* b: buttonManage){
-            if(b==button){
+        for(auto one: lineButtons){
+            if(one.button==button){
                 //YOUR CODE HERE
-                qDebug() << "button clicked" << b->text() << Qt::endl;
+                Line* linePointer=lineMap[one.lineId];
+
                 break;
             }
         }

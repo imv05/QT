@@ -49,7 +49,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1366, 831);
+        MainWindow->resize(1366, 810);
         QSizePolicy sizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -105,7 +105,8 @@ public:
         listB->setAutoFillBackground(true);
         planGraphicsView = new QGraphicsView(centralwidget);
         planGraphicsView->setObjectName("planGraphicsView");
-        planGraphicsView->setGeometry(QRect(10, 140, 191, 581));
+        planGraphicsView->setGeometry(QRect(10, 140, 191, 541));
+        planGraphicsView->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         swapButton = new QPushButton(centralwidget);
         swapButton->setObjectName("swapButton");
         swapButton->setGeometry(QRect(90, 40, 21, 21));
