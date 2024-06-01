@@ -5,6 +5,7 @@
 
 #include <QColor>
 #include <QString>
+#include <QHash>
 #include <QVector>
 #include <QPair>
 #include <QGraphicsItem>
@@ -101,6 +102,7 @@ extern QMap<int, Line*> lineMap;
 extern QVector<Station*> allStations;
 extern QMap<QString, Station*> allStationNames;
 extern QMap<QPair<Station*, Station*>, SPath*> spathMap;
+// extern QHash<SPath*, QGraphicsPathItem*> spathToItemMap;
 extern QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap;
 extern QMap<QString, QGraphicsItem*> stationItemMap;
 extern QMap<QString, QGraphicsTextItem*> stationTextMap;

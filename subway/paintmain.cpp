@@ -8,7 +8,9 @@
 #include <cmath>
 //直径：换乘站40，非换乘站26，线条粗16，典型站间距横向95，纵向57。字体高27
 QVector<QGraphicsTextItem*> numberItemList; //用于显示到达各站的时间
-const qreal PATH_ZVALUE = -10;  //层叠关系：path线条位于-10
+const qreal PATH_ZVALUE = 10;  //层叠关系：path线条位于10
+const qreal STATION_ZVALUE = 20;  //层叠关系：station圆圈位于20
+const qreal TEXT_ZVALUE = 30;  //层叠关系：path线条位于30
 const qreal PATH_WIDTH = 12;    //path粗
 const qreal PATH_RADIUS = 40;   //path弯角半径
 const qreal MINIMUM = 15;   //最小锚点间距，小于此值将减少半径处理
@@ -57,49 +59,50 @@ QPointF calculateCenter(QPointF pc, QPointF p1, QPointF p2, qreal radius, qreal&
 
 void paintLine(QGraphicsScene& sc, Line* cLine){
     QFont stationFont("黑体", 20);
-    for(auto it: cLine->stationMap){
+    for(auto stn: cLine->stationMap){
         QPen pen(Qt::white);
         pen.setWidth(1);
-        Station* stn = it;
         int x = stn->x;
         int y = stn->y;
         QString name = stn->stationName;
         if(stationItemMap.contains(name)){
-            it->item = stationItemMap[name];
+            stn->item = stationItemMap[name];
             if(stationTextMap.contains(name)){
-                it->textItem = stationTextMap[name];
+                stn->textItem = stationTextMap[name];
             }else{
-                qDebug() << "itemMap,textMap,existence disagreement.";
+                qDebug() << "itemMap,textMap existence disagreement.";
             }
             continue;
         }
         if(stn->iCnt){  //换乘站
             stn->item = (new TransferItem(x, y));
-            it->item->setData(itemType, TransferItem::myType);
+            stn->item->setData(itemType, TransferItem::myType);
             sc.addItem(stn->item);
         }else{  //非换乘站
             stn->item = (new StationItem(x, y));
-            it->item->setData(itemType, StationItem::myType);
+            stn->item->setData(itemType, StationItem::myType);
             sc.addItem(stn->item);
         }
-        it->item->setData(itemName, it->stationName);
-        it->textItem = sc.addText(it->stationName);
-        stationItemMap[name] = it->item;
-        stationTextMap[name] = it->textItem;
+        stn->item->setZValue(STATION_ZVALUE);
+        stn->item->setData(itemName, stn->stationName);
+        stn->textItem = sc.addText(stn->stationName);
+        stn->textItem->setZValue(TEXT_ZVALUE);
+        stationItemMap[name] = stn->item;
+        stationTextMap[name] = stn->textItem;
         //以下为检测碰撞并在可选站名显示区域（车站绕一周）选择合适的地方显示
         const qreal M = stn->iCnt?20:15;
-        it->textItem->setFont(stationFont);
-        it->textItem->setDefaultTextColor(Qt::black);
-        const qreal H = it->textItem->boundingRect().height();
-        const qreal W = it->textItem->boundingRect().width();
+        stn->textItem->setFont(stationFont);
+        stn->textItem->setDefaultTextColor(Qt::black);
+        const qreal H = stn->textItem->boundingRect().height();
+        const qreal W = stn->textItem->boundingRect().width();
         //优先顺序：正右，正下，正左，正上，右下，右上，左下，左上。
         qreal xAlternatives[8] = {  x+M, x-W/2, x-M-W, x-W/2, x+M,   x+M, x-M-W, x-M-W};
         qreal yAlternatives[8] = {y-H/2,   y+M, y-H/2, y-M-H, y+M, y-M-H,   y+M, y-H};
         int k=0; bool ok = false; int minCollide = 100;
         for(k=0; k<8; k++){
-            it->textItem->setPos(xAlternatives[k], yAlternatives[k]);
-            int collisionCnt = it->textItem->collidingItems().size();
-            // qDebug() << it->stationName << k << collisionCnt;
+            stn->textItem->setPos(xAlternatives[k], yAlternatives[k]);
+            int collisionCnt = stn->textItem->collidingItems().size();
+            // qDebug() << stn->stationName << k << collisionCnt;
             if(collisionCnt==0){
                 ok = true;
                 break;
@@ -108,22 +111,21 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
         }
         if(!ok){
             for(k=0; k<8; k++){
-                it->textItem->setPos(xAlternatives[k], yAlternatives[k]);
-                int collisionCnt = it->textItem->collidingItems().size();
+                stn->textItem->setPos(xAlternatives[k], yAlternatives[k]);
+                int collisionCnt = stn->textItem->collidingItems().size();
                 if(minCollide == collisionCnt){
-                    // qDebug() << it->stationName << k << collisionCnt;
+                    // qDebug() << stn->stationName << k << collisionCnt;
                     break;
                 }
             }
         }
 
-        // qDebug() << it->stationName << "height:" << it->textItem->boundingRect().height() <<
-            // it->textItem->boundingRect().width();
+        // qDebug() << stn->stationName << "height:" << stn->textItem->boundingRect().height() <<
+            // stn->textItem->boundingRect().width();
         // it++;
     }
 }
 void paintMain(QGraphicsScene& sc){
-
     QMap<QPair<Station*, Station*>, SPath*>::iterator spit = spathMap.begin();
     qreal radius = PATH_RADIUS;
     for(; spit!=spathMap.end(); spit++){
@@ -155,7 +157,14 @@ void paintMain(QGraphicsScene& sc){
         QGraphicsPathItem* pitem = sc.addPath(qpp, pathPen);
         pitem->setZValue(PATH_ZVALUE);
         cLine->pathItemList.push_back(pitem);
+        //维护spathItem
+        pathItemMap[spit.key()] = pitem;
+        QPair<Station*, Station*> key;
+        key.first = spit.key().second;
+        key.second = spit.key().first;
+        pathItemMap[key] = pitem;
     }
+
     for(auto it: lineMap){
         paintLine(sc, it);
         it++;
@@ -167,6 +176,7 @@ void paintTime(QGraphicsScene& sc, std::unordered_map<Station*, int> timeMap){
         auto nitem = numberItemList.back();
         nitem->setPos(sit->item->pos());
         nitem->setFont(QFont("微软雅黑", 10));
+        nitem->setZValue(TEXT_ZVALUE);
     }
 }
 void clearTime(QGraphicsScene& sc){

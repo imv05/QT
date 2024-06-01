@@ -94,9 +94,18 @@ bool Plan::getRoute(void){//规划成功返回true
         planRoute = getPath(last_of, stationB);//完成回溯，输出起点到终点的路线
         int routeNodeCnt = planRoute.size();
         if(routeNodeCnt<=1)return false;
-        for(auto planNode: planRoute){
-            qDebug() << planNode->line->lineName << planNode->stationName;
-        }
+        // for(auto planNode: planRoute){
+        //     qDebug() << planNode->line->lineName << planNode->stationName;
+        // }
+
+        planConnections.clear();
+        hlList.clear();
+        planLines.clear();
+        planRouteSplit.clear();
+        timeOfLine.clear();
+        directionOfLine.clear();
+        transferConnections.clear();
+
         //维护planConnections
         for(int i=0; i<routeNodeCnt-1; i++){
             Station* current = planRoute[i];

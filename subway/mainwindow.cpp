@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     scene.setBackgroundBrush(QBrush(Qt::white));
     //在主场景中绘制线路图
     paintMain(scene);
-    MainGraphicsView* mainView = new MainGraphicsView(scene, this);
+    mainView = new MainGraphicsView(scene, this);
     mainView->setScene(&scene);
     // 设置MainGraphicsView的父控件为ui->mainGraphicsView
     mainView->setParent(ui->mainGraphicsView);
@@ -56,9 +56,11 @@ MainWindow::MainWindow(QWidget *parent)
     int lineCnt = lineMap.size();
     std::vector<QColor> allColor={};//保存所有的颜色，用来绘图
     std::vector<QString> allName={};
+    QVector<Line*> allLine = {};
     for(auto cline: lineMap){
         allColor.push_back(cline->color);
         allName.push_back(cline->lineName);
+        allLine.push_back(cline);
     }
 
     for(int i=0; i<lineCnt; i++){
@@ -67,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
         QPushButton* text=new QPushButton(allName[i]);
         text->setStyleSheet("QPushButton { text-align: left; }");
         buttonManage.append(text);
-        connect(text,&QPushButton::clicked,this,&MainWindow::buttonclicked);
+        connect(text,&QPushButton::clicked,this,&MainWindow::lineButtonclicked);
         // QLabel* text=new QLabel(allName[i], this);
         // text->setStyleSheet(QString("color:#000000;"));
         ui->formLayout->addRow(colorLabel, text);
@@ -88,10 +90,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
-void MainWindow::buttonclicked(){
+void MainWindow::lineButtonclicked(){
     auto* button = qobject_cast<QPushButton*>(sender());
     if(button){
-        for(auto* b:buttonManage){
+        for(auto* b: buttonManage){
             if(b==button){
                 //YOUR CODE HERE
                 qDebug() << "button clicked" << b->text() << Qt::endl;
@@ -170,10 +172,7 @@ void MainWindow::on_inputA_editingFinished()
     if(flag){
         ui->inputA->clearFocus();
         ui->inputB->setFocus();
-        if(Plan::makePlan())if(Plan::getRoute()){
-
-                paintPlan(planScene);
-            }
+        startupPlan();
     }else{
         ui->inputA->setText(QString(""));//无法匹配则清空输入，需要重新输入
     }
@@ -193,7 +192,7 @@ void MainWindow::on_inputB_editingFinished()
     }
     if(flag){
         ui->inputB->clearFocus();
-        if(Plan::makePlan())if(Plan::getRoute())paintPlan(planScene);
+        startupPlan();
     }else{
         ui->inputB->setText(QString(""));
     }
@@ -215,7 +214,7 @@ void MainWindow::on_listA_clicked(const QModelIndex &index)
     Plan::stationA = allStationNames[selectedName];
     ui->inputA->clearFocus();
     ui->inputB->setFocus();
-    if(Plan::makePlan())if(Plan::getRoute())paintPlan(planScene);
+    startupPlan();
 }
 
 void MainWindow::on_listB_clicked(const QModelIndex &index)
@@ -225,10 +224,10 @@ void MainWindow::on_listB_clicked(const QModelIndex &index)
     ui->inputB->setText(selectedName);
     Plan::stationB = allStationNames[selectedName];
     ui->inputB->clearFocus();
-    if(Plan::makePlan())if(Plan::getRoute())paintPlan(planScene);
+    startupPlan();
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_swapButton_clicked()
 {
     QString a=ui->inputA->text();
     QString b=ui->inputB->text();
@@ -236,6 +235,19 @@ void MainWindow::on_pushButton_2_clicked()
     ui->inputB->setText(a);
     Plan::stationA=allStationNames[b];
     Plan::stationB=allStationNames[a];
-    if(Plan::makePlan())if(Plan::getRoute())paintPlan(planScene);
+    startupPlan();
 }
 
+void MainWindow::startupPlan(){//所有做规划以及之后的显示动作
+    if(Plan::makePlan())if(Plan::getRoute()){
+            paintPlan(planScene);
+            //高亮
+            if(mainView->highlightActivated){
+                mainView->highlightActivated = false;
+                mainView->refreshHighlight();
+            }
+            mainView->highlightItemList = Plan::hlList;
+            mainView->highlightActivated = true;
+            mainView->refreshHighlight();
+        }
+}

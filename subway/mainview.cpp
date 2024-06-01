@@ -104,28 +104,36 @@ void MainGraphicsView::hideInfoLabel(){
         m_infoLabel = nullptr;
     }
 }
-void MainGraphicsView::refreshHighlight(void){
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//void MainGraphicsView::refreshHighlight(void){
+//<<<<<<< HEAD
+//=======
+//=======
+void MainGraphicsView::refreshHighlight(){
+//>>>>>>> 04a433fdc9561ec40f7ed216f0ffe2f00cc48f83
     if(highlightActivated){
         for(auto item: highlightItemList){
-            if(item->zValue() < HIGHLIGHT_ELEVATION){
-                item->setZValue(item->zValue()+HIGHLIGHT_ELEVATION);
+            if(item!=nullptr){
+                if(item->zValue() < HIGHLIGHT_ELEVATION){
+                    item->setZValue(item->zValue()+HIGHLIGHT_ELEVATION);
+                }
             }
         }
         mask = new TransparentMaskItem(&scene_);
         scene_.addItem(mask);
+        mask->setZValue(HIGHLIGHT_ELEVATION-1);
     }else{
         scene_.removeItem(mask);
         delete mask;
-        for(auto item: highlightItemList){
-            if(item->zValue() > HIGHLIGHT_ELEVATION){
+        QList<QGraphicsItem*> items = scene_.items();
+        for (QGraphicsItem *item : items) {
+            if (item->zValue() > HIGHLIGHT_ELEVATION) {
                 item->setZValue(item->zValue()-HIGHLIGHT_ELEVATION);
             }
         }
         highlightItemList.clear();
     }
 
->>>>>>> fa81c087dd34024fa03e586a246a0d7f778ae5b4
+//>>>>>>> fa81c087dd34024fa03e586a246a0d7f778ae5b4
 }
 

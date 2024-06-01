@@ -47,8 +47,8 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "QModelIndex",
     "index",
     "on_listB_clicked",
-    "buttonclicked",
-    "on_pushButton_2_clicked",
+    "lineButtonclicked",
+    "on_swapButton_clicked",
     "on_inputA_selectionChanged"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
@@ -123,9 +123,9 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_listB_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
-        // method 'buttonclicked'
+        // method 'lineButtonclicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_pushButton_2_clicked'
+        // method 'on_swapButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_inputA_selectionChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
@@ -146,9 +146,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->on_pushButton_clicked(); break;
         case 5: _t->on_listA_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
         case 6: _t->on_listB_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
-        case 7: _t->buttonclicked(); break;
-        case 8: _t->on_pushButton_2_clicked(); break;
-        case 9: _t->on_inputA_selectionChanged(); break;
+        case 7: _t->lineButtonclicked(); break;
+        case 8: _t->on_swapButton_clicked(); break;
+        //case 9: _t->on_inputA_selectionChanged(); break;
         default: ;
         }
     }

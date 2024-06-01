@@ -55,7 +55,7 @@ public:
     int sx,sy;//作为lable绘图标准的x，y，标定左上角的位置
     int height=20,width=100;
     int lineNum;//统计这个站是几条线的交点
-    Station* stn; //站点的指针，这个指针可能需要遍历很多次
+    QVector<Station*> stn; //站点的指针，这个指针可能需要遍历很多次
     QGraphicsRectItem* frame;//框架
     QGraphicsTextItem* staName;//lable的最高处，本站站名，统一使用北京地铁颜色
     QGraphicsTextItem* shou;

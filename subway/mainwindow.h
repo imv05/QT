@@ -39,15 +39,16 @@ private slots:
     void on_listA_clicked(const QModelIndex &index);
     void on_listB_clicked(const QModelIndex &index);
 
-    void buttonclicked();
-    void on_pushButton_2_clicked();
-
+    void lineButtonclicked();
+    void on_swapButton_clicked();
 
     void on_inputA_selectionChanged();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;
+    MainGraphicsView* mainView;
+    void startupPlan(void);
 public:
     QGraphicsScene planScene;
     QVector<QPushButton*> buttonManage;

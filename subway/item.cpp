@@ -22,7 +22,7 @@ TrainItem::TrainItem(int x, int y): QGraphicsSvgItem(":/images/src/train.svg") {
 TransparentMaskItem::TransparentMaskItem(QGraphicsScene *scene) : QGraphicsRectItem(scene->sceneRect(), nullptr) {
     scene_ = scene;
     QColor bgcolor = QColor(Qt::white);
-    bgcolor.setAlpha(50);
+    bgcolor.setAlpha(200);
     setBrush(bgcolor);
     setData(itemType, MASK_TYPE);
     setPen(QPen(Qt::NoPen)); // 没有边框
@@ -51,6 +51,7 @@ LinePart::LinePart(int x,int y,int lineNum){
 
 
 }
+//第一套构造函数，适配stationsByName
 
 LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起lable对应的图形信息
     int i,cur=0;
@@ -65,21 +66,58 @@ LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起la
     addToGroup(staName);
     y+=10;
     //TODO:根据读入的站名获取线路列表和线路数量lineNum
-
-
-    for(i=0;i<lineNum;i++){//遍历三条线，提取n个模块
+    stn=stationsByName[stName];//获取指向本站的指针
+    lineNum=stn.size();//共有几条线经过了本站
+    for(i=0;i<lineNum;i++){//遍历n条线，提取n个模块
+        cur=stn[i]->lineId;//当前线路的ID
         lineInfo.push_back(new LinePart(x,y,cur));
         addToGroup(lineInfo[i]);//初始化模块
         y+=60;
     }
-
     //添加整体框架
     height=20+lineNum*60+20;
+    width=200;
     QPen framePen;
     framePen.setColor(Qt::black);
     framePen.setWidth(4);
-    frame=new QGraphicsRectItem(sx,sy,height,width);
+    frame=new QGraphicsRectItem(sx,sy,width,height);
+    frame->setPen(framePen);
+    addToGroup(frame);
+}
+
+//第二套构造函数，适配connection
+/*
+LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起lable对应的图形信息
+    int i,cur=0;
+    QFont stationFont("黑体", 20);
+    sx=x;sy=y;//注意：这一行只是先放这里，后面需要调整
+    x+=10;y+=10;
+    //添加本站名称
+    staName=new QGraphicsTextItem(stName);
+    staName->setPos(x,y);
+    staName->setFont(stationFont);
+    staName->setDefaultTextColor(Qt::black);
+    addToGroup(staName);
+    y+=10;
+    //TODO:根据读入的站名获取线路列表和线路数量lineNum
+    Station* stp;
+    stp=allStationNames[stName];//获取指向本站的指针
+    lineNum=stp->cList.size()/2;//连接的线路数量
+    for(i=0;i<lineNum;i++){//遍历n条线，提取n个模块
+        cur=stn[i]->lineId;//当前线路的ID
+        lineInfo.push_back(new LinePart(x,y,cur));
+        addToGroup(lineInfo[i]);//初始化模块
+        y+=60;
+    }
+    //添加整体框架
+    height=20+lineNum*60+20;
+    width=200;
+    QPen framePen;
+    framePen.setColor(Qt::black);
+    framePen.setWidth(4);
+    frame=new QGraphicsRectItem(sx,sy,width,height);
     frame->setPen(framePen);
     addToGroup(frame);
 
 }
+*/
