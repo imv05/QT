@@ -29,6 +29,9 @@ public:
 
     static bool makePlan(void);
     static bool getRoute(void);
+
+    static int makePlan_n(Station* A=Plan::stationA,Station* B=Plan::stationB);
+
 private:
     static QVector<Station*> getPath(const std::unordered_map<Station*, Station*>& previous, Station* target);
 };
