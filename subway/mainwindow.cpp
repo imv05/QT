@@ -208,14 +208,7 @@ void MainWindow::on_listA_clicked(const QModelIndex &index)
     startupPlan();
 }
 
-void MainWindow::on_listA_clicked(const QString selectedName)
-{
-    ui->inputA->setText(selectedName);
-    Plan::stationA = allStationNames[selectedName];
-    ui->inputA->clearFocus();
-    ui->inputB->setFocus();
-    startupPlan();
-}
+
 
 void MainWindow::on_listB_clicked(const QModelIndex &index)
 {
@@ -227,13 +220,7 @@ void MainWindow::on_listB_clicked(const QModelIndex &index)
     startupPlan();
 }
 
-void MainWindow::on_listB_clicked(const QString selectedName)
-{
-    ui->inputB->setText(selectedName);
-    Plan::stationB = allStationNames[selectedName];
-    ui->inputB->clearFocus();
-    startupPlan();
-}
+
 
 void MainWindow::on_swapButton_clicked()
 {

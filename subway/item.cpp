@@ -213,6 +213,7 @@ LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起la
     //connect(startRect, &QGraphicsRectItem::mousePressEvent, this, &LableItem::mousePressEvent);
     setstart=new QGraphicsTextItem("设为起点");
     setstart->setFont(stationFont);
+    setstart->setDefaultTextColor(Qt::white);
     setstart->setPos(sx+50,sy+20+lineNum*180+65);
     addToGroup(setstart);
     endRect=new QGraphicsRectItem(sx+250,sy+20+lineNum*180+60,160,43);
@@ -222,6 +223,7 @@ LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起la
     addToGroup(endRect);
     setend=new QGraphicsTextItem("设为终点");
     setend->setFont(stationFont);
+    setend->setDefaultTextColor(Qt::white);
     setend->setPos(sx+270,sy+20+lineNum*180+65);
     addToGroup(setend);
     this->setZValue(500);
