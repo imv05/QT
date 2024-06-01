@@ -96,6 +96,7 @@ Station::Station(json jStation, Line* cLine){
     // available = jStation["available"];
     x = jStation["screen"]["x"];
     y = jStation["screen"]["y"];
+    stationsByName[stationName].push_back(this);
 }
 void Station::initializeConnection(json jStation){
     cCnt = jStation["connectionList"].size();

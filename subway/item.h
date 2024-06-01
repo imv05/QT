@@ -39,15 +39,18 @@ private:
 
 class LinePart:public QGraphicsItemGroup{//对于一个站，每条线是一个模块
 public:
+    QGraphicsRectItem* lnRect;//线路的矩形
     QGraphicsTextItem*  lnName;//线路名称
     QColor lnColor;//线路颜色
-    QGraphicsTextItem* stPlus;
-    QGraphicsTextItem* stDeduct;
-    QGraphicsTextItem* stPlusShou;
-    QGraphicsTextItem* stPlusMo;
-    QGraphicsTextItem* stDeductShou;
-    QGraphicsTextItem* stDeductMo;
-    LinePart(int x,int y,int lineNum);
+    QGraphicsTextItem* stPlus;//站增方向
+    QGraphicsTextItem* stDeduct;//站减方向
+    QGraphicsTextItem* stPlusShou;//站增方向首班车时间
+    QGraphicsTextItem* stPlusMo;//站增方向末班车时间
+    QGraphicsTextItem* stDeductShou;//站减方向首班车时间
+    QGraphicsTextItem* stDeductMo;//站减方向末班车时间
+    QGraphicsTextItem* shou;//首班车标签
+    QGraphicsTextItem* mo;//末班车标签
+    LinePart(int x,int y,int lineNum,Station* stn);
 };
 
 class LableItem: public QGraphicsItemGroup{//鼠标放置时显示的标签

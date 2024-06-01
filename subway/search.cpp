@@ -9,6 +9,8 @@ Station* Plan::stationB = nullptr;
 std::unordered_map<Station*, Station*> Plan::last_of;
 std::unordered_map<Station*, int> Plan::timeMap;
 QVector<Station*> Plan::planRoute;
+int Plan::planTotalSections;
+int Plan::planTotalTime;
 QVector<QGraphicsItem*> Plan::hlList;
 QVector<Connection> Plan::planConnections;
 QVector<Line*> Plan::planLines;   //（按照line的出现顺序）
@@ -51,7 +53,7 @@ std::unordered_map<Station*, Station*> dijkstra(Station* start) {
 }
 
 // 使用示例：打印从起始站到目标站的路径
-QVector<Station*> getPath(const std::unordered_map<Station*, Station*>& previous, Station* target) {
+QVector<Station*> Plan::getPath(const std::unordered_map<Station*, Station*>& previous, Station* target) {
     if (previous.find(target)==previous.end() || previous.at(target) == nullptr) {
         qDebug() << "No path found to" << target->stationName;
         return QVector<Station*>();
@@ -156,9 +158,17 @@ bool Plan::getRoute(void){//规划成功返回true
                 timeOfLine.push_back(0);
             }
         }
-        for(int i=0; i<planLines.size()-1; i++){
-            qDebug() << transferConnections[i].note;
+        //维护planTotalTime
+        planTotalTime = 0;
+        for(int i=0; i<planLines.size(); i++){
+            planTotalTime += timeOfLine[i];
         }
+        for(int i=0; i<transferConnections.size(); i++){
+            planTotalTime += transferConnections[i].time;
+        }
+        //维护planTotalSections
+        planTotalSections = planConnections.size()-transferConnections.size();
+
         return true;
     }else return false;
 }
