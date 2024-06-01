@@ -1,7 +1,10 @@
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
 
+#include "item.h"
 #include "class.h"
+
+#include<QGraphicsView>
 #include <unordered_map>
 #include <QGraphicsView>
 
@@ -26,7 +29,7 @@ private:
     bool timeDisplayed; //到各站的时间是否显示
     QPoint lastMousePos; // 上次鼠标位置
     QGraphicsScene& scene_;
-    QGraphicsTextItem* m_infoLabel = nullptr;
+    LableItem* m_infoLabel = nullptr;
     void showInfoLabel(const QPointF& pos, const QString& text);
     void hideInfoLabel();
     void paintTime(QGraphicsScene& sc, std::unordered_map<Station*, int> timeMap);
