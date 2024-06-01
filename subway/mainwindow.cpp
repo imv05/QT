@@ -5,6 +5,7 @@
 #include "paintmain.h"
 #include "paintplan.h"
 #include "search.h"
+#include "mainview.h"
 
 #include <QMessageBox>
 #include <QStringList>
@@ -34,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     scene.setBackgroundBrush(QBrush(Qt::white));
     //在主场景中绘制线路图
     paintMain(scene);
-    mainView = new MainGraphicsView(scene, this);
+    mainView = new MainGraphicsView(scene, this                                                                                                                                                       );
     mainView->setScene(&scene);
     // 设置MainGraphicsView的父控件为ui->mainGraphicsView
     mainView->setParent(ui->mainGraphicsView);
@@ -77,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QAction* quitAction = ui->menubar->addAction("退出");
     connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
+
     // // 直接在菜单项写
     // QAction* desiredAction = ui->menubar->addAction("action");
     // connect(desiredAction, &QAction::triggered, qApp, &func);
@@ -87,6 +89,7 @@ MainWindow::MainWindow(QWidget *parent)
     // QAction* desiredAction2 = ui->menubar->addAction("action2");
     // connect(desiredAction2, &QAction::triggered, qApp, &func2);
     // menu->addSeparator();//建立另一个父菜单
+
 }
 
 void MainWindow::lineButtonclicked(){   //点击右侧的线路，高亮该线路
@@ -222,10 +225,27 @@ void MainWindow::on_listA_clicked(const QModelIndex &index)
     startupPlan();
 }
 
+void MainWindow::on_listA_clicked(const QString selectedName)
+{
+    ui->inputA->setText(selectedName);
+    Plan::stationA = allStationNames[selectedName];
+    ui->inputA->clearFocus();
+    ui->inputB->setFocus();
+    startupPlan();
+}
+
 void MainWindow::on_listB_clicked(const QModelIndex &index)
 {
     ui->listB->hide();
     QString selectedName = matchingStationsB.value(index.row());
+    ui->inputB->setText(selectedName);
+    Plan::stationB = allStationNames[selectedName];
+    ui->inputB->clearFocus();
+    startupPlan();
+}
+
+void MainWindow::on_listB_clicked(const QString selectedName)
+{
     ui->inputB->setText(selectedName);
     Plan::stationB = allStationNames[selectedName];
     ui->inputB->clearFocus();

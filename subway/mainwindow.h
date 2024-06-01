@@ -32,7 +32,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+    void on_listA_clicked(const QModelIndex &index);
+    void on_listA_clicked(const QString selectedName);
+    void on_listB_clicked(const QModelIndex &index);
+    void on_listB_clicked(const QString selectedName);
 
 private slots:
     void on_inputA_textEdited(const QString &arg1);
@@ -42,9 +45,6 @@ private slots:
     void on_inputB_editingFinished();
 
     void on_pushButton_clicked();
-
-    void on_listA_clicked(const QModelIndex &index);
-    void on_listB_clicked(const QModelIndex &index);
 
     void lineButtonclicked();
     void on_swapButton_clicked();

@@ -2,11 +2,16 @@
 #define ITEM_H
 
 #include "class.h"
+//#include "search.cpp"
+
 
 #include <QColor>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
 #include <QtSvgWidgets/QGraphicsSvgItem>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsRectItem>
+#include <QDebug>
 
 extern const int itemType;
 extern const int itemName;
@@ -39,6 +44,7 @@ private:
 
 class LinePart:public QGraphicsItemGroup{//对于一个站，每条线是一个模块
 public:
+    QGraphicsLineItem* lnLine;//线路上方的装饰线
     QGraphicsRectItem* lnRect;//线路的矩形
     QGraphicsTextItem*  lnName;//线路名称
     QColor lnColor;//线路颜色
@@ -55,6 +61,7 @@ public:
 
 class LableItem: public QGraphicsItemGroup{//鼠标放置时显示的标签
 public:
+    static const int myType=114;
     int sx,sy;//作为lable绘图标准的x，y，标定左上角的位置
     int height=20,width=100;
     int lineNum;//统计这个站是几条线的交点
@@ -64,7 +71,12 @@ public:
     QGraphicsTextItem* shou;
     QGraphicsTextItem* mo;
     QVector<LinePart*> lineInfo;//lable的每一个模块，用一个vector表示，代表换乘线的信息，模块与模块之间从上到下排列
+    QGraphicsTextItem* setstart;
+    QGraphicsTextItem* setend;
+    QGraphicsRectItem* startRect;
+    QGraphicsRectItem* endRect;
     LableItem(int x,int y,QString stName);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 };
 
 #endif // ITEM_H

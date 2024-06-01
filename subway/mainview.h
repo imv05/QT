@@ -12,9 +12,9 @@ class MainGraphicsView : public QGraphicsView
 {
 public:
     QVector<QGraphicsItem*> highlightItemList;
+    QWidget* theparent;
     MainGraphicsView(QGraphicsScene& scene, QWidget *parent = nullptr);
-    void showHighlight();   //将highlightItemList高亮
-    void removeHighlight(); //移除高亮
+    void refreshHighlight(void);
     QGraphicsItem* mask;    //半透明遮罩的item指针
 protected:
     void mousePressEvent(QMouseEvent *event) override;

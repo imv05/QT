@@ -3,6 +3,13 @@
 #include "paintmain.h"
 #include "search.h"
 #include "class.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "class.h"
+#include "menu.h"
+#include "search.h"
+//#include "search.cpp"
+
 
 #include <QDebug>
 #include <QGraphicsView>
@@ -10,7 +17,7 @@
 #include <QMessageBox>
 #include <QGraphicsItem>
 
-MainGraphicsView::MainGraphicsView(QGraphicsScene& scene, QWidget *parent)
+MainGraphicsView::MainGraphicsView(QGraphicsScene& scene,QWidget*parent)
     : QGraphicsView(parent), isDragging(false), scene_(scene){
     highlightActivated = false;
     timeDisplayed = false;
@@ -18,6 +25,7 @@ MainGraphicsView::MainGraphicsView(QGraphicsScene& scene, QWidget *parent)
     scene_.addItem(mask);
     mask->setZValue(-1*HIGHLIGHT_ELEVATION);
     setMouseTracking(true); // 开启鼠标跟踪
+    theparent=parent;
 }
 // 重写鼠标按下事件
 void MainGraphicsView::mousePressEvent(QMouseEvent *event){
@@ -46,6 +54,22 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event){
                     // clearTime(scene_);
                     return;
                 }
+                /*
+                else if(item->data(114)=="start"){
+                    QString str=item->data(115).toString();
+                    Plan::stationA = allStationNames[str];
+                    //ui->inputA->clearFocus();
+                    //ui->inputB->setFocus();
+                    //startupPlan();
+                }
+                else if(item->data(114)=="end"){
+                    QString str=item->data(115).toString();
+                    Plan::stationB = allStationNames[str];
+                    //ui->inputA->clearFocus();
+                    //ui->inputB->setFocus();
+                    //startupPlan();
+                }
+*/
             }
         }
     }
@@ -61,6 +85,7 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
         QPointF scenePos = mapToScene(event->pos());    // 将鼠标位置转换为场景坐标
         // 检查是否在点的范围内
         bool foundPoint = false; // 用于标记是否找到了点
+        bool foundLable = false; //用于标记是否是lable
         QString name;
         QList<QGraphicsItem*> items = scene_.items(scenePos);
         for (QGraphicsItem* item : items) {//items是所有范围包含点击时鼠标坐标的对象
@@ -70,8 +95,14 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
                 foundPoint = true;
                 break; // 找到了点就退出循环
             }
+            if(item->data(itemType) == LableItem::myType){//如果该对象是lable
+                name = item->data(itemName).toString();//获取点的数据并显示信息标签
+                showInfoLabel(item->sceneBoundingRect().center(), name);
+                foundLable = true;
+                break; // 找到了点就退出循环
+            }
         }
-        if (!foundPoint) {
+        if ( !foundPoint && !foundLable ) {
             // 如果没有找到点，则隐藏信息标签
             hideInfoLabel();
         }
