@@ -117,14 +117,14 @@ void MainGraphicsView::showHighlight(){
     if(highlightActivated){//如果有旧信息，先移除
         temphl = highlightItemList;
         removeHighlight();
+        qDebug() << "hello";
+        highlightItemList = temphl;
     }
-    highlightItemList = temphl;
     highlightActivated = true;
     for(auto item: highlightItemList){
         if(item!=nullptr){
             if(item->zValue() < HIGHLIGHT_ELEVATION){
                 item->setZValue(item->zValue()+HIGHLIGHT_ELEVATION);
-                qDebug() << "AAA";
             }
         }
     }
