@@ -13,14 +13,11 @@ public:
     bool highlightActivated;
     MainGraphicsView(QGraphicsScene& scene, QWidget *parent = nullptr);
     void refreshHighlight(void);
+    QGraphicsItem* mask;    //半透明遮罩的item指针
 protected:
-    // 重写鼠标按下事件
     void mousePressEvent(QMouseEvent *event) override;
-    // 重写鼠标移动事件
     void mouseMoveEvent(QMouseEvent *event) override;
-    // 重写鼠标释放事件
     void mouseReleaseEvent(QMouseEvent *event) override;
-    // 重写滚轮事件
     void wheelEvent(QWheelEvent *event) override;
 private:
     bool isDragging; // 是否正在拖动

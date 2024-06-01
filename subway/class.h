@@ -54,6 +54,7 @@ public:
     bool isTransfer;    //该连接类是否是换乘。true为是，false为不是（即在一条线上）
     Station* from;  //本站指针
     Station* to;    //指向下一站的指针
+    int direction;  //方向，inc为1，dec为-1
     int dist;  //至下一站的距离，单位m
     int time;  //至下一站的运行时间，单位s
     int first;  //此方向至下一站的首班车时间
@@ -103,6 +104,7 @@ extern QMap<QPair<Station*, Station*>, SPath*> spathMap;
 extern QMap<QPair<Station*, Station*>, QGraphicsPathItem*> pathItemMap;
 extern QMap<QString, QGraphicsItem*> stationItemMap;
 extern QMap<QString, QGraphicsTextItem*> stationTextMap;
+extern QMap<QString, QVector<Station*> > stationsByName;
 
 
 #endif // CLASS_H

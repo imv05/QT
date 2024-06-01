@@ -148,7 +148,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 6: _t->on_listB_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
         case 7: _t->buttonclicked(); break;
         case 8: _t->on_pushButton_2_clicked(); break;
-        //case 9: _t->on_inputA_selectionChanged(); break;
+        case 9: _t->on_inputA_selectionChanged(); break;
         default: ;
         }
     }

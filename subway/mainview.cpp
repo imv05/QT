@@ -105,5 +105,27 @@ void MainGraphicsView::hideInfoLabel(){
     }
 }
 void MainGraphicsView::refreshHighlight(void){
+<<<<<<< HEAD
+=======
+    if(highlightActivated){
+        for(auto item: highlightItemList){
+            if(item->zValue() < HIGHLIGHT_ELEVATION){
+                item->setZValue(item->zValue()+HIGHLIGHT_ELEVATION);
+            }
+        }
+        mask = new TransparentMaskItem(&scene_);
+        scene_.addItem(mask);
+    }else{
+        scene_.removeItem(mask);
+        delete mask;
+        for(auto item: highlightItemList){
+            if(item->zValue() > HIGHLIGHT_ELEVATION){
+                item->setZValue(item->zValue()-HIGHLIGHT_ELEVATION);
+            }
+        }
+        highlightItemList.clear();
+    }
+
+>>>>>>> fa81c087dd34024fa03e586a246a0d7f778ae5b4
 }
 

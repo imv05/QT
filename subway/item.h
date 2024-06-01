@@ -31,6 +31,9 @@ public:
 class TransparentMaskItem : public QGraphicsRectItem {
 public:
     TransparentMaskItem(QGraphicsScene *scene);
+    ~TransparentMaskItem();
+private:
+    QGraphicsScene* scene_;
 };
 
 
