@@ -9,7 +9,9 @@ debug/menu.o
 debug/paintmain.o
 debug/paintplan.o
 debug/planview.o
+debug/realtimewindow.o
 debug/search.o
 debug/qrc_resources.o
 debug/moc_mainwindow.o
 debug/moc_menu.o
+debug/moc_realtimewindow.o

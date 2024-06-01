@@ -60,7 +60,7 @@ public:
     int time;  //至下一站的运行时间，单位s
     int first;  //此方向至下一站的首班车时间
     int last;  //此方向至下一站的末班车时间
-    QString note;   //当这一连接为换乘时，可能有说明。
+    QString note;   //当这一连接为换乘时，可能有说明
     bool isOut; //是否为出站换乘
 public:
     Connection(json jconnection, Station* cStation);

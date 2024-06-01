@@ -2,8 +2,9 @@
 #include "item.h"
 #include "paintmain.h"
 #include "search.h"
-#include <QDebug>
+#include "class.h"
 
+#include <QDebug>
 #include <QGraphicsView>
 #include <QWheelEvent>
 #include <QMessageBox>
@@ -100,12 +101,9 @@ void MainGraphicsView::wheelEvent(QWheelEvent *event){
 }
 void MainGraphicsView::showInfoLabel(const QPointF& pos, const QString& text){
     if (!m_infoLabel) {
-        m_infoLabel = new QGraphicsTextItem(text);
-        m_infoLabel->setFont(QFont("微软雅黑"));
-        m_infoLabel->setDefaultTextColor(Qt::black);
+        m_infoLabel = new LableItem(pos.x(),pos.y(),text);
         scene()->addItem(m_infoLabel);
     }
-    m_infoLabel->setPos(pos.x(),pos.y());
     m_infoLabel->setVisible(true);
 }
 void MainGraphicsView::hideInfoLabel(){
@@ -115,10 +113,12 @@ void MainGraphicsView::hideInfoLabel(){
     }
 }
 void MainGraphicsView::showHighlight(){
+    QVector<QGraphicsItem*> temphl;
     if(highlightActivated){//如果有旧信息，先移除
-        QVectorhighlightItemList
+        temphl = highlightItemList;
         removeHighlight();
     }
+    highlightItemList = temphl;
     highlightActivated = true;
     for(auto item: highlightItemList){
         if(item!=nullptr){
