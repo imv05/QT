@@ -15,7 +15,13 @@ void paintPlan(QGraphicsScene& pr){
     QFont stationFont("微软雅黑", 10);
     int i;
     int packedsize=0;
-    int x=30,y=10;//绘制文字的坐标，其中x保持40，y每打印一个就+20
+    int x=10,y=40;//绘制文字的坐标，其中x保持40，y每打印一个就+20
+
+    QGraphicsTextItem* header1 = pr.addText("共计"+QString::number(Plan::planTotalSections)+"站", stationFont);
+    header1->setPos(x+20, y-30);
+    QGraphicsTextItem* header2 = pr.addText(QString::number(Plan::planTotalTime/60)+"分钟", stationFont);
+    header2->setPos(x+80, y-30);
+
     int plansize=Plan::planRoute.size();//整个规划出的路径的vector的大小
     QVector<Station*> packedRoute;//重新用一个数组标记折叠起来的站点名称
     QVector<QString> packedText;    //折叠后仍然显示的站点所处的字符串，例如“海淀黄庄 站台-站厅通道换乘 2分钟”
