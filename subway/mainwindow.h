@@ -28,8 +28,9 @@ public:
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
+    friend class MainGraphicsView;
 public:
+    void startupPlan(void);
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
@@ -52,7 +53,7 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;
     MainGraphicsView* mainView;
-    void startupPlan(void);
+
 public:
     QGraphicsScene planScene;
     QVector<buttonManage> lineButtons;

@@ -158,24 +158,23 @@ LinePart::LinePart(int x,int y,int lineNum,Station* stn){
     addToGroup(stDeductMo);//站增方向加入
 }
 
-void LableItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
+void LabelItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     if (event->button() == Qt::LeftButton)
     {
-        // 假设你已经有一个 MainWindow 指针
-        MainWindow *mainWindow = qobject_cast<MainWindow *>(QApplication::activeWindow());
-        if (mainWindow)
-        {
-            // 创建一个临时的 QModelIndex，因为 on_listA_clicked 需要一个 QModelIndex 参数
-            QModelIndex index;
-            // 调用 MainWindow 的槽函数
-            mainWindow->on_listA_clicked(index);
-        }
+        // // 假设你已经有一个 MainWindow 指针
+        // MainWindow *mainWindow = qobject_cast<MainWindow *>(QApplication::activeWindow());
+        // if (mainWindow)
+        // {
+        //     // 创建一个临时的 QModelIndex，因为 on_listA_clicked 需要一个 QModelIndex 参数
+        //     QModelIndex index;
+        //     // 调用 MainWindow 的槽函数
+        //     mainWindow->on_listA_clicked(index);
+        // }
     }
-    // 调用基类的鼠标点击事件处理器
     QGraphicsItemGroup::mousePressEvent(event);
 }
 //第一套构造函数，适配stationsByName
-LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起lable对应的图形信息
+LabelItem::LabelItem(int x,int y,QString stName){//以x,y为基准，建立起Label对应的图形信息
     this->setData(itemType,myType);
     int i,cur=0;
     QFont stationFont("黑体", 20);
@@ -210,18 +209,21 @@ LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起la
     addToGroup(startRect);
     startRect->setData(114,"start");
     startRect->setData(115,stName);
-    //connect(startRect, &QGraphicsRectItem::mousePressEvent, this, &LableItem::mousePressEvent);
+    //connect(startRect, &QGraphicsRectItem::mousePressEvent, this, &LabelItem::mousePressEvent);
     setstart=new QGraphicsTextItem("设为起点");
     setstart->setFont(stationFont);
+    setstart->setDefaultTextColor(Qt::white);
     setstart->setPos(sx+50,sy+20+lineNum*180+65);
     addToGroup(setstart);
     endRect=new QGraphicsRectItem(sx+250,sy+20+lineNum*180+60,160,43);
     endRect->setPen(QPen(Qt::black));
     endRect->setBrush(Qt::blue);
     endRect->setData(114,"end");
+    endRect->setData(115,stName);
     addToGroup(endRect);
     setend=new QGraphicsTextItem("设为终点");
     setend->setFont(stationFont);
+    setend->setDefaultTextColor(Qt::white);
     setend->setPos(sx+270,sy+20+lineNum*180+65);
     addToGroup(setend);
     this->setZValue(500);

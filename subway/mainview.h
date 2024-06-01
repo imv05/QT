@@ -31,7 +31,7 @@ private:
     bool timeDisplayed; //到各站的时间是否显示
     QPoint lastMousePos; // 上次鼠标位置
     QGraphicsScene& scene_;
-    LableItem* m_infoLabel = nullptr;
+    LabelItem* m_infoLabel = nullptr;
     void showInfoLabel(const QPointF& pos, const QString& text);
     void hideInfoLabel();
     void paintTime(QGraphicsScene& sc, std::unordered_map<Station*, int> timeMap);

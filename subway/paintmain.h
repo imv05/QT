@@ -8,6 +8,4 @@
 void paintLine(QGraphicsScene& sc, Line* cLine);
 void paintMain(QGraphicsScene& pr);
 
-
-
 #endif // PAINTMAIN_H

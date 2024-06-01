@@ -59,23 +59,23 @@ public:
     LinePart(int x,int y,int lineNum,Station* stn);
 };
 
-class LableItem: public QGraphicsItemGroup{//鼠标放置时显示的标签
+class LabelItem: public QGraphicsItemGroup{//鼠标放置时显示的标签
 public:
     static const int myType=114;
-    int sx,sy;//作为lable绘图标准的x，y，标定左上角的位置
+    int sx,sy;//作为Label绘图标准的x，y，标定左上角的位置
     int height=20,width=100;
     int lineNum;//统计这个站是几条线的交点
     QVector<Station*> stn; //站点的指针，这个指针可能需要遍历很多次
     QGraphicsRectItem* frame;//框架
-    QGraphicsTextItem* staName;//lable的最高处，本站站名，统一使用北京地铁颜色
+    QGraphicsTextItem* staName;//Label的最高处，本站站名，统一使用北京地铁颜色
     QGraphicsTextItem* shou;
     QGraphicsTextItem* mo;
-    QVector<LinePart*> lineInfo;//lable的每一个模块，用一个vector表示，代表换乘线的信息，模块与模块之间从上到下排列
+    QVector<LinePart*> lineInfo;//Label的每一个模块，用一个vector表示，代表换乘线的信息，模块与模块之间从上到下排列
     QGraphicsTextItem* setstart;
     QGraphicsTextItem* setend;
     QGraphicsRectItem* startRect;
     QGraphicsRectItem* endRect;
-    LableItem(int x,int y,QString stName);
+    LabelItem(int x,int y,QString stName);
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 };
 

@@ -5,7 +5,6 @@
 #include "class.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "class.h"
 #include "menu.h"
 #include "search.h"
 //#include "search.cpp"
@@ -34,6 +33,22 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event){
         isDragging = true;      //设置拖拽状态
         setCursor(Qt::ClosedHandCursor);    // 设置鼠标抓手形状
     }else{
+        QPointF scenePos = mapToScene(event->pos());
+        for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
+            if(item->data(114)=="start"){
+                QString str=item->data(115).toString();
+                Plan::stationA = allStationNames[str];
+                menu::mw->ui->inputA->setText(str);
+                menu::mw->startupPlan();
+                return;
+            }else if(item->data(114)=="end"){
+                QString str=item->data(115).toString();
+                Plan::stationB = allStationNames[str];
+                menu::mw->ui->inputB->setText(str);
+                menu::mw->startupPlan();
+                return;
+            }
+        }
         if(timeDisplayed){
             clearTime(scene_); //也会顺带把时间显示的高亮清除掉
         }else if(highlightActivated){//其他高亮（单线、规划）
@@ -49,27 +64,9 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event){
                     highlightItemList.push_back(Plan::stationA->textItem);
                     Plan::makePlan();
                     paintTime(scene_, Plan::timeMap);
-                    // 弹出包含注释内容的消息框
                     // QMessageBox::information(this, "title", sname+"到各站的时间（分钟）");
                     // clearTime(scene_);
-                    return;
                 }
-                /*
-                else if(item->data(114)=="start"){
-                    QString str=item->data(115).toString();
-                    Plan::stationA = allStationNames[str];
-                    //ui->inputA->clearFocus();
-                    //ui->inputB->setFocus();
-                    //startupPlan();
-                }
-                else if(item->data(114)=="end"){
-                    QString str=item->data(115).toString();
-                    Plan::stationB = allStationNames[str];
-                    //ui->inputA->clearFocus();
-                    //ui->inputB->setFocus();
-                    //startupPlan();
-                }
-*/
             }
         }
     }
@@ -85,7 +82,7 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
         QPointF scenePos = mapToScene(event->pos());    // 将鼠标位置转换为场景坐标
         // 检查是否在点的范围内
         bool foundPoint = false; // 用于标记是否找到了点
-        bool foundLable = false; //用于标记是否是lable
+        bool foundLabel = false; //用于标记是否是Label
         QString name;
         QList<QGraphicsItem*> items = scene_.items(scenePos);
         for (QGraphicsItem* item : items) {//items是所有范围包含点击时鼠标坐标的对象
@@ -95,14 +92,14 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
                 foundPoint = true;
                 break; // 找到了点就退出循环
             }
-            if(item->data(itemType) == LableItem::myType){//如果该对象是lable
+            if(item->data(itemType) == LabelItem::myType){//如果该对象是Label
                 name = item->data(itemName).toString();//获取点的数据并显示信息标签
                 showInfoLabel(item->sceneBoundingRect().center(), name);
-                foundLable = true;
+                foundLabel = true;
                 break; // 找到了点就退出循环
             }
         }
-        if ( !foundPoint && !foundLable ) {
+        if ( !foundPoint && !foundLabel ) {
             // 如果没有找到点，则隐藏信息标签
             hideInfoLabel();
         }
@@ -132,7 +129,7 @@ void MainGraphicsView::wheelEvent(QWheelEvent *event){
 }
 void MainGraphicsView::showInfoLabel(const QPointF& pos, const QString& text){
     if (!m_infoLabel) {
-        m_infoLabel = new LableItem(pos.x(),pos.y(),text);
+        m_infoLabel = new LabelItem(pos.x(),pos.y(),text);
         scene()->addItem(m_infoLabel);
     }
     m_infoLabel->setVisible(true);

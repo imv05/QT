@@ -12,6 +12,7 @@ void paintPlan(QGraphicsScene& pr){
     //后续补充：画的是没有展开的版本
 
     pr.clear();
+
     QFont stationFont("微软雅黑", 10);
     int i;
     int packedsize=0;
@@ -41,16 +42,16 @@ void paintPlan(QGraphicsScene& pr){
     }
     //维护directionText
     for(int i=0; i<lineCnt; i++){
-        QString currentLineText;
+        QString currentDirectionText;
         if(Plan::directionOfLine[i] == 1){//如果站增
-            currentLineText = Plan::planLines[i]->incDirection;
+            currentDirectionText = Plan::planLines[i]->incDirection;
         }else{
-            currentLineText = Plan::planLines[i]->decDirection;
+            currentDirectionText = Plan::planLines[i]->decDirection;
         }
-        currentLineText += QString(" ");
-        currentLineText += QString::number(Plan::planRouteSplit[i].size()-1) + QString("站 ");
-        currentLineText += QString::number(Plan::timeOfLine[i]/60) + QString("分钟");
-        directionText.push_back(currentLineText);
+        currentDirectionText += QString(" ");
+        currentDirectionText += QString::number(Plan::planRouteSplit[i].size()-1) + QString("站 ");
+        currentDirectionText += QString::number(Plan::timeOfLine[i]/60) + QString("分钟");
+        directionText.push_back(currentDirectionText);
     }
     //维护packedText
     packedText.push_back(QString(Plan::planRoute[0]->stationName));
@@ -59,9 +60,6 @@ void paintPlan(QGraphicsScene& pr){
         QString currentPackedText = transferAt->stationName;
         if(i!=lineCnt-1){ //添加换乘详情注释
             currentPackedText += QString(" ");
-            // qDebug() << Plan::transferConnections.size();
-            // qDebug() << i;
-            // qDebug() << "trying";
             currentPackedText += Plan::transferConnections[i].note;
             currentPackedText += QString::number(Plan::transferConnections[i].time/60);
             currentPackedText += QString("分钟");
@@ -83,11 +81,15 @@ void paintPlan(QGraphicsScene& pr){
     QGraphicsTextItem* tmptext=new QGraphicsTextItem;
     lineTextItem.push_back(tmptext);
     lineTextItem[0]=pr.addText(Plan::planRoute[0]->line->lineName);
-    lineTextItem[0]->setPos(x+16,y+30);
+    lineTextItem[0]->setPos(x+16,y+20);
     lineTextItem[0]->setFont(stationFont);
     lineTextItem[0]->setDefaultTextColor(Plan::planRoute[0]->line->color);
-    packedsize++;y+=60;
+
     directionItem.push_back(nullptr);
+    directionItem[packedsize]=pr.addText(directionText[packedsize], stationFont);
+    directionItem[packedsize]->setPos(x+16,y+34);
+    directionItem[packedsize]->setDefaultTextColor(Qt::black);
+    packedsize++;y+=60;
     for(i=0;i<plansize-1;i++){//遍历原始规划信息
         if(Plan::planRoute[i]->lineId!=Plan::planRoute[i+1]->lineId){//和下一个一样，说明在这个站会发生换乘动作
             packedRoute.push_back(Plan::planRoute[i]);

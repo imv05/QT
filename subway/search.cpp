@@ -133,15 +133,20 @@ bool Plan::getRoute(void){//规划成功返回true
             }
         }
         //维护planLines,planRouteSplit,timeOfLine,directionOfLine,transferConnections共5个变量
+
         planLines.push_back(planRoute[0]->line);
         timeOfLine.push_back(0);
         planRouteSplit.push_back(QVector<Station*>());
         planRouteSplit[0].push_back(planRoute[0]);//添加分线Station*的第一个车站
         int currentLineOrder = 0;//当前加入的车站所在线在plan中的顺位
+        bool justTransfered = true;
         for(int i=0; i<routeNodeCnt-1; i++){
             if(!planConnections[i].isTransfer){//前后两车站不是换乘关系时
-                //添加directionOfLine
-                directionOfLine.push_back(planConnections[i].direction);
+                //如果是某段线路的起点，那么更新directionOfLine
+                if(justTransfered){
+                    directionOfLine.push_back(planConnections[i].direction);
+                    justTransfered = false;
+                }
                 //需要添加Path至预高亮item列表
                 hlList.push_back(pathItemMap[QPair<Station*, Station*>(planRoute[i],  planRoute[i+1])]);
                 //然后将车站加到当前的Split
@@ -157,8 +162,10 @@ bool Plan::getRoute(void){//规划成功返回true
                 planRouteSplit[currentLineOrder].push_back(planRoute[i+1]);
                 //分线时间切换到下一个
                 timeOfLine.push_back(0);
+                justTransfered = true;
             }
         }
+
         //维护planTotalTime
         planTotalTime = 0;
         for(int i=0; i<planLines.size(); i++){

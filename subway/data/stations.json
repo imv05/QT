@@ -2207,7 +2207,7 @@
                     },
                     {
                         "dist": 1018,
-                        "duration": 30780,
+                        "duration": 180,
                         "firstTime": 84540,
                         "lastTime": 82740,
                         "nextStationId": 5
@@ -2703,7 +2703,7 @@
                         "dist": 3386,
                         "duration": 300,
                         "firstTime": 19980,
-                        "lastTime": 80223,
+                        "lastTime": 85080,
                         "nextStationId": 8
                     },
                     {

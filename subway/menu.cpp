@@ -1,6 +1,6 @@
 #include "menu.h"
 #include "ui_menu.h"
-
+MainWindow* menu::mw;
 //创建了一个新的窗口（主界面）
 menu::menu(QWidget *parent)
     : QWidget(parent)
@@ -17,7 +17,7 @@ menu::~menu()
 void menu::on_pushButton_clicked()
 {
     delete this;
-    MainWindow* mw=new MainWindow;
+    mw=new MainWindow;
     mw->show();
 }
 
