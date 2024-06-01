@@ -15,6 +15,7 @@ class menu : public QWidget
 
 public:
     explicit menu(QWidget *parent = nullptr);
+    MainWindow* mw;
     ~menu();
 
 private slots:

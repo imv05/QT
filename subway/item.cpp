@@ -1,9 +1,14 @@
 #include "item.h"
 #include "class.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <QApplication>
+#include <QModelIndex>
 //直径：换乘站40，非换乘站26，线条粗16，典型站间距横向95，纵向57。字体高27
 const int MASK_TYPE = 999;
 StationItem::StationItem(int x, int y): QGraphicsEllipseItem(0, 0, 26, 26) {
@@ -53,7 +58,12 @@ QString transferTime(int sec){//传入以秒为单位的时间，转化为24小�
 LinePart::LinePart(int x,int y,int lineNum,Station* stn){
     QFont stationFont("黑体", 20);
     Line* ln=lineMap[lineNum];//找到当前线路的指针
+    QPen lnPen;lnPen.setColor(ln->color);
+    lnPen.setWidth(8);
     //画出线的名称
+    lnLine=new QGraphicsLineItem(x-24,y-24,x+414,y-24);
+    lnLine->setPen(lnPen);
+    addToGroup(lnLine);
     lnRect=new QGraphicsRectItem(x-10,y-5,170,45);
     lnRect->setPen(QPen(ln->color));
     lnRect->setBrush(ln->color);
@@ -64,6 +74,7 @@ LinePart::LinePart(int x,int y,int lineNum,Station* stn){
     lnName->setDefaultTextColor(Qt::white);
     addToGroup(lnName);//线路名称加入
     //模块视图效果：
+    //======================
     //线路名   首班车   末班车
     //方向一     T1      T2
     //方向二     T3      T4
@@ -146,14 +157,31 @@ LinePart::LinePart(int x,int y,int lineNum,Station* stn){
     stDeductMo->setDefaultTextColor(ln->color);
     addToGroup(stDeductMo);//站增方向加入
 }
-//第一套构造函数，适配stationsByName
 
+void LableItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
+    if (event->button() == Qt::LeftButton)
+    {
+        // 假设你已经有一个 MainWindow 指针
+        MainWindow *mainWindow = qobject_cast<MainWindow *>(QApplication::activeWindow());
+        if (mainWindow)
+        {
+            // 创建一个临时的 QModelIndex，因为 on_listA_clicked 需要一个 QModelIndex 参数
+            QModelIndex index;
+            // 调用 MainWindow 的槽函数
+            mainWindow->on_listA_clicked(index);
+        }
+    }
+    // 调用基类的鼠标点击事件处理器
+    QGraphicsItemGroup::mousePressEvent(event);
+}
+//第一套构造函数，适配stationsByName
 LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起lable对应的图形信息
+    this->setData(itemType,myType);
     int i,cur=0;
     QFont stationFont("黑体", 20);
     stn=stationsByName[stName];//获取指向本站的指针
     lineNum=stn.size();//共有几条线经过了本站
-    height=20+lineNum*180+20;
+    height=20+lineNum*180+110;
     width=450;
     //确定左上角的位置：
     sx=x-width/2;sy=y-height-10;
@@ -173,9 +201,29 @@ LableItem::LableItem(int x,int y,QString stName){//以x,y为基准，建立起la
     addToGroup(staName);
     for(i=0;i<lineNum;i++){//遍历n条线，提取n个模块
         cur=stn[i]->lineId;//当前线路的ID
-        lineInfo.push_back(new LinePart(sx+30,sy+80+180*i,cur,stn[i]));
+        lineInfo.push_back(new LinePart(sx+30,sy+100+180*i,cur,stn[i]));
         addToGroup(lineInfo[i]);//初始化模块
     }
-    this->setZValue(40);
+    startRect=new QGraphicsRectItem(sx+30,sy+20+lineNum*180+60,160,43);
+    startRect->setPen(QPen(Qt::black));
+    startRect->setBrush(Qt::blue);
+    addToGroup(startRect);
+    startRect->setData(114,"start");
+    startRect->setData(115,stName);
+    //connect(startRect, &QGraphicsRectItem::mousePressEvent, this, &LableItem::mousePressEvent);
+    setstart=new QGraphicsTextItem("设为起点");
+    setstart->setFont(stationFont);
+    setstart->setPos(sx+50,sy+20+lineNum*180+65);
+    addToGroup(setstart);
+    endRect=new QGraphicsRectItem(sx+250,sy+20+lineNum*180+60,160,43);
+    endRect->setPen(QPen(Qt::black));
+    endRect->setBrush(Qt::blue);
+    endRect->setData(114,"end");
+    addToGroup(endRect);
+    setend=new QGraphicsTextItem("设为终点");
+    setend->setFont(stationFont);
+    setend->setPos(sx+270,sy+20+lineNum*180+65);
+    addToGroup(setend);
+    this->setZValue(500);
 }
 

@@ -11,9 +11,10 @@
 class MainGraphicsView : public QGraphicsView
 {
 public:
+    QWidget* theparent;
     bool highlightActivated;    //是否在高亮模式
     QVector<QGraphicsItem*> highlightItemList;
-    MainGraphicsView(QGraphicsScene& scene, QWidget *parent = nullptr);
+    MainGraphicsView(QGraphicsScene& scene, QWidget*parent = nullptr);
     void refreshHighlight(void);
     QGraphicsItem* mask;    //半透明遮罩的item指针
 protected:

@@ -7,9 +7,6 @@ menu::menu(QWidget *parent)
     , ui(new Ui::menu)
 {
     ui->setupUi(this);
-
-
-
 }
 
 menu::~menu()
@@ -24,7 +21,7 @@ void menu::on_pushButton_clicked()
     //显示主要界面
 
 
-    MainWindow* mw=new MainWindow;
+    mw=new MainWindow;
     mw->show();
 }
 
