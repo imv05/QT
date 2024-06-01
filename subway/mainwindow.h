@@ -42,8 +42,6 @@ private slots:
     void lineButtonclicked();
     void on_swapButton_clicked();
 
-    void on_inputA_selectionChanged();
-
 private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;

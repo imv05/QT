@@ -7,8 +7,7 @@
 
 void paintLine(QGraphicsScene& sc, Line* cLine);
 void paintMain(QGraphicsScene& pr);
-void paintTime(QGraphicsScene& sc, std::unordered_map<Station*, int> timeMap);
-void clearTime(QGraphicsScene& sc);
+
 
 
 #endif // PAINTMAIN_H

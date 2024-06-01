@@ -12,6 +12,7 @@
 MainGraphicsView::MainGraphicsView(QGraphicsScene& scene, QWidget *parent)
     : QGraphicsView(parent), isDragging(false), scene_(scene){
     highlightActivated = false;
+    timeDisplayed = false;
     setMouseTracking(true); // 开启鼠标跟踪
 }
 // 重写鼠标按下事件
@@ -21,7 +22,9 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event){
         isDragging = true;      //设置拖拽状态
         setCursor(Qt::ClosedHandCursor);    // 设置鼠标抓手形状
     }else{
-        if(highlightActivated){
+        if(timeDisplayed){
+            clearTime(scene_); //也会顺带把时间显示的高亮清除掉
+        }else if(highlightActivated){//其他高亮（单线、规划）
             highlightActivated = false;
             refreshHighlight();
         }else{
@@ -29,12 +32,15 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event){
             for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
                 if (item->data(itemType) == StationItem::myType) {//如果是站点
                     QString sname = item->data(itemName).toString();
-                    Plan::stationA = allStationNames[sname];
+                    Station* fromstn = allStationNames[sname];
+                    Plan::stationA = fromstn;
+                    highlightItemList.push_back(Plan::stationA->item);
+                    highlightItemList.push_back(Plan::stationA->textItem);
                     Plan::makePlan();
                     paintTime(scene_, Plan::timeMap);
                     // 弹出包含注释内容的消息框
-                    QMessageBox::information(this, "title", sname+"到各站的时间（分钟）");
-                    clearTime(scene_);
+                    // QMessageBox::information(this, "title", sname+"到各站的时间（分钟）");
+                    // clearTime(scene_);
                     return;
                 }
             }
@@ -119,7 +125,7 @@ void MainGraphicsView::refreshHighlight(){
         scene_.addItem(mask);
         mask->setZValue(HIGHLIGHT_ELEVATION-1);
     }else{
-        scene_.removeItem(mask);
+        if(mask)scene_.removeItem(mask);
         delete mask;
         QList<QGraphicsItem*> items = scene_.items();
         for (QGraphicsItem *item : items) {
@@ -129,6 +135,30 @@ void MainGraphicsView::refreshHighlight(){
         }
         highlightItemList.clear();
     }
-
 }
 
+void MainGraphicsView::paintTime(QGraphicsScene& sc, std::unordered_map<Station*, int> timeMap){
+    for(auto sit: allStationNames){
+        if(timeMap.find(sit) != timeMap.end() && timeMap[sit]<3600*60*60 && timeMap[sit]>0){
+            numberItemList.push_back(sc.addText(QString::number(timeMap[sit]/60)));
+            auto nitem = numberItemList.back();
+            nitem->setPos(sit->item->pos());
+            nitem->setFont(QFont("微软雅黑", 12));
+            nitem->setZValue(TIME_TEXT_ZVALUE);
+            highlightItemList.push_back(nitem);
+        }
+    }
+    highlightActivated = true;
+    refreshHighlight();
+    timeDisplayed = true;
+}
+void MainGraphicsView::clearTime(QGraphicsScene& sc){
+    for(auto it: numberItemList){
+        sc.removeItem(it);
+        delete it;
+    }
+    numberItemList.clear();
+    highlightActivated = false;
+    refreshHighlight();
+    timeDisplayed = false;
+}

@@ -7,7 +7,6 @@
 #include <QGraphicsItem>
 #include <cmath>
 //直径：换乘站40，非换乘站26，线条粗16，典型站间距横向95，纵向57。字体高27
-QVector<QGraphicsTextItem*> numberItemList; //用于显示到达各站的时间
 const qreal PATH_ZVALUE = 10;  //层叠关系：path线条位于10
 const qreal STATION_ZVALUE = 20;  //层叠关系：station圆圈位于20
 const qreal TEXT_ZVALUE = 30;  //层叠关系：path线条位于30
@@ -170,19 +169,4 @@ void paintMain(QGraphicsScene& sc){
         it++;
     }
 }
-void paintTime(QGraphicsScene& sc, std::unordered_map<Station*, int> timeMap){
-    for(auto sit: allStationNames){
-        numberItemList.push_back(sc.addText(QString::number(timeMap[sit]/60)));
-        auto nitem = numberItemList.back();
-        nitem->setPos(sit->item->pos());
-        nitem->setFont(QFont("微软雅黑", 10));
-        nitem->setZValue(TEXT_ZVALUE);
-    }
-}
-void clearTime(QGraphicsScene& sc){
-    for(auto it: numberItemList){
-        sc.removeItem(it);
-        delete it;
-    }
-    numberItemList.clear();
-}
+

@@ -15,7 +15,7 @@ void paintPlan(QGraphicsScene& pr){
     QFont stationFont("微软雅黑", 10);
     int i;
     int packedsize=0;
-    int x=10,y=40;//绘制文字的坐标，其中x保持40，y每打印一个就+20
+    int x=5,y=40;//绘制文字的坐标，其中x保持40，y每打印一个就+20
 
     QGraphicsTextItem* header1 = pr.addText("共计"+QString::number(Plan::planTotalSections)+"站", stationFont);
     header1->setPos(x+20, y-30);
@@ -59,10 +59,9 @@ void paintPlan(QGraphicsScene& pr){
         QString currentPackedText = transferAt->stationName;
         if(i!=lineCnt-1){ //添加换乘详情注释
             currentPackedText += QString(" ");
-            qDebug() << "hello";
-            qDebug() << Plan::transferConnections.size();
-            qDebug() << i;
-            qDebug() << "trying";
+            // qDebug() << Plan::transferConnections.size();
+            // qDebug() << i;
+            // qDebug() << "trying";
             currentPackedText += Plan::transferConnections[i].note;
             currentPackedText += QString::number(Plan::transferConnections[i].time/60);
             currentPackedText += QString("分钟");
@@ -89,7 +88,7 @@ void paintPlan(QGraphicsScene& pr){
     lineTextItem[0]->setDefaultTextColor(Plan::planRoute[0]->line->color);
     packedsize++;y+=60;
     directionItem.push_back(nullptr);
-    for(i=1;i<plansize-1;i++){//遍历原始规划信息
+    for(i=0;i<plansize-1;i++){//遍历原始规划信息
         if(Plan::planRoute[i]->lineId!=Plan::planRoute[i+1]->lineId){//和下一个一样，说明在这个站会发生换乘动作
             packedRoute.push_back(Plan::planRoute[i]);
             tmp=new TrainItem(x,y);
@@ -111,9 +110,6 @@ void paintPlan(QGraphicsScene& pr){
             directionItem[packedsize]->setDefaultTextColor(Qt::black);
             packedsize++;y+=60;
         }
-    }
-    for(int i=0; i<packedsize; i++){
-
     }
     packedRoute.push_back(Plan::planRoute[plansize-1]);//终点
     tmp=new TrainItem(x,y);
