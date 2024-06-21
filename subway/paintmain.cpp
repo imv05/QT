@@ -95,8 +95,8 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
         const qreal H = stn->textItem->boundingRect().height();
         const qreal W = stn->textItem->boundingRect().width();
         //优先顺序：正右，正下，正左，正上，右下，右上，左下，左上。
-        qreal xAlternatives[8] = {  x+M, x-W/2, x-M-W, x-W/2, x+M,   x+M, x-M-W, x-M-W};
-        qreal yAlternatives[8] = {y-H/2,   y+M, y-H/2, y-M-H, y+M, y-M-H,   y+M, y-H};
+        qreal xAlternatives[8] = {  x+M, x-W/2, x-M-W, x-W/2, x+M    ,   x+M, x-M-W, x-M-W};
+        qreal yAlternatives[8] = {y-H/2,   y+M, y-H/2, y-M-H, y+M*3/4, y-M-H,   y+M, y-M-H};
         int k=0; bool ok = false; int minCollide = 100;
         for(k=0; k<8; k++){
             stn->textItem->setPos(xAlternatives[k], yAlternatives[k]);
