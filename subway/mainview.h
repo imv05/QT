@@ -28,6 +28,7 @@ private:
     const qreal HIGHLIGHT_ELEVATION = 200;  //高亮对象zpos的抬升值
     const qreal TIME_TEXT_ZVALUE = 40;
     bool isDragging; // 是否正在拖动
+    bool justDragged;   //鼠标按下后的动作是否为拖动，用以在释放时判断
     bool timeDisplayed; //到各站的时间是否显示
     QPoint lastMousePos; // 上次鼠标位置
     QGraphicsScene& scene_;

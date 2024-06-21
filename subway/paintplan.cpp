@@ -10,7 +10,6 @@
 void paintPlan(QGraphicsScene& pr){
     //调用search.h中的static QVector<Station*> planRoute;来获取路径规划中的站点信息
     //后续补充：画的是没有展开的版本
-
     pr.clear();
 
     QFont stationFont("微软雅黑", 10);
@@ -20,8 +19,10 @@ void paintPlan(QGraphicsScene& pr){
 
     QGraphicsTextItem* header1 = pr.addText("共计"+QString::number(Plan::planTotalSections)+"站", stationFont);
     header1->setPos(x+20, y-30);
+    header1->setDefaultTextColor(Qt::black);
     QGraphicsTextItem* header2 = pr.addText(QString::number(Plan::planTotalTime/60)+"分钟", stationFont);
     header2->setPos(x+80, y-30);
+    header2->setDefaultTextColor(Qt::black);
 
     int plansize=Plan::planRoute.size();//整个规划出的路径的vector的大小
     QVector<Station*> packedRoute;//重新用一个数组标记折叠起来的站点名称

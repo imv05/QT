@@ -79,7 +79,7 @@ LinePart::LinePart(int x,int y,int lineNum,Station* stn){
     //方向一     T1      T2
     //方向二     T3      T4
     shou=new QGraphicsTextItem("首班车");
-    shou->setPos(x+200,y);
+    shou->setPos(x+180,y);
     shou->setFont(stationFont);
     shou->setDefaultTextColor(ln->color);
     addToGroup(shou);//首班车标签加入

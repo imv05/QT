@@ -19,7 +19,7 @@ QVector<int> Plan::timeOfLine;     //（按照line的出现顺序）不同line�
 QVector<int> Plan::directionOfLine;    //（按照line的出现顺序）不同line的方向，共lines个
 QVector<Connection> Plan::transferConnections; //换乘的connection，用于展示换乘详情，共lines-1个
 
-std::unordered_map<Station*, Station*> dijkstra(Station* start) {
+std::unordered_map<Station*, Station*> Plan::dijkstra(Station* start) {
     std::unordered_map<Station*, Station*> previous; // 上一个节点（父节点）
     std::priority_queue<std::pair<int, Station*>, std::vector<std::pair<int, Station*>>, std::greater<std::pair<int, Station*>>> pq; // 优先队列，按照距离排序
     std::unordered_map<Station*, int>& distance = Plan::timeMap;
@@ -93,7 +93,7 @@ bool Plan::makePlan(void){
 }
 bool Plan::getRoute(void){//规划成功返回true
     if(stationA && stationB && stationA != stationB){//终点已给出，可以开始回溯
-        qDebug() << "trying to get route";
+        // qDebug() << "into get route";
         planRoute = getPath(last_of, stationB);//完成回溯，输出起点到终点的路线
         int routeNodeCnt = planRoute.size();
         if(routeNodeCnt<=1)return false;
@@ -197,7 +197,6 @@ int dijkstra_n(Station* start,Station* end) {
             pq.push({0, start});
         }
     }
-
     while (!pq.empty()) {
         auto [currDist, currStation] = pq.top();
         pq.pop();
@@ -225,7 +224,6 @@ int Plan::makePlan_n(Station* A,Station* B){
     if(A){//起点已给出，即可开始规划
         int dis=dijkstra_n(A,B);
         // qDebug() << dis;
-
         return [](double x){
             if(x<=6)return 3;
             else if(x<=12) return 4;
@@ -233,9 +231,6 @@ int Plan::makePlan_n(Station* A,Station* B){
             else if(x<=32) return 6;
             else return (6+(int)((x-32)/20));
         }(dis/1000.0);
-
-
-
         return -1;
     }else{//起点为nullptr，失败
         return -1;

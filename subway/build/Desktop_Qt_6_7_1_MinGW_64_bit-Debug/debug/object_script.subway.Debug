@@ -9,6 +9,7 @@ debug/menu.o
 debug/paintmain.o
 debug/paintplan.o
 debug/planview.o
+debug/reach.o
 debug/realtimewindow.o
 debug/search.o
 debug/qrc_resources.o

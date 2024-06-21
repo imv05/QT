@@ -29,7 +29,7 @@ public:
 
     static bool makePlan(void);
     static bool getRoute(void);
-
+    static std::unordered_map<Station*, Station*> dijkstra(Station* start);
     static int makePlan_n(Station* A=Plan::stationA,Station* B=Plan::stationB);
 
 private:

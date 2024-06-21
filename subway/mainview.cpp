@@ -25,59 +25,27 @@ MainGraphicsView::MainGraphicsView(QGraphicsScene& scene,QWidget*parent)
     mask->setZValue(-1*HIGHLIGHT_ELEVATION);
     setMouseTracking(true); // 开启鼠标跟踪
     theparent=parent;
+    isDragging = false;
+    justDragged = false;
 }
 // 重写鼠标按下事件
 void MainGraphicsView::mousePressEvent(QMouseEvent *event){
-    if (event->button() == Qt::RightButton) {
+    // if (event->button() == Qt::RightButton) {
         lastMousePos = event->pos();    // 记录当前鼠标位置
         isDragging = true;      //设置拖拽状态
-        setCursor(Qt::ClosedHandCursor);    // 设置鼠标抓手形状
-    }else{
-        QPointF scenePos = mapToScene(event->pos());
-        for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
-            if(item->data(114)=="start"){
-                QString str=item->data(115).toString();
-                Plan::stationA = allStationNames[str];
-                menu::mw->ui->inputA->setText(str);
-                menu::mw->startupPlan();
-                return;
-            }else if(item->data(114)=="end"){
-                QString str=item->data(115).toString();
-                Plan::stationB = allStationNames[str];
-                menu::mw->ui->inputB->setText(str);
-                menu::mw->startupPlan();
-                return;
-            }
-        }
-        if(timeDisplayed){
-            clearTime(scene_); //也会顺带把时间显示的高亮清除掉
-        }else if(highlightActivated){//其他高亮（单线、规划）
-            removeHighlight();
-        }else{
-            QPointF scenePos = mapToScene(event->pos());    // 将鼠标事件转换为场景坐标
-            for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
-                if (item->data(itemType) == StationItem::myType) {//如果是站点
-                    QString sname = item->data(itemName).toString();
-                    Station* fromstn = allStationNames[sname];
-                    Plan::stationA = fromstn;
-                    highlightItemList.push_back(Plan::stationA->item);
-                    highlightItemList.push_back(Plan::stationA->textItem);
-                    Plan::makePlan();
-                    paintTime(scene_, Plan::timeMap);
-                    // QMessageBox::information(this, "title", sname+"到各站的时间（分钟）");
-                    // clearTime(scene_);
-                }
-            }
-        }
-    }
+        justDragged = false;
+    // }else{
+    // }
     QGraphicsView::mousePressEvent(event);
 }
 // 重写鼠标移动事件
 void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
     if (isDragging) {
+        setCursor(Qt::ClosedHandCursor);    // 设置鼠标抓手形状
         QPoint delta = event->pos() - lastMousePos; // 计算鼠标移动的距离
         translate(delta.x(), delta.y());    // 平移视图
         lastMousePos = event->pos();    // 更新上次鼠标位置
+        justDragged = true;
     }else{
         QPointF scenePos = mapToScene(event->pos());    // 将鼠标位置转换为场景坐标
         // 检查是否在点的范围内
@@ -108,13 +76,56 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
 }
 // 重写鼠标释放事件
 void MainGraphicsView::mouseReleaseEvent(QMouseEvent *event){
-    if (event->button() == Qt::RightButton) {
+    // if (event->button() == Qt::RightButton) {
         // 停止拖动
         isDragging = false;
         // 恢复鼠标箭头形状
         unsetCursor();
+    // }
+    if(!justDragged){   //如果刚刚没有拖动，也就是只是点了一下
+        //最高优先级处理点击“设为起点”“设为终点”
+        QPointF scenePos = mapToScene(event->pos());
+        for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
+            if(item->data(114)=="start"){   //如果点击了“设为起点”
+                QString str=item->data(115).toString();
+                Plan::stationA = allStationNames[str];
+                menu::mw->ui->inputA->setText(str);
+                menu::mw->startupPlan();
+                return;
+            }else if(item->data(114)=="end"){//如果点击了“设为终点”
+                QString str=item->data(115).toString();
+                Plan::stationB = allStationNames[str];
+                menu::mw->ui->inputB->setText(str);
+                menu::mw->startupPlan();
+                return;
+            }
+        }
+        //其次处理消除站点到达时间高亮
+        if(timeDisplayed){
+            clearTime(scene_); //也会顺带把时间显示的高亮清除掉
+            return;
+        }
+        //再处理消除其他高亮
+        if(highlightActivated){//其他高亮（单线、规划）
+            removeHighlight();
+            return;
+        }
+        //再处理点击站点或线段（预留）
+        for (QGraphicsItem *item : scene_.items(scenePos)) {// 检查每个形状对象是否被点击
+            if (item->data(itemType) == StationItem::myType) {//如果是站点
+                QString sname = item->data(itemName).toString();
+                Station* fromstn = allStationNames[sname];
+                Plan::stationA = fromstn;
+                highlightItemList.push_back(Plan::stationA->item);
+                highlightItemList.push_back(Plan::stationA->textItem);
+                Plan::makePlan();
+                paintTime(scene_, Plan::timeMap);
+                // QMessageBox::information(this, "title", sname+"到各站的时间（分钟）");
+                // clearTime(scene_);
+            }
+        }
     }
-    QGraphicsView::mouseReleaseEvent(event);
+    // QGraphicsView::mouseReleaseEvent(event);
 }
 // 重写滚轮事件
 void MainGraphicsView::wheelEvent(QWheelEvent *event){
@@ -145,7 +156,6 @@ void MainGraphicsView::showHighlight(){
     if(highlightActivated){//如果有旧信息，先移除
         temphl = highlightItemList;
         removeHighlight();
-        qDebug() << "hello";
         highlightItemList = temphl;
     }
     highlightActivated = true;
@@ -177,6 +187,7 @@ void MainGraphicsView::paintTime(QGraphicsScene& sc, std::unordered_map<Station*
             nitem->setPos(sit->item->pos());
             nitem->setFont(QFont("微软雅黑", 12));
             nitem->setZValue(TIME_TEXT_ZVALUE);
+            nitem->setDefaultTextColor(Qt::black);
             highlightItemList.push_back(nitem);
         }
     }
