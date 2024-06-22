@@ -146,19 +146,23 @@ void MainWindow::on_inputB_textEdited(const QString &arg1)
     matchingStationsB.clear();
     QRegularExpression rx("^[A-Za-z]+$");
     if (arg1.contains(rx)) {//如果输入的字符串是纯字母，则进行拼音匹配
-        for(auto station: allStationNames){
-            QString name = station->stationName;
-            QString pinyin(station->stationEngName);
-            QRegularExpression argpy(arg1);
-            if(pinyin.contains(argpy)){
-                matchingStationsB.append(name);
+        for(auto station=allStationNames.begin(); station!=allStationNames.end(); station++){
+            if(*station != nullptr){ //此处未知原因偶现nullptr导致的SIGSEV，已排除c++11 ranged-based loop might detach QT container
+                QString name = (*station)->stationName;
+                QString pinyin((*station)->stationEngName);
+                QRegularExpression argpy(arg1);
+                if(pinyin.contains(argpy)){
+                    matchingStationsB.append(name);
+                }
             }
         }
     } else { //如果输入的字符串不是纯字母，则进行中文站名匹配
-        for(auto station: allStationNames){
-            QString name = station->stationName;
-            if(name.contains(arg1)){
-                matchingStationsB.append(name);
+        for(auto station=allStationNames.begin(); station!=allStationNames.end(); station++){
+            if(*station != nullptr){ //此处未知原因偶现nullptr导致的SIGSEV，已排除c++11 ranged-based loop might detach QT container
+                QString name = (*station)->stationName;
+                if(name.contains(arg1)){
+                    matchingStationsB.append(name);
+                }
             }
         }
     }
