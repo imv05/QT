@@ -7,8 +7,9 @@
 #include <qdebug.h>
 #include <fstream>
 
-int load(void){//从json数据库加载
-    QFile src(":/data/data/stations.json");
+int load(int citycode){//从json数据库加载
+    QString path = ":/data/data/" + QString::number(citycode) + "main.json";
+    QFile src(path);
     json j;
     if(src.open(QIODevice::ReadOnly)){
         QTextStream in(&src);
@@ -21,7 +22,7 @@ int load(void){//从json数据库加载
             qDebug() << "JSON解析错误：" << e.what();
         }
     }else{//找不到指定的json文件
-        qDebug() << "Unable to find database stations.json";
+        qDebug() << "Unable to find data of citycode " << QString::number(citycode);
         return 0;
     }
     int lineCnt =  j.size();

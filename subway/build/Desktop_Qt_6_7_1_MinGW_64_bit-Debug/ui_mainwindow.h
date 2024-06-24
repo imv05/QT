@@ -89,7 +89,7 @@ public:
         formLayout->setContentsMargins(0, 0, 0, 0);
         mainGraphicsView = new QGraphicsView(centralwidget);
         mainGraphicsView->setObjectName("mainGraphicsView");
-        mainGraphicsView->setGeometry(QRect(220, 0, 1031, 761));
+        mainGraphicsView->setGeometry(QRect(220, 0, 631, 761));
         mainGraphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         mainGraphicsView->setAlignment(Qt::AlignCenter);
         mainGraphicsView->setDragMode(QGraphicsView::NoDrag);
