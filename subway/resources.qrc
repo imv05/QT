@@ -5,6 +5,6 @@
         <file>src/doubleArrow.jpg</file>
     </qresource>
     <qresource prefix="/data">
-        <file>data/stations.json</file>
+        <file>data/1100main.json</file>
     </qresource>
 </RCC>
