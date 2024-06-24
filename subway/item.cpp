@@ -64,7 +64,7 @@ LinePart::LinePart(int x,int y,int lineNum,Station* stn){
     lnLine=new QGraphicsLineItem(x-24,y-24,x+414,y-24);
     lnLine->setPen(lnPen);
     addToGroup(lnLine);
-    lnRect=new QGraphicsRectItem(x-10,y-5,170,45);
+    lnRect=new QGraphicsRectItem(x-10,y-5,175,45);
     lnRect->setPen(QPen(ln->color));
     lnRect->setBrush(ln->color);
     addToGroup(lnRect);
@@ -79,12 +79,12 @@ LinePart::LinePart(int x,int y,int lineNum,Station* stn){
     //方向一     T1      T2
     //方向二     T3      T4
     shou=new QGraphicsTextItem("首班车");
-    shou->setPos(x+180,y);
+    shou->setPos(x+196,y);
     shou->setFont(stationFont);
     shou->setDefaultTextColor(ln->color);
     addToGroup(shou);//首班车标签加入
     mo=new QGraphicsTextItem("末班车");
-    mo->setPos(x+300,y);
+    mo->setPos(x+299,y);
     mo->setFont(stationFont);
     mo->setDefaultTextColor(ln->color);
     addToGroup(mo);//末班车标签加入
@@ -173,7 +173,6 @@ void LabelItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     }
     QGraphicsItemGroup::mousePressEvent(event);
 }
-//第一套构造函数，适配stationsByName
 LabelItem::LabelItem(int x,int y,QString stName){//以x,y为基准，建立起Label对应的图形信息
     this->setData(itemType,myType);
     int i,cur=0;

@@ -6,11 +6,17 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsItem>
+#include <QGraphicsPolygonItem>
+#include <QPolygonF>
 
 void paintPlan(QGraphicsScene& pr){
     //调用search.h中的static QVector<Station*> planRoute;来获取路径规划中的站点信息
     //后续补充：画的是没有展开的版本
     pr.clear();
+
+    QGraphicsRectItem* back=pr.addRect(0,0,1000,1000);
+    back->setBrush(Qt::white);
+    back->setZValue(-5);
 
     QFont stationFont("微软雅黑", 10);
     int i;
@@ -31,17 +37,19 @@ void paintPlan(QGraphicsScene& pr){
     QVector<QString> lineText;  //线路显示，例如“13号线”
     QVector<QString> directionText; //方向显示，例如“东直门方向”
     QVector<QGraphicsTextItem*> lineTextItem;
+    QVector<QPolygonF*> trianglePaint;
+    QVector<QGraphicsPolygonItem *> triangleItem;//展示折叠的三角形，和线路名称一同出现
     QVector<QGraphicsTextItem*> directionItem;
     QVector<QGraphicsRectItem*> lineItem;
     QVector<TrainItem*>  trainItem;
     int lineCnt = Plan::planLines.size();   //方案涉及的线路数量
-    //维护lineText
+    //维护 lineText & triangles
     for(int i=0; i<lineCnt; i++){
         QString currentLineText = Plan::planLines[i]->lineName;
-
         lineText.push_back(currentLineText);
+
     }
-    //维护directionText
+    //维护 directionText
     for(int i=0; i<lineCnt; i++){
         QString currentDirectionText;
         if(Plan::directionOfLine[i] == 1){//如果站增
@@ -54,7 +62,7 @@ void paintPlan(QGraphicsScene& pr){
         currentDirectionText += QString::number(Plan::timeOfLine[i]/60) + QString("分钟");
         directionText.push_back(currentDirectionText);
     }
-    //维护packedText
+    //维护 packedText
     packedText.push_back(QString(Plan::planRoute[0]->stationName));
     for(int i=0; i<lineCnt; i++){
         Station* transferAt = Plan::planRouteSplit[i].back();   //每个分线的最后一个站
@@ -82,13 +90,20 @@ void paintPlan(QGraphicsScene& pr){
     QGraphicsTextItem* tmptext=new QGraphicsTextItem;
     lineTextItem.push_back(tmptext);
     lineTextItem[0]=pr.addText(Plan::planRoute[0]->line->lineName);
-    lineTextItem[0]->setPos(x+16,y+20);
+    lineTextItem[0]->setPos(x+30,y+19);
     lineTextItem[0]->setFont(stationFont);
     lineTextItem[0]->setDefaultTextColor(Plan::planRoute[0]->line->color);
-
+    trianglePaint.push_back(new QPolygonF);
+    QGraphicsPolygonItem* tmptri=new QGraphicsPolygonItem;
+    triangleItem.push_back(tmptri);
+    (*trianglePaint[0]) << QPointF(x+25, y+34)       // 顶点
+             << QPointF(x+30, y+29)      // 右侧底角
+             << QPointF(x+20, y+29);    // 左侧底角
+    triangleItem[0]=pr.addPolygon(*trianglePaint[0]);
+    triangleItem[0]->setBrush(Qt::black);
     directionItem.push_back(nullptr);
     directionItem[packedsize]=pr.addText(directionText[packedsize], stationFont);
-    directionItem[packedsize]->setPos(x+16,y+34);
+    directionItem[packedsize]->setPos(x+16,y+36);
     directionItem[packedsize]->setDefaultTextColor(Qt::black);
     packedsize++;y+=60;
     for(i=0;i<plansize-1;i++){//遍历原始规划信息
@@ -105,11 +120,18 @@ void paintPlan(QGraphicsScene& pr){
             lineItem[packedsize]=pr.addRect(QRectF(x+11,y+21,4,38),QPen(Plan::planRoute[i+1]->line->color),QBrush(Plan::planRoute[i+1]->line->color));
             lineTextItem.push_back(nullptr);
             lineTextItem[packedsize]=pr.addText(lineText[packedsize], stationFont);
-            lineTextItem[packedsize]->setPos(x+16,y+20);
+            lineTextItem[packedsize]->setPos(x+30,y+19);
             lineTextItem[packedsize]->setDefaultTextColor(Plan::planRoute[i+1]->line->color);
+            trianglePaint.push_back(new QPolygonF);
+            triangleItem.push_back(nullptr);
+            (*trianglePaint[packedsize]) << QPointF(x+25, y+34)       // 顶点
+                                << QPointF(x+30, y+29)      // 右侧底角
+                                << QPointF(x+20, y+29);    // 左侧底角
+            triangleItem[packedsize]=pr.addPolygon(*trianglePaint[packedsize]);
+            triangleItem[packedsize]->setBrush(Qt::black);
             directionItem.push_back(nullptr);
             directionItem[packedsize]=pr.addText(directionText[packedsize], stationFont);
-            directionItem[packedsize]->setPos(x+16,y+34);
+            directionItem[packedsize]->setPos(x+16,y+36);
             directionItem[packedsize]->setDefaultTextColor(Qt::black);
             packedsize++;y+=60;
         }

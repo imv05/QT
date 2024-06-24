@@ -36,14 +36,14 @@ namespace {
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::stringData(
     "MainWindow",
-    "on_inputA_textEdited",
-    "",
-    "arg1",
-    "on_inputB_textEdited",
     "on_listA_clicked",
+    "",
     "QModelIndex",
     "index",
     "on_listB_clicked",
+    "on_inputA_textEdited",
+    "arg1",
+    "on_inputB_textEdited",
     "on_inputA_editingFinished",
     "on_inputB_editingFinished",
     "on_pushButton_clicked",
@@ -70,8 +70,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
        1,    1,   68,    2, 0x08,    1 /* Private */,
-       4,    1,   71,    2, 0x08,    3 /* Private */,
-       5,    1,   74,    2, 0x08,    5 /* Private */,
+       5,    1,   71,    2, 0x08,    3 /* Private */,
+       6,    1,   74,    2, 0x08,    5 /* Private */,
        8,    1,   77,    2, 0x08,    7 /* Private */,
        9,    0,   80,    2, 0x08,    9 /* Private */,
       10,    0,   81,    2, 0x08,   10 /* Private */,
@@ -80,10 +80,10 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       13,    0,   84,    2, 0x08,   13 /* Private */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString,    3,
-    QMetaType::Void, QMetaType::QString,    3,
-    QMetaType::Void, 0x80000000 | 6,    7,
-    QMetaType::Void, 0x80000000 | 6,    7,
+    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, QMetaType::QString,    7,
+    QMetaType::Void, QMetaType::QString,    7,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -102,18 +102,18 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSMainWindowENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
-        // method 'on_inputA_textEdited'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'on_inputB_textEdited'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
         // method 'on_listA_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
         // method 'on_listB_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
+        // method 'on_inputA_textEdited'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        // method 'on_inputB_textEdited'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
         // method 'on_inputA_editingFinished'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_inputB_editingFinished'
@@ -134,10 +134,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->on_inputA_textEdited((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 1: _t->on_inputB_textEdited((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 2: _t->on_listA_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
-        case 3: _t->on_listB_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 0: _t->on_listA_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 1: _t->on_listB_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 2: _t->on_inputA_textEdited((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 3: _t->on_inputB_textEdited((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 4: _t->on_inputA_editingFinished(); break;
         case 5: _t->on_inputB_editingFinished(); break;
         case 6: _t->on_pushButton_clicked(); break;
