@@ -8,6 +8,12 @@
 #include <QGraphicsItem>
 #include <QGraphicsPolygonItem>
 #include <QPolygonF>
+void paintFolded(QGraphicsScene& pr){//负责画每一个折叠的模块
+
+}
+void paintExpand(QGraphicsScene& pr){//负责画每一个展开的模块
+
+}
 
 void paintPlan(QGraphicsScene& pr){
     //调用search.h中的static QVector<Station*> planRoute;来获取路径规划中的站点信息
