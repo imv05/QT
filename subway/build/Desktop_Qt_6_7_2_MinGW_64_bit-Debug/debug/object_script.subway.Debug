@@ -1,3 +1,4 @@
+debug/buttonmanage.o
 debug/class.o
 debug/global.o
 debug/item.o
@@ -10,6 +11,8 @@ debug/paintmain.o
 debug/paintplan.o
 debug/planview.o
 debug/reach.o
+debug/realtimeclass.o
+debug/realtimeview.o
 debug/realtimewindow.o
 debug/search.o
 debug/qrc_resources.o

@@ -9,11 +9,12 @@
 #include <unordered_map>
 #include <utility>
 
-std::unordered_map<Station*, Station*> dijkstra(Station* start, std::unordered_map<Station*, int>* timeMap);
 class Plan{//规划方案类
 public:
     static Station* stationA;
     static Station* stationB;
+    static int starttime;
+    static bool isLastMode;
     static std::unordered_map<Station*, Station*> last_of;
     static std::unordered_map<Station*, int> timeMap;
     static QVector<Station*> planRoute; //所有Staton*

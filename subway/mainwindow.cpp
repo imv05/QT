@@ -19,8 +19,8 @@ QSplitter* splitter;
 QStringList matchingStationsA;
 QStringList matchingStationsB;
 
-//QGraphicsScene MainWindow::planScene;
-
+int MainWindow::curh = 21;
+int MainWindow::curm = 0;
 QVector<Station*> planPath;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->listB->hide();
     connect(ui->inputA, &QLineEdit::textEdited, this, &MainWindow::on_inputA_textEdited);
     connect(ui->inputB, &QLineEdit::textEdited, this, &MainWindow::on_inputB_textEdited);
+
     int lineCnt = lineMap.size();
     std::vector<QColor> allColor={};//保存所有的颜色，用来绘图
     std::vector<QString> allName={};
@@ -261,3 +262,96 @@ void MainWindow::startupPlan(){//所有做规划以及之后的显示动作
         mainView->showHighlight();
     }
 }
+
+void MainWindow::on_hincButton_clicked()
+{
+    curh ++;
+    if(curh==24)curh=0;
+    refreshTime();
+}
+
+void MainWindow::on_hdecButton_clicked()
+{
+    curh--;
+    if(curh==-1)curh=23;
+    refreshTime();
+}
+
+void MainWindow::on_mincButton_clicked()
+{
+    curm++;
+    if(curm==60)curm=0;
+    refreshTime();
+}
+
+void MainWindow::on_mdecButton_clicked()
+{
+    curm--;
+    if(curm==-1)curm=59;
+    refreshTime();
+}
+
+void MainWindow::on_hEdit_editingFinished()
+{
+    const QString arg1 = ui->hEdit->text();
+    bool valid = true;
+    int nv = 0;
+    if(arg1.size()>2){
+        valid = false;
+    }else{
+        nv = arg1.toInt();
+        if(nv==24)nv=0;
+        if(nv>23||nv<0){
+            valid = false;
+        }
+    }
+    if(valid){
+        curh = nv;
+    }
+    refreshTime();
+}
+
+void MainWindow::on_mEdit_editingFinished()
+{
+    const QString arg1 = ui->mEdit->text();
+    bool valid = true;
+    int nv = 0;
+    if(arg1.size()>2){
+        valid = false;
+    }else{
+        nv = arg1.toInt();
+        if(nv==60)nv=0;
+        if(nv>59||nv<0){
+            valid = false;
+        }
+    }
+    if(valid){
+        curm = nv;
+    }
+    refreshTime();
+}
+
+void MainWindow::refreshTime(void){
+    QString hstr = QString("%1").arg(curh, 2, 10, QLatin1Char('0'));
+    ui->hEdit->setText(hstr);
+    QString mstr = QString("%1").arg(curm, 2, 10, QLatin1Char('0'));
+    ui->mEdit->setText(mstr);
+    Plan::starttime = 3600*curh+60*curm;
+    if(Plan::starttime<3*3600){
+        Plan::starttime += 24*3600;
+    }
+    if(Plan::isLastMode){
+        startupPlan();
+    }
+}
+
+void MainWindow::on_switchButton_clicked()
+{
+    Plan::isLastMode = !Plan::isLastMode;
+    if(Plan::isLastMode){
+        ui->switchButton->setText("切换到普通查询");
+    }else{
+        ui->switchButton->setText("切换到末车查询");
+    }
+}
+

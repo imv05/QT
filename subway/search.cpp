@@ -6,6 +6,8 @@
 
 Station* Plan::stationA = nullptr;
 Station* Plan::stationB = nullptr;
+int Plan::starttime = 21*3600;
+bool Plan::isLastMode = false;
 std::unordered_map<Station*, Station*> Plan::last_of;
 std::unordered_map<Station*, int> Plan::timeMap;
 QVector<Station*> Plan::planRoute;
@@ -18,6 +20,13 @@ QVector<QVector<Station*> > Plan::planRouteSplit;  //（按照line的出现顺�
 QVector<int> Plan::timeOfLine;     //（按照line的出现顺序）不同line的花费时间，按秒计，共lines个
 QVector<int> Plan::directionOfLine;    //（按照line的出现顺序）不同line的方向，共lines个
 QVector<Connection> Plan::transferConnections; //换乘的connection，用于展示换乘详情，共lines-1个
+
+int norm(int a){    //为解决跨零点问题，三点之前的时间统一加24h
+    if(a<=3*3600){
+        a+=24*3600;
+    }
+    return a;
+}
 
 std::unordered_map<Station*, Station*> Plan::dijkstra(Station* start) {
     std::unordered_map<Station*, Station*> previous; // 上一个节点（父节点）
@@ -34,17 +43,19 @@ std::unordered_map<Station*, Station*> Plan::dijkstra(Station* start) {
     }
 
     while (!pq.empty()) {
-        auto [currDist, currStation] = pq.top();
+        auto [curDist, curStation] = pq.top();
         pq.pop();
         // 遍历当前节点的所有邻居
-        for (const auto& conn : currStation->cList) {
+        for (const auto& conn : curStation->cList) {
             Station* neighbor = conn.to;
-            int newDistance = distance[currStation] + conn.time;
+            int newDistance = distance[curStation] + conn.time;
             // 如果通过当前节点到达邻居的距离更短，则更新距离和previous哈希表
             if (newDistance < distance[neighbor]) {
-                distance[neighbor] = newDistance;
-                previous[neighbor] = currStation;
-                pq.emplace(QPair<int, Station*>(newDistance, neighbor));
+                if(norm(starttime+distance[curStation]) < norm(conn.last) || !isLastMode){
+                    distance[neighbor] = newDistance;
+                    previous[neighbor] = curStation;
+                    pq.emplace(QPair<int, Station*>(newDistance, neighbor));
+                }
             }
         }
     }
@@ -198,20 +209,20 @@ int dijkstra_n(Station* start,Station* end) {
         }
     }
     while (!pq.empty()) {
-        auto [currDist, currStation] = pq.top();
+        auto [currDist, curStation] = pq.top();
         pq.pop();
-        if(currStation==end){
+        if(curStation==end){
             dis=currDist;
             break;
         }
         // 遍历当前节点的所有邻居
-        for (const auto& conn : currStation->cList) {
+        for (const auto& conn : curStation->cList) {
             Station* neighbor = conn.to;
-            int newDistance = distance[currStation] + conn.dist;
+            int newDistance = distance[curStation] + conn.dist;
             // 如果通过当前节点到达邻居的距离更短，则更新距离和previous哈希表
             if (newDistance < distance[neighbor]) {
                 distance[neighbor] = newDistance;
-                previous[neighbor] = currStation;
+                previous[neighbor] = curStation;
                 pq.emplace(QPair<int, Station*>(newDistance, neighbor));
             }
         }

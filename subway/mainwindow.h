@@ -11,19 +11,12 @@
 #include <QCompleter>
 #include <QStringList>
 #include <QStringListModel>
-#include <QPushButton>
+#include "buttonmanage.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
-
-class buttonManage{
-public:
-    QPushButton* button;
-    int lineOrder;
-    buttonManage(QPushButton* text,int i):button(text),lineOrder(i){}
-};
 
 class MainWindow : public QMainWindow
 {
@@ -49,15 +42,32 @@ private slots:
     void lineButtonclicked();
     void on_swapButton_clicked();
 
+    void on_hincButton_clicked();
+
+    void on_hdecButton_clicked();
+
+    void on_mincButton_clicked();
+
+    void on_mdecButton_clicked();
+
+    void on_hEdit_editingFinished();
+
+    void on_mEdit_editingFinished();
+    void on_switchButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;
     MainGraphicsView* mainView;
+    void refreshTime(); //刷新时间显示
+    static int curh;
+    static int curm;
 
 public:
     QGraphicsScene planScene;
     QVector<buttonManage> lineButtons;
-
+    // static int nowtime;
+    // static bool isLastMode; //是否为末车规划模式
 };
 bool plan(void);//尝试规划函数
 #endif // MAINWINDOW_H

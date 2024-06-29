@@ -93,7 +93,11 @@ Station::Station(json jStation, Line* cLine){
     stationName = QString::fromStdString(jStation["stationName"]);
     allStationNames[stationName] = this;
     stationEngName = QString::fromStdString(jStation["stationEngName"]);
-    // available = jStation["available"];
+    if(jStation.contains("available")){
+        available = jStation["available"];
+    }else{
+        available = true;
+    }
     x = jStation["screen"]["x"];
     y = jStation["screen"]["y"];
     stationsByName[stationName].push_back(this);

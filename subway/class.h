@@ -16,6 +16,7 @@ class Station;
 class Connection;
 class Operation;
 class SPath;
+class buttonManage;
 
 class SPath{//站点之间的路径
 public:

@@ -7,4 +7,8 @@
     <qresource prefix="/data">
         <file>data/1100main.json</file>
     </qresource>
+<qresource prefix="/data">
+        <file>data/1,1,1.csv</file>
+    </qresource>
+
 </RCC>

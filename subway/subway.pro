@@ -11,6 +11,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    buttonmanage.cpp \
     class.cpp \
     global.cpp \
     item.cpp \
@@ -23,10 +24,13 @@ SOURCES += \
     paintplan.cpp \
     planview.cpp \
     reach.cpp \
+    realtimeclass.cpp \
+    realtimeview.cpp \
     realtimewindow.cpp \
     search.cpp
 
 HEADERS += \
+    buttonmanage.h \
     class.h \
     global.h \
     item.h \
@@ -38,6 +42,8 @@ HEADERS += \
     paintplan.h \
     planview.h \
     reach.h \
+    realtimeclass.h \
+    realtimeview.h \
     realtimewindow.h \
     search.h
 
