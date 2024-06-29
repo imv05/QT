@@ -11,8 +11,16 @@
 #include <QModelIndex>
 //直径：换乘站40，非换乘站26，线条粗16，典型站间距横向95，纵向57。字体高27
 const int MASK_TYPE = 999;
-StationItem::StationItem(int x, int y): QGraphicsEllipseItem(0, 0, 26, 26) {
+StationItem::StationItem(int x, int y, bool available): QGraphicsEllipseItem(0, 0, 26, 26) {
     setBrush(QBrush(Qt::white));
+    if(available){
+        setPen(QPen(QColor("#000000")));
+        setZValue(0);
+    }
+    else{
+        setPen(QPen(QColor("#888888")));
+        setZValue(-10);
+    }
     setPos(x-13, y-13);
 }
 TransferItem::TransferItem(int x, int y): QGraphicsSvgItem(":/images/src/turn.svg") {
@@ -79,7 +87,7 @@ LinePart::LinePart(int x,int y,int lineNum,Station* stn){
     //方向一     T1      T2
     //方向二     T3      T4
     shou=new QGraphicsTextItem("首班车");
-    shou->setPos(x+196,y);
+    shou->setPos(x+200,y);
     shou->setFont(stationFont);
     shou->setDefaultTextColor(ln->color);
     addToGroup(shou);//首班车标签加入

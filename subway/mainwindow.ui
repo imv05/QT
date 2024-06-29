@@ -210,6 +210,121 @@
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="hincButton">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>690</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>▲</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mincButton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>690</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>▲</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="hEdit">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>690</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>21</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="hdecButton">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>710</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>▼</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="mEdit">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>690</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>00</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mdecButton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>710</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>▼</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="switchButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>730</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>切换到末车查询</string>
+    </property>
+   </widget>
    <zorder>swapButton</zorder>
    <zorder>mainGraphicsView</zorder>
    <zorder>pushButton</zorder>
@@ -219,6 +334,13 @@
    <zorder>planGraphicsView</zorder>
    <zorder>listA</zorder>
    <zorder>listB</zorder>
+   <zorder>hincButton</zorder>
+   <zorder>mincButton</zorder>
+   <zorder>hEdit</zorder>
+   <zorder>hdecButton</zorder>
+   <zorder>mEdit</zorder>
+   <zorder>mdecButton</zorder>
+   <zorder>switchButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -235,6 +357,11 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <widget class="QMenu" name="menu_realTime">
+    <property name="title">
+     <string>实时地铁</string>
+    </property>
+   </widget>
    <widget class="QMenu" name="menu_mainWindow">
     <property name="title">
      <string>路线规划</string>
@@ -243,11 +370,6 @@
    <widget class="QMenu" name="menu_lastTrain">
     <property name="title">
      <string>末车可达</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menu_realTime">
-    <property name="title">
-     <string>实时地铁</string>
     </property>
    </widget>
    <addaction name="menu_mainWindow"/>

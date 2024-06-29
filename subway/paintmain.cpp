@@ -78,7 +78,8 @@ void paintLine(QGraphicsScene& sc, Line* cLine){
             stn->item->setData(itemType, TransferItem::myType);
             sc.addItem(stn->item);
         }else{  //非换乘站
-            stn->item = (new StationItem(x, y));
+            bool available = stn->available;
+            stn->item = (new StationItem(x, y, available));
             stn->item->setData(itemType, StationItem::myType);
             sc.addItem(stn->item);
         }

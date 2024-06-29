@@ -4,9 +4,8 @@
 #include "item.h"
 #include "class.h"
 
-#include<QGraphicsView>
-#include <unordered_map>
 #include <QGraphicsView>
+#include <unordered_map>
 
 class MainGraphicsView : public QGraphicsView
 {

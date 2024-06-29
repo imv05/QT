@@ -20,7 +20,7 @@ extern const int itemHighlight;
 class StationItem : public QGraphicsEllipseItem {   //普通站继承自QGraphics椭圆
 public:
     static const int myType = 1;    //用于setData中设置该item的itemType
-    StationItem(int x, int y);
+    StationItem(int x, int y, bool available);
 };
 class TransferItem : public QGraphicsSvgItem {   //换乘站导入SVG图标
 public:
