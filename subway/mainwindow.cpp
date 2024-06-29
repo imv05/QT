@@ -20,6 +20,8 @@ QStringList matchingStationsB;
 
 int MainWindow::curh = 21;
 int MainWindow::curm = 0;
+QString MainWindow::hstr = "21";
+QString MainWindow::mstr = "00";
 QVector<Station*> planPath;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -257,6 +259,15 @@ void MainWindow::startupPlan(){//所有做规划以及之后的显示动作
         //高亮
         mainView->highlightItemList = Plan::hlList;
         mainView->showHighlight();
+    }else if(Plan::stationA && Plan::stationB){
+        QMessageBox noPathMsg;
+        QString info("找不到 "+Plan::stationA->stationName+" 到 "+Plan::stationB->stationName);
+        if(Plan::isLastMode){
+            info += " 出发时间" + hstr + ":" + mstr;
+        }
+        info += " 的路径！";
+        noPathMsg.setText(info);
+        noPathMsg.exec();
     }
 }
 
@@ -329,26 +340,51 @@ void MainWindow::on_mEdit_editingFinished()
 }
 
 void MainWindow::refreshTime(void){
-    QString hstr = QString("%1").arg(curh, 2, 10, QLatin1Char('0'));
+    hstr = QString("%1").arg(curh, 2, 10, QLatin1Char('0'));
     ui->hEdit->setText(hstr);
-    QString mstr = QString("%1").arg(curm, 2, 10, QLatin1Char('0'));
+    mstr = QString("%1").arg(curm, 2, 10, QLatin1Char('0'));
     ui->mEdit->setText(mstr);
     Plan::starttime = 3600*curh+60*curm;
     if(Plan::starttime<3*3600){
         Plan::starttime += 24*3600;
     }
-    if(Plan::isLastMode){
-        startupPlan();
-    }
+    switchToLast(); //当修改了时间，自动切换为末车查询模式
 }
 
 void MainWindow::on_switchButton_clicked()
 {
-    Plan::isLastMode = !Plan::isLastMode;
     if(Plan::isLastMode){
-        ui->switchButton->setText("切换到普通查询");
+        switchToOrdinary();
     }else{
-        ui->switchButton->setText("切换到末车查询");
+        switchToLast();
     }
+}
+
+void MainWindow::switchToLast(void)
+{
+    Plan::isLastMode = true;
+    ui->switchButton->setText("切换到普通查询");
+    startupPlan();
+}
+
+void MainWindow::switchToOrdinary(void)
+{
+    Plan::isLastMode = false;
+    ui->switchButton->setText("切换到末车查询");
+    startupPlan();
+}
+
+void MainWindow::on_canButton_clicked()
+{
+    switchToLast();  //查询末车能到的地方，自动切换到末车查询模式。
+    if(Plan::makePlan()){
+        for(auto station: allStations){
+            Plan::stationB = station;
+            if(Plan::getRoute()){
+                mainView->highlightItemList += Plan::hlList;
+            }
+        }
+    }
+    mainView->showHighlight();
 }
 

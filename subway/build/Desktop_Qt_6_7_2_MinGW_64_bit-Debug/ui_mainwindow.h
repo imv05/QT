@@ -46,6 +46,8 @@ public:
     QLineEdit *mEdit;
     QPushButton *mdecButton;
     QPushButton *switchButton;
+    QPushButton *searchButton;
+    QPushButton *canButton;
     QMenuBar *menubar;
     QMenu *menu_realTime;
     QMenu *menu_mainWindow;
@@ -147,6 +149,12 @@ public:
         switchButton->setObjectName("switchButton");
         switchButton->setGeometry(QRect(30, 730, 141, 31));
         switchButton->setFont(font2);
+        searchButton = new QPushButton(centralwidget);
+        searchButton->setObjectName("searchButton");
+        searchButton->setGeometry(QRect(170, 700, 21, 24));
+        canButton = new QPushButton(centralwidget);
+        canButton->setObjectName("canButton");
+        canButton->setGeometry(QRect(190, 700, 21, 24));
         MainWindow->setCentralWidget(centralwidget);
         swapButton->raise();
         mainGraphicsView->raise();
@@ -164,6 +172,8 @@ public:
         mEdit->raise();
         mdecButton->raise();
         switchButton->raise();
+        searchButton->raise();
+        canButton->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
         menubar->setGeometry(QRect(0, 0, 1366, 27));
@@ -218,6 +228,8 @@ public:
         mEdit->setText(QCoreApplication::translate("MainWindow", "00", nullptr));
         mdecButton->setText(QCoreApplication::translate("MainWindow", "\342\226\274", nullptr));
         switchButton->setText(QCoreApplication::translate("MainWindow", "\345\210\207\346\215\242\345\210\260\346\234\253\350\275\246\346\237\245\350\257\242", nullptr));
+        searchButton->setText(QCoreApplication::translate("MainWindow", "\360\237\224\215", nullptr));
+        canButton->setText(QCoreApplication::translate("MainWindow", "\350\203\275", nullptr));
         menu_realTime->setTitle(QCoreApplication::translate("MainWindow", "\345\256\236\346\227\266\345\234\260\351\223\201", nullptr));
         menu_mainWindow->setTitle(QCoreApplication::translate("MainWindow", "\350\267\257\347\272\277\350\247\204\345\210\222", nullptr));
         menu_lastTrain->setTitle(QCoreApplication::translate("MainWindow", "\346\234\253\350\275\246\345\217\257\350\276\276", nullptr));

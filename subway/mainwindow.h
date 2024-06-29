@@ -55,6 +55,8 @@ private slots:
     void on_mEdit_editingFinished();
     void on_switchButton_clicked();
 
+    void on_canButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;
@@ -62,6 +64,10 @@ private:
     void refreshTime(); //刷新时间显示
     static int curh;
     static int curm;
+    static QString hstr;
+    static QString mstr;
+    void switchToOrdinary(void);
+    void switchToLast(void);
 
 public:
     QGraphicsScene planScene;

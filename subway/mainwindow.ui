@@ -325,6 +325,32 @@
      <string>切换到末车查询</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="searchButton">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>700</y>
+      <width>21</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>🔍</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="canButton">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>700</y>
+      <width>21</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>能</string>
+    </property>
+   </widget>
    <zorder>swapButton</zorder>
    <zorder>mainGraphicsView</zorder>
    <zorder>pushButton</zorder>
@@ -341,6 +367,8 @@
    <zorder>mEdit</zorder>
    <zorder>mdecButton</zorder>
    <zorder>switchButton</zorder>
+   <zorder>searchButton</zorder>
+   <zorder>canButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
