@@ -1,3 +1,4 @@
+release/buttonmanage.o
 release/class.o
 release/global.o
 release/item.o
@@ -10,6 +11,8 @@ release/paintmain.o
 release/paintplan.o
 release/planview.o
 release/reach.o
+release/realtimeclass.o
+release/realtimeview.o
 release/realtimewindow.o
 release/search.o
 release/qrc_resources.o

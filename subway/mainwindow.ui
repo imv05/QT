@@ -376,7 +376,7 @@
      <x>0</x>
      <y>0</y>
      <width>1366</width>
-     <height>27</height>
+     <height>32</height>
     </rect>
    </property>
    <property name="font">
@@ -385,24 +385,6 @@
      <pointsize>12</pointsize>
     </font>
    </property>
-   <widget class="QMenu" name="menu_realTime">
-    <property name="title">
-     <string>实时地铁</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menu_mainWindow">
-    <property name="title">
-     <string>路线规划</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menu_lastTrain">
-    <property name="title">
-     <string>末车可达</string>
-    </property>
-   </widget>
-   <addaction name="menu_mainWindow"/>
-   <addaction name="menu_lastTrain"/>
-   <addaction name="menu_realTime"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

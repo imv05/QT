@@ -8,7 +8,8 @@ class PlanGraphicsView: public QGraphicsView//新的QGraphicsView的派生类，
 public:
     PlanGraphicsView(QGraphicsScene& scene, QWidget *parent = nullptr);
 
-
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
     QGraphicsScene& scene_;

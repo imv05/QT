@@ -3,7 +3,7 @@
 
 #include "mainview.h"
 #include "planview.h"
-
+#include "help.h"
 #include <QMainWindow>
 #include <QPainter>
 #include <QString>
@@ -62,6 +62,7 @@ private:
     QGraphicsScene scene;
     MainGraphicsView* mainView;
     void refreshTime(); //刷新时间显示
+    void helpwindow();
     static int curh;
     static int curm;
     static QString hstr;

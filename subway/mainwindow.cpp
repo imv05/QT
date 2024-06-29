@@ -14,6 +14,7 @@
 #include <QSplitter>
 #include <QVector>
 #include <QDebug>
+#include <QScrollBar>
 QSplitter* splitter;
 QStringList matchingStationsA;
 QStringList matchingStationsB;
@@ -44,10 +45,12 @@ MainWindow::MainWindow(QWidget *parent)
     mainView->show();
 
     //设置规划场景的背景和大小
-    planScene.setSceneRect(0,0,301,731);
+    planScene.setSceneRect(0,0,301,1600);
     planScene.setBackgroundBrush(QBrush(Qt::white));
     PlanGraphicsView* planView=new PlanGraphicsView(planScene,this);
     planView->setScene(&planScene);
+    ui->planGraphicsView->verticalScrollBar()->setValue(0);
+    planView->verticalScrollBar()->setValue(0);
     // 设置PlanGraphicsView的父控件为ui->planGraphicsView
     planView->setParent(ui->planGraphicsView);
     planView->show();
@@ -78,7 +81,8 @@ MainWindow::MainWindow(QWidget *parent)
         // text->setStyleSheet(QString("color:#000000;"));
         ui->formLayout->addRow(colorLabel, text);
     }
-
+    QAction* helpAction = ui->menubar->addAction("帮助");
+    connect(helpAction, &QAction::triggered, qApp, &QApplication::quit);
     QAction* quitAction = ui->menubar->addAction("退出");
     connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
 
