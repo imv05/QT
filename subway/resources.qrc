@@ -3,12 +3,10 @@
         <file>src/turn.svg</file>
         <file>src/train.svg</file>
         <file>src/doubleArrow.jpg</file>
+        <file>src/combined.png</file>
     </qresource>
     <qresource prefix="/data">
         <file>data/1100main.json</file>
-    </qresource>
-<qresource prefix="/data">
         <file>data/1,1,1.csv</file>
     </qresource>
-
 </RCC>

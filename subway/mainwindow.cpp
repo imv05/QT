@@ -79,7 +79,8 @@ MainWindow::MainWindow(QWidget *parent)
         // text->setStyleSheet(QString("color:#000000;"));
         ui->formLayout->addRow(colorLabel, text);
     }
-
+    QAction* helpAction = ui->menubar->addAction("帮助");
+    connect(helpAction, &QAction::triggered, qApp, &QApplication::quit);
     QAction* quitAction = ui->menubar->addAction("退出");
     connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
 

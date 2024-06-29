@@ -14,6 +14,7 @@ SOURCES += \
     buttonmanage.cpp \
     class.cpp \
     global.cpp \
+    help.cpp \
     item.cpp \
     load.cpp \
     main.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     buttonmanage.h \
     class.h \
     global.h \
+    help.h \
     item.h \
     load.h \
     mainview.h \
@@ -48,6 +50,7 @@ HEADERS += \
     search.h
 
 FORMS += \
+    help.ui \
     mainwindow.ui \
     menu.ui \
     realtimewindow.ui
