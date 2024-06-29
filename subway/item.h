@@ -79,4 +79,10 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 };
 
+class TriangleItem: public QGraphicsPolygonItem{
+public:
+    static const int myType=115;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+};
+
 #endif // ITEM_H
