@@ -24,7 +24,6 @@ SOURCES += \
     paintmain.cpp \
     paintplan.cpp \
     planview.cpp \
-    reach.cpp \
     realtimeclass.cpp \
     realtimeview.cpp \
     realtimewindow.cpp \
@@ -43,7 +42,6 @@ HEADERS += \
     paintmain.h \
     paintplan.h \
     planview.h \
-    reach.h \
     realtimeclass.h \
     realtimeview.h \
     realtimewindow.h \

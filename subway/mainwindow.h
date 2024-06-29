@@ -67,8 +67,10 @@ private:
     static int curm;
     static QString hstr;
     static QString mstr;
-    void switchToOrdinary(void);
-    void switchToLast(void);
+    void switchToOrdinary(void);    //切换到普通查询模式
+    void switchToLast(void);        //切换到末车查询模式
+    void requestCanSearch(void);    //执行末车可达查询
+    bool isCan; //是否为末车可达查询模式
 
 public:
     QGraphicsScene planScene;

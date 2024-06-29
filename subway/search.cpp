@@ -67,7 +67,7 @@ std::unordered_map<Station*, Station*> Plan::dijkstra(Station* start) {
 // 使用示例：打印从起始站到目标站的路径
 QVector<Station*> Plan::getPath(const std::unordered_map<Station*, Station*>& previous, Station* target) {
     if (previous.find(target)==previous.end() || previous.at(target) == nullptr) {
-        qDebug() << "No path found to" << target->stationName;
+        // qDebug() << "No path found to" << target->stationName;
         return QVector<Station*>();
     }
 

@@ -96,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent)
     // QAction* desiredAction2 = ui->menubar->addAction("action2");
     // connect(desiredAction2, &QAction::triggered, qApp, &func2);
     // menu->addSeparator();//建立另一个父菜单
+    isCan = false; //默认非末车可达查询模式
 
 }
 
@@ -349,10 +350,14 @@ void MainWindow::refreshTime(void){
     mstr = QString("%1").arg(curm, 2, 10, QLatin1Char('0'));
     ui->mEdit->setText(mstr);
     Plan::starttime = 3600*curh+60*curm;
-    if(Plan::starttime<3*3600){
+    if(Plan::starttime<=3*3600){
         Plan::starttime += 24*3600;
     }
-    switchToLast(); //当修改了时间，自动切换为末车查询模式
+    if(isCan){
+        requestCanSearch();
+    }else{
+        switchToLast(); //当修改了时间，自动切换为末车查询模式
+    }
 }
 
 void MainWindow::on_switchButton_clicked()
@@ -367,20 +372,31 @@ void MainWindow::on_switchButton_clicked()
 void MainWindow::switchToLast(void)
 {
     Plan::isLastMode = true;
-    ui->switchButton->setText("切换到普通查询");
+    ui->switchButton->setText("当前为末车查询");
+    isCan = false;
     startupPlan();
 }
 
 void MainWindow::switchToOrdinary(void)
 {
     Plan::isLastMode = false;
-    ui->switchButton->setText("切换到末车查询");
+    ui->switchButton->setText("当前为普通查询");
     startupPlan();
+    isCan = false;
 }
 
 void MainWindow::on_canButton_clicked()
 {
-    switchToLast();  //查询末车能到的地方，自动切换到末车查询模式。
+    Plan::isLastMode = true;
+    isCan = true;
+    requestCanSearch();
+}
+
+void MainWindow::requestCanSearch(void){
+    ui->inputB->clear();
+    planScene.clear();
+    ui->switchButton->setText("当前为末车可达");
+    mainView->highlightItemList.clear();
     if(Plan::makePlan()){
         for(auto station: allStations){
             Plan::stationB = station;
@@ -390,5 +406,5 @@ void MainWindow::on_canButton_clicked()
         }
     }
     mainView->showHighlight();
+    Plan::stationB = nullptr;
 }
-
