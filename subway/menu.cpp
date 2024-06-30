@@ -9,7 +9,8 @@ menu::menu(QWidget *parent)
     ui->setupUi(this);
     ui->label_3->setScaledContents(true);
     ui->label_3->setAlignment(Qt::AlignCenter);
-    ui->label->setStyleSheet("color:red");
+    // ui->label->setStyleSheet("color:red");
+
     ui->label_3->setStyleSheet("background-image:url(:/images/src/combined.png);");
 
 }

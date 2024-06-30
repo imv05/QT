@@ -7,17 +7,22 @@
 Station* Plan::stationA = nullptr;
 Station* Plan::stationB = nullptr;
 int Plan::starttime = 21*3600;
+int Plan::starth = 21;
+int Plan::startm = 0;
 bool Plan::isLastMode = false;
 std::unordered_map<Station*, Station*> Plan::last_of;
 std::unordered_map<Station*, int> Plan::timeMap;
 QVector<Station*> Plan::planRoute;
-int Plan::planTotalSections;
-int Plan::planTotalTime;
+int Plan::planTotalSections = 0;
+int Plan::planTotalTime = 0;
+int Plan::price = 0;
+int Plan::planTotalDist = 0;
 QVector<QGraphicsItem*> Plan::hlList;
 QVector<Connection> Plan::planConnections;
 QVector<Line*> Plan::planLines;   //（按照line的出现顺序）
 QVector<QVector<Station*> > Plan::planRouteSplit;  //（按照line的出现顺序）以不同线路分开的Station*列表
 QVector<int> Plan::timeOfLine;     //（按照line的出现顺序）不同line的花费时间，按秒计，共lines个
+QVector<int> Plan::distOfLine;     //（按照line的出现顺序）不同line的路程，按米计，共lines个
 QVector<int> Plan::directionOfLine;    //（按照line的出现顺序）不同line的方向，共lines个
 QVector<Connection> Plan::transferConnections; //换乘的connection，用于展示换乘详情，共lines-1个
 
@@ -85,6 +90,7 @@ QVector<Station*> Plan::getPath(const std::unordered_map<Station*, Station*>& pr
             }
         }
     }
+
     // qDebug() << "Path from start to" << target->stationName << ":";
     // for (Station* station : path) {
     //     qDebug() << station->line->lineName << " " << station->stationName;
@@ -117,6 +123,7 @@ bool Plan::getRoute(void){//规划成功返回true
         planLines.clear();
         planRouteSplit.clear();
         timeOfLine.clear();
+        distOfLine.clear();
         directionOfLine.clear();
         transferConnections.clear();
 
@@ -143,10 +150,11 @@ bool Plan::getRoute(void){//规划成功返回true
                 hlList.push_back(pathItemMap[QPair<Station*, Station*>(planRoute[i],  planRoute[i+1])]);
             }
         }
-        //维护planLines,planRouteSplit,timeOfLine,directionOfLine,transferConnections共5个变量
 
+        //维护planLines,planRouteSplit,timeOfLine,distOfLine,directionOfLine,transferConnections共6个变量
         planLines.push_back(planRoute[0]->line);
         timeOfLine.push_back(0);
+        distOfLine.push_back(0);
         planRouteSplit.push_back(QVector<Station*>());
         planRouteSplit[0].push_back(planRoute[0]);//添加分线Station*的第一个车站
         int currentLineOrder = 0;//当前加入的车站所在线在plan中的顺位
@@ -164,6 +172,7 @@ bool Plan::getRoute(void){//规划成功返回true
                 planRouteSplit[currentLineOrder].push_back(planRoute[i+1]);
                 //增加分线时间
                 timeOfLine[currentLineOrder] += planConnections[i].time;
+                distOfLine[currentLineOrder] += planConnections[i].dist;
             }else{//如果是换乘关系，则加入换乘列表
                 currentLineOrder ++ ;
                 transferConnections.push_back(planConnections[i]);  //当前Connection加入transferConnections
@@ -173,10 +182,11 @@ bool Plan::getRoute(void){//规划成功返回true
                 planRouteSplit[currentLineOrder].push_back(planRoute[i+1]);
                 //分线时间切换到下一个
                 timeOfLine.push_back(0);
+                distOfLine.push_back(0);
                 justTransfered = true;
             }
         }
-
+        // qDebug() << directionOfLine.size() << "is equal" << planRouteSplit.size();
         //维护planTotalTime
         planTotalTime = 0;
         for(int i=0; i<planLines.size(); i++){
@@ -187,14 +197,20 @@ bool Plan::getRoute(void){//规划成功返回true
         }
         //维护planTotalSections
         planTotalSections = planConnections.size()-transferConnections.size();
-
+        //维护planTotalDist
+        planTotalDist = 0;
+        for(int i=0; i<planLines.size(); i++){
+            planTotalDist += distOfLine[i];
+        }
+        //维护price
+        price = makePlan_n(stationA, stationB);
         return true;
     }else return false;
 }
 
 //给出票价
 
-int dijkstra_n(Station* start,Station* end) {
+int dijkstra_n(Station* start,Station* end) {//以最短物理距离为目的规划，返回最短距离，目的是计算票价
     std::unordered_map<Station*, Station*> previous; // 上一个节点（父节点）
     std::priority_queue<std::pair<int, Station*>, std::vector<std::pair<int, Station*>>, std::greater<std::pair<int, Station*>>> pq; // 优先队列，按照距离排序
     std::unordered_map<Station*, int> distance;
@@ -209,10 +225,10 @@ int dijkstra_n(Station* start,Station* end) {
         }
     }
     while (!pq.empty()) {
-        auto [currDist, curStation] = pq.top();
+        auto [curDist, curStation] = pq.top();
         pq.pop();
         if(curStation==end){
-            dis=currDist;
+            dis=curDist;
             break;
         }
         // 遍历当前节点的所有邻居

@@ -43,16 +43,14 @@ private slots:
     void on_swapButton_clicked();
 
     void on_hincButton_clicked();
-
     void on_hdecButton_clicked();
 
     void on_mincButton_clicked();
-
     void on_mdecButton_clicked();
 
     void on_hEdit_editingFinished();
-
     void on_mEdit_editingFinished();
+
     void on_switchButton_clicked();
 
     void on_canButton_clicked();
@@ -75,8 +73,6 @@ private:
 public:
     QGraphicsScene planScene;
     QVector<buttonManage> lineButtons;
-    // static int nowtime;
-    // static bool isLastMode; //是否为末车规划模式
 };
 bool plan(void);//尝试规划函数
 #endif // MAINWINDOW_H

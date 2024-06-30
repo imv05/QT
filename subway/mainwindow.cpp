@@ -196,7 +196,7 @@ void MainWindow::on_inputA_editingFinished()
     }else{
         ui->inputA->setText(QString(""));//无法匹配则清空输入，需要重新输入
     }
-    ui->listA->hide();//无论输的对不对，离开inputA后，listA均需要隐藏
+    if(!ui->listA->hasFocus())ui->listA->hide();//无论输的对不对，离开inputA后，listA均需要隐藏
 }
 
 void MainWindow::on_inputB_editingFinished()
@@ -216,7 +216,7 @@ void MainWindow::on_inputB_editingFinished()
     }else{
         ui->inputB->setText(QString(""));
     }
-    ui->listB->hide();
+    if(!ui->listB->hasFocus())ui->listB->hide();
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -293,14 +293,20 @@ void MainWindow::on_hdecButton_clicked()
 void MainWindow::on_mincButton_clicked()
 {
     curm++;
-    if(curm==60)curm=0;
+    if(curm==60){
+        curm=0;
+        on_hincButton_clicked();
+    }
     refreshTime();
 }
 
 void MainWindow::on_mdecButton_clicked()
 {
     curm--;
-    if(curm==-1)curm=59;
+    if(curm==-1){
+        curm=59;
+        on_hdecButton_clicked();
+    }
     refreshTime();
 }
 
@@ -349,6 +355,8 @@ void MainWindow::refreshTime(void){
     ui->hEdit->setText(hstr);
     mstr = QString("%1").arg(curm, 2, 10, QLatin1Char('0'));
     ui->mEdit->setText(mstr);
+    Plan::starth = curh;
+    Plan::startm = curm;
     Plan::starttime = 3600*curh+60*curm;
     if(Plan::starttime<=3*3600){
         Plan::starttime += 24*3600;
