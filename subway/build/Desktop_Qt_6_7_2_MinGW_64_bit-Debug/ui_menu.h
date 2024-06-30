@@ -22,7 +22,7 @@ class Ui_menu
 public:
     QPushButton *enterButton;
     QLabel *authors;
-    QPushButton *exitButton_2;
+    QPushButton *exitButton;
 
     void setupUi(QWidget *menu)
     {
@@ -42,12 +42,12 @@ public:
         QFont font1;
         font1.setPointSize(22);
         authors->setFont(font1);
-        exitButton_2 = new QPushButton(menu);
-        exitButton_2->setObjectName("exitButton_2");
-        exitButton_2->setGeometry(QRect(510, 230, 191, 71));
-        exitButton_2->setFont(font);
-        exitButton_2->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
-        exitButton_2->setFlat(false);
+        exitButton = new QPushButton(menu);
+        exitButton->setObjectName("exitButton");
+        exitButton->setGeometry(QRect(510, 230, 191, 71));
+        exitButton->setFont(font);
+        exitButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
+        exitButton->setFlat(false);
 
         retranslateUi(menu);
 
@@ -59,7 +59,7 @@ public:
         menu->setWindowTitle(QCoreApplication::translate("menu", "Form", nullptr));
         enterButton->setText(QCoreApplication::translate("menu", "\350\277\233\345\205\245", nullptr));
         authors->setText(QCoreApplication::translate("menu", "--by \345\210\230\345\215\223\346\264\213\357\274\214\350\265\265\347\221\236\346\215\267\357\274\214\350\260\242\345\256\207\347\277\224", nullptr));
-        exitButton_2->setText(QCoreApplication::translate("menu", "\351\200\200\345\207\272", nullptr));
+        exitButton->setText(QCoreApplication::translate("menu", "\351\200\200\345\207\272", nullptr));
     } // retranslateUi
 
 };
