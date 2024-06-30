@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="enterButton">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -34,7 +34,7 @@
     <string>进入</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="authors">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -52,7 +52,7 @@
     <string>--by 刘卓洋，赵瑞捷，谢宇翔</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="exitButton_2">
    <property name="geometry">
     <rect>
      <x>510</x>
@@ -76,23 +76,6 @@
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>871</width>
-     <height>571</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <zorder>label_3</zorder>
-  <zorder>pushButton</zorder>
-  <zorder>label_2</zorder>
-  <zorder>pushButton_2</zorder>
  </widget>
  <resources/>
  <connections/>
