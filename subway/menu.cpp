@@ -21,7 +21,7 @@ public:
 protected:
     QUrl url_;
     void mousePressEvent(QMouseEvent *event) override{
-        // QLabel::mousePressEvent(event);
+        QLabel::mousePressEvent(event);
         // 打开网页
         QDesktopServices::openUrl(url_);
     }
@@ -38,7 +38,7 @@ menu::menu(QWidget *parent)
     // ui->label_3->setStyleSheet("background-image:url(:/images/src/combined.png);");
     QString url = "https://github.com/imv05/QT";
     QLabel* background = new UrlLabel(url, this);
-    background->setGeometry(1,0,875,572);
+    background->setGeometry(1,0,871,571);
     background->lower();
     // qDebug() << children();
 }
@@ -48,7 +48,7 @@ menu::~menu()
     delete ui;
 }
 
-void menu::on_pushButton_clicked()
+void menu::on_enterButton_clicked()
 {
     delete this;
     mw=new MainWindow;
@@ -56,7 +56,7 @@ void menu::on_pushButton_clicked()
 }
 
 
-void menu::on_pushButton_2_clicked()
+void menu::on_exitButton_clicked()
 {
     QApplication::quit();
 }

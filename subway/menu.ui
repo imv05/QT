@@ -52,7 +52,7 @@
     <string>--by 刘卓洋，赵瑞捷，谢宇翔</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="exitButton_2">
+  <widget class="QPushButton" name="exitButton">
    <property name="geometry">
     <rect>
      <x>510</x>

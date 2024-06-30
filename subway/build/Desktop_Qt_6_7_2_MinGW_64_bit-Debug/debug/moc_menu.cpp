@@ -36,9 +36,9 @@ namespace {
 struct qt_meta_stringdata_CLASSmenuENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSmenuENDCLASS = QtMocHelpers::stringData(
     "menu",
-    "on_pushButton_clicked",
+    "on_enterButton_clicked",
     "",
-    "on_pushButton_2_clicked"
+    "on_exitButton_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -78,9 +78,9 @@ Q_CONSTINIT const QMetaObject menu::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSmenuENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<menu, std::true_type>,
-        // method 'on_pushButton_clicked'
+        // method 'on_enterButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_pushButton_2_clicked'
+        // method 'on_exitButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -92,8 +92,8 @@ void menu::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         auto *_t = static_cast<menu *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->on_pushButton_clicked(); break;
-        case 1: _t->on_pushButton_2_clicked(); break;
+        case 0: _t->on_enterButton_clicked(); break;
+        case 1: _t->on_exitButton_clicked(); break;
         default: ;
         }
     }
