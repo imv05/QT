@@ -5,6 +5,7 @@
 #include "class.h"
 
 #include <QGraphicsScene>
+#include <QGraphicsView>
 #include <QGraphicsItem>
 #include <QGraphicsPolygonItem>
 #include <QPolygonF>
@@ -149,6 +150,8 @@ void paintPlan(QGraphicsScene& pr){
         for(int j=0;j<Plan::planRoute.size();j++){
             compareRoute.push_back(Plan::planRoute[j]);
         }//维护新的compareRoute
+        //新路径规划出来后视图返回顶部
+        pr.views().at(0)->centerOn(0,0);
     }
     //清空所有全局的vector，为模块化输出做准备
     packedRoute.clear();
@@ -173,14 +176,28 @@ void paintPlan(QGraphicsScene& pr){
     QFont stationFont("微软雅黑", 10);
     int i;
 
-    //对于本次路径规划的头部信息
-    QGraphicsTextItem* header1 = pr.addText("共计"+QString::number(Plan::planTotalSections)+"站", stationFont);
-    header1->setPos(x+20, y-30);
+    //对于本次路径规划的头部信息：总站数、总时间、票价、总距离
+    QGraphicsTextItem* header1 = pr.addText("共"+QString::number(Plan::planTotalSections)+"站", stationFont);
+    header1->setPos(x+5, y-30);
     header1->setDefaultTextColor(Qt::black);
     QGraphicsTextItem* header2 = pr.addText(QString::number(Plan::planTotalTime/60)+"分钟", stationFont);
-    header2->setPos(x+80, y-30);
+    header2->setPos(x+50, y-30);
     header2->setDefaultTextColor(Qt::black);
-
+    QGraphicsTextItem* header3 = pr.addText(QString::number(Plan::price)+"元", stationFont);
+    header3->setPos(x+103, y-30);
+    header3->setDefaultTextColor(Qt::black);
+    QGraphicsTextItem* header4 = pr.addText(QString::number(Plan::planTotalDist)+"米", stationFont);
+    header4->setPos(x+127, y-30);
+    header4->setDefaultTextColor(Qt::black);
+    QString timeInfo;
+    // QString timeInfo = Plan::stationA->stationName + " -> " + Plan::stationB->stationName;
+    if(Plan::isLastMode){
+        timeInfo += " 出发时间"+QString("%1").arg(Plan::starth, 2, 10, QLatin1Char('0'));+":"+QString("%1").arg(Plan::startm, 2, 10, QLatin1Char('0'));;
+    }
+    QGraphicsTextItem* headerTime = pr.addText(timeInfo, stationFont);
+    headerTime->setPos(x+5, y-7);
+    headerTime->setDefaultTextColor(Qt::black);
+    y+=20;
     //整个规划出的路径的vector的大小
     int plansize=Plan::planRoute.size();
     //方案涉及的线路数量
@@ -242,4 +259,5 @@ void paintPlan(QGraphicsScene& pr){
     packedItem[packedsize]->setFont(stationFont);
     packedItem[packedsize]->setDefaultTextColor(Qt::black);//加入画图
     packedsize++;//完成站点提取，此时，packedsize为待输出的路线的站点名称集合（首+换乘+尾）
+
 }

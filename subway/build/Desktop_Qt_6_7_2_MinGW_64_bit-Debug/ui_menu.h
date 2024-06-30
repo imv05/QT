@@ -20,42 +20,34 @@ QT_BEGIN_NAMESPACE
 class Ui_menu
 {
 public:
-    QPushButton *pushButton;
-    QLabel *label;
-    QLabel *label_2;
-    QPushButton *pushButton_2;
+    QPushButton *enterButton;
+    QLabel *authors;
+    QPushButton *exitButton_2;
 
     void setupUi(QWidget *menu)
     {
         if (menu->objectName().isEmpty())
             menu->setObjectName("menu");
-        menu->resize(1261, 638);
-        pushButton = new QPushButton(menu);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(510, 280, 191, 61));
+        menu->resize(876, 572);
+        enterButton = new QPushButton(menu);
+        enterButton->setObjectName("enterButton");
+        enterButton->setGeometry(QRect(200, 230, 191, 71));
         QFont font;
         font.setPointSize(30);
-        pushButton->setFont(font);
-        pushButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
-        label = new QLabel(menu);
-        label->setObjectName("label");
-        label->setGeometry(QRect(300, 110, 641, 121));
+        enterButton->setFont(font);
+        enterButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
+        authors = new QLabel(menu);
+        authors->setObjectName("authors");
+        authors->setGeometry(QRect(190, 160, 501, 51));
         QFont font1;
-        font1.setFamilies({QString::fromUtf8("\344\272\244\351\200\232\346\240\207\345\277\227\344\270\223\347\224\250\345\255\227\344\275\223")});
-        font1.setPointSize(48);
-        label->setFont(font1);
-        label_2 = new QLabel(menu);
-        label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(700, 210, 411, 51));
-        QFont font2;
-        font2.setPointSize(22);
-        label_2->setFont(font2);
-        pushButton_2 = new QPushButton(menu);
-        pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(510, 360, 191, 61));
-        pushButton_2->setFont(font);
-        pushButton_2->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
-        pushButton_2->setFlat(false);
+        font1.setPointSize(22);
+        authors->setFont(font1);
+        exitButton_2 = new QPushButton(menu);
+        exitButton_2->setObjectName("exitButton_2");
+        exitButton_2->setGeometry(QRect(510, 230, 191, 71));
+        exitButton_2->setFont(font);
+        exitButton_2->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
+        exitButton_2->setFlat(false);
 
         retranslateUi(menu);
 
@@ -65,10 +57,9 @@ public:
     void retranslateUi(QWidget *menu)
     {
         menu->setWindowTitle(QCoreApplication::translate("menu", "Form", nullptr));
-        pushButton->setText(QCoreApplication::translate("menu", "start", nullptr));
-        label->setText(QCoreApplication::translate("menu", "\346\200\273\350\247\210", nullptr));
-        label_2->setText(QCoreApplication::translate("menu", "-designed by lzy,zrj,xyx", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("menu", "exit", nullptr));
+        enterButton->setText(QCoreApplication::translate("menu", "\350\277\233\345\205\245", nullptr));
+        authors->setText(QCoreApplication::translate("menu", "--by \345\210\230\345\215\223\346\264\213\357\274\214\350\265\265\347\221\236\346\215\267\357\274\214\350\260\242\345\256\207\347\277\224", nullptr));
+        exitButton_2->setText(QCoreApplication::translate("menu", "\351\200\200\345\207\272", nullptr));
     } // retranslateUi
 
 };

@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1261</width>
-    <height>638</height>
+    <width>876</width>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="enterButton">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>280</y>
+     <x>200</x>
+     <y>230</y>
      <width>191</width>
-     <height>61</height>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
@@ -31,34 +31,15 @@
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
-    <string>start</string>
+    <string>进入</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="authors">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>110</y>
-     <width>641</width>
-     <height>121</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>交通标志专用字体</family>
-     <pointsize>48</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>总览</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>700</x>
-     <y>210</y>
-     <width>411</width>
+     <x>190</x>
+     <y>160</y>
+     <width>501</width>
      <height>51</height>
     </rect>
    </property>
@@ -68,16 +49,16 @@
     </font>
    </property>
    <property name="text">
-    <string>-designed by lzy,zrj,xyx</string>
+    <string>--by 刘卓洋，赵瑞捷，谢宇翔</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="exitButton_2">
    <property name="geometry">
     <rect>
      <x>510</x>
-     <y>360</y>
+     <y>230</y>
      <width>191</width>
-     <height>61</height>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
@@ -89,7 +70,7 @@
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
-    <string>exit</string>
+    <string>退出</string>
    </property>
    <property name="flat">
     <bool>false</bool>

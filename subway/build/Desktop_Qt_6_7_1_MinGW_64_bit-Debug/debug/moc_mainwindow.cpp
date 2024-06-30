@@ -48,7 +48,14 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "on_inputB_editingFinished",
     "on_pushButton_clicked",
     "lineButtonclicked",
-    "on_swapButton_clicked"
+    "on_swapButton_clicked",
+    "on_hincButton_clicked",
+    "on_hdecButton_clicked",
+    "on_mincButton_clicked",
+    "on_mdecButton_clicked",
+    "on_hEdit_editingFinished",
+    "on_mEdit_editingFinished",
+    "on_switchButton_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -61,7 +68,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -69,21 +76,35 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   68,    2, 0x08,    1 /* Private */,
-       5,    1,   71,    2, 0x08,    3 /* Private */,
-       6,    1,   74,    2, 0x08,    5 /* Private */,
-       8,    1,   77,    2, 0x08,    7 /* Private */,
-       9,    0,   80,    2, 0x08,    9 /* Private */,
-      10,    0,   81,    2, 0x08,   10 /* Private */,
-      11,    0,   82,    2, 0x08,   11 /* Private */,
-      12,    0,   83,    2, 0x08,   12 /* Private */,
-      13,    0,   84,    2, 0x08,   13 /* Private */,
+       1,    1,  110,    2, 0x08,    1 /* Private */,
+       5,    1,  113,    2, 0x08,    3 /* Private */,
+       6,    1,  116,    2, 0x08,    5 /* Private */,
+       8,    1,  119,    2, 0x08,    7 /* Private */,
+       9,    0,  122,    2, 0x08,    9 /* Private */,
+      10,    0,  123,    2, 0x08,   10 /* Private */,
+      11,    0,  124,    2, 0x08,   11 /* Private */,
+      12,    0,  125,    2, 0x08,   12 /* Private */,
+      13,    0,  126,    2, 0x08,   13 /* Private */,
+      14,    0,  127,    2, 0x08,   14 /* Private */,
+      15,    0,  128,    2, 0x08,   15 /* Private */,
+      16,    0,  129,    2, 0x08,   16 /* Private */,
+      17,    0,  130,    2, 0x08,   17 /* Private */,
+      18,    0,  131,    2, 0x08,   18 /* Private */,
+      19,    0,  132,    2, 0x08,   19 /* Private */,
+      20,    0,  133,    2, 0x08,   20 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, QMetaType::QString,    7,
     QMetaType::Void, QMetaType::QString,    7,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -123,6 +144,20 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'lineButtonclicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_swapButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_hincButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_hdecButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_mincButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_mdecButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_hEdit_editingFinished'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_mEdit_editingFinished'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_switchButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -143,6 +178,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 6: _t->on_pushButton_clicked(); break;
         case 7: _t->lineButtonclicked(); break;
         case 8: _t->on_swapButton_clicked(); break;
+        case 9: _t->on_hincButton_clicked(); break;
+        case 10: _t->on_hdecButton_clicked(); break;
+        case 11: _t->on_mincButton_clicked(); break;
+        case 12: _t->on_mdecButton_clicked(); break;
+        case 13: _t->on_hEdit_editingFinished(); break;
+        case 14: _t->on_mEdit_editingFinished(); break;
+        case 15: _t->on_switchButton_clicked(); break;
         default: ;
         }
     }
@@ -167,13 +209,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 16)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 9;
+        _id -= 16;
     }
     return _id;
 }

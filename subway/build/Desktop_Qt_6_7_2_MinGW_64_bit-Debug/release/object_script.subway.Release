@@ -1,6 +1,7 @@
 release/buttonmanage.o
 release/class.o
 release/global.o
+release/help.o
 release/item.o
 release/load.o
 release/main.o
@@ -10,12 +11,12 @@ release/menu.o
 release/paintmain.o
 release/paintplan.o
 release/planview.o
-release/reach.o
 release/realtimeclass.o
 release/realtimeview.o
 release/realtimewindow.o
 release/search.o
 release/qrc_resources.o
+release/moc_help.o
 release/moc_mainwindow.o
 release/moc_menu.o
 release/moc_realtimewindow.o

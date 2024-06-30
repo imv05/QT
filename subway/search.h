@@ -14,6 +14,8 @@ public:
     static Station* stationA;
     static Station* stationB;
     static int starttime;
+    static int starth;
+    static int startm;
     static bool isLastMode;
     static std::unordered_map<Station*, Station*> last_of;
     static std::unordered_map<Station*, int> timeMap;
@@ -22,9 +24,12 @@ public:
     static QVector<QGraphicsItem*> hlList;  //预高亮item列表
     static int planTotalTime;       //总时长
     static int planTotalSections;   //总站数（坐几站）
+    static int price;       //票价
+    static int planTotalDist;    //总距离
     static QVector<Line*> planLines;   //（按照line的出现顺序）
     static QVector<QVector<Station*> > planRouteSplit;  //（按照line的出现顺序）以不同线路分开的Station*列表
     static QVector<int> timeOfLine;     //（按照line的出现顺序）不同line的花费时间，按秒计，共lines个
+    static QVector<int> distOfLine;     //（按照line的出现顺序）不同line的路程，按米计，共lines个
     static QVector<int> directionOfLine;    //（按照line的出现顺序）不同line的方向，共lines个
     static QVector<Connection> transferConnections; //换乘的connection，用于展示换乘详情，共lines-1个
 

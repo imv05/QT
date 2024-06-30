@@ -21,6 +21,8 @@ QStringList matchingStationsB;
 
 int MainWindow::curh = 21;
 int MainWindow::curm = 0;
+QString MainWindow::hstr = "21";
+QString MainWindow::mstr = "00";
 QVector<Station*> planPath;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -79,7 +81,8 @@ MainWindow::MainWindow(QWidget *parent)
         // text->setStyleSheet(QString("color:#000000;"));
         ui->formLayout->addRow(colorLabel, text);
     }
-
+    QAction* helpAction = ui->menubar->addAction("帮助");
+    connect(helpAction, &QAction::triggered, qApp, &QApplication::quit);
     QAction* quitAction = ui->menubar->addAction("退出");
     connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
 
@@ -93,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent)
     // QAction* desiredAction2 = ui->menubar->addAction("action2");
     // connect(desiredAction2, &QAction::triggered, qApp, &func2);
     // menu->addSeparator();//建立另一个父菜单
+    isCan = false; //默认非末车可达查询模式
 
 }
 
@@ -192,7 +196,7 @@ void MainWindow::on_inputA_editingFinished()
     }else{
         ui->inputA->setText(QString(""));//无法匹配则清空输入，需要重新输入
     }
-    ui->listA->hide();//无论输的对不对，离开inputA后，listA均需要隐藏
+    if(!ui->listA->hasFocus())ui->listA->hide();//无论输的对不对，离开inputA后，listA均需要隐藏
 }
 
 void MainWindow::on_inputB_editingFinished()
@@ -212,7 +216,7 @@ void MainWindow::on_inputB_editingFinished()
     }else{
         ui->inputB->setText(QString(""));
     }
-    ui->listB->hide();
+    if(!ui->listB->hasFocus())ui->listB->hide();
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -260,6 +264,15 @@ void MainWindow::startupPlan(){//所有做规划以及之后的显示动作
         //高亮
         mainView->highlightItemList = Plan::hlList;
         mainView->showHighlight();
+    }else if(Plan::stationA && Plan::stationB){
+        QMessageBox noPathMsg;
+        QString info("找不到 "+Plan::stationA->stationName+" 到 "+Plan::stationB->stationName);
+        if(Plan::isLastMode){
+            info += " 出发时间" + hstr + ":" + mstr;
+        }
+        info += " 的路径！";
+        noPathMsg.setText(info);
+        noPathMsg.exec();
     }
 }
 
@@ -280,14 +293,20 @@ void MainWindow::on_hdecButton_clicked()
 void MainWindow::on_mincButton_clicked()
 {
     curm++;
-    if(curm==60)curm=0;
+    if(curm==60){
+        curm=0;
+        on_hincButton_clicked();
+    }
     refreshTime();
 }
 
 void MainWindow::on_mdecButton_clicked()
 {
     curm--;
-    if(curm==-1)curm=59;
+    if(curm==-1){
+        curm=59;
+        on_hdecButton_clicked();
+    }
     refreshTime();
 }
 
@@ -332,26 +351,68 @@ void MainWindow::on_mEdit_editingFinished()
 }
 
 void MainWindow::refreshTime(void){
-    QString hstr = QString("%1").arg(curh, 2, 10, QLatin1Char('0'));
+    hstr = QString("%1").arg(curh, 2, 10, QLatin1Char('0'));
     ui->hEdit->setText(hstr);
-    QString mstr = QString("%1").arg(curm, 2, 10, QLatin1Char('0'));
+    mstr = QString("%1").arg(curm, 2, 10, QLatin1Char('0'));
     ui->mEdit->setText(mstr);
+    Plan::starth = curh;
+    Plan::startm = curm;
     Plan::starttime = 3600*curh+60*curm;
-    if(Plan::starttime<3*3600){
+    if(Plan::starttime<=3*3600){
         Plan::starttime += 24*3600;
     }
-    if(Plan::isLastMode){
-        startupPlan();
+    if(isCan){
+        requestCanSearch();
+    }else{
+        switchToLast(); //当修改了时间，自动切换为末车查询模式
     }
 }
 
 void MainWindow::on_switchButton_clicked()
 {
-    Plan::isLastMode = !Plan::isLastMode;
     if(Plan::isLastMode){
-        ui->switchButton->setText("切换到普通查询");
+        switchToOrdinary();
     }else{
-        ui->switchButton->setText("切换到末车查询");
+        switchToLast();
     }
 }
 
+void MainWindow::switchToLast(void)
+{
+    Plan::isLastMode = true;
+    ui->switchButton->setText("当前为末车查询");
+    isCan = false;
+    startupPlan();
+}
+
+void MainWindow::switchToOrdinary(void)
+{
+    Plan::isLastMode = false;
+    ui->switchButton->setText("当前为普通查询");
+    startupPlan();
+    isCan = false;
+}
+
+void MainWindow::on_canButton_clicked()
+{
+    Plan::isLastMode = true;
+    isCan = true;
+    requestCanSearch();
+}
+
+void MainWindow::requestCanSearch(void){
+    ui->inputB->clear();
+    planScene.clear();
+    ui->switchButton->setText("当前为末车可达");
+    mainView->highlightItemList.clear();
+    if(Plan::makePlan()){
+        for(auto station: allStations){
+            Plan::stationB = station;
+            if(Plan::getRoute()){
+                mainView->highlightItemList += Plan::hlList;
+            }
+        }
+    }
+    mainView->showHighlight();
+    Plan::stationB = nullptr;
+}

@@ -14,6 +14,7 @@ SOURCES += \
     buttonmanage.cpp \
     class.cpp \
     global.cpp \
+    help.cpp \
     item.cpp \
     load.cpp \
     main.cpp \
@@ -23,7 +24,6 @@ SOURCES += \
     paintmain.cpp \
     paintplan.cpp \
     planview.cpp \
-    reach.cpp \
     realtimeclass.cpp \
     realtimeview.cpp \
     realtimewindow.cpp \
@@ -33,6 +33,7 @@ HEADERS += \
     buttonmanage.h \
     class.h \
     global.h \
+    help.h \
     item.h \
     load.h \
     mainview.h \
@@ -41,13 +42,13 @@ HEADERS += \
     paintmain.h \
     paintplan.h \
     planview.h \
-    reach.h \
     realtimeclass.h \
     realtimeview.h \
     realtimewindow.h \
     search.h
 
 FORMS += \
+    help.ui \
     mainwindow.ui \
     menu.ui \
     realtimewindow.ui
